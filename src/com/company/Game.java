@@ -4,10 +4,12 @@ class Game {
     private static Game single_instance = null;
 
     private boolean isPaused;
+    private GameBoard gameBoard;
 
     private Game()
     {
        isPaused = false;
+       gameBoard = new GameBoard();
     }
 
     public static Game getInstance() {
@@ -24,5 +26,9 @@ class Game {
 
     public void switchPaused() {
         isPaused = !isPaused;
+    }
+
+    public GameSave saveGame(){
+        return new GameSave(gameBoard);
     }
 }

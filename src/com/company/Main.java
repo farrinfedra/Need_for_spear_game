@@ -11,7 +11,7 @@ public class Main {
         JFrame f = new JFrame();//creating instance of JFrame
 
         JButton pauseButton =new JButton("Pause");//creating instance of JButton
-        JLabel gameStatusLabel =  new JLabel();
+        JButton saveButton =new JButton("Save");//creating instance of JButton
 
         pauseButton.addActionListener(new ActionListener() {
             @Override
@@ -20,10 +20,21 @@ public class Main {
             }
         });
 
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.saveGame();
+            }
+        });
+
+        JLabel gameStatusLabel =  new JLabel();
+
         pauseButton.setBounds(130,100,100, 40);//x axis, y axis, width, height
+        saveButton.setBounds(130,50,100, 40);//x axis, y axis, width, height
         gameStatusLabel.setBounds(100, 100, 100, 100);
 
         f.add(pauseButton);//adding button in JFrame
+        f.add(saveButton);
         f.add(gameStatusLabel);
 
         f.setSize(400,500);//400 width and 500 height
