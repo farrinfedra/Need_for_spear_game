@@ -1,4 +1,6 @@
-package com.company;
+package com.ui;
+import com.domain.Game;
+
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
-package com.company;
+package com.domain;
 
-class Game {
+public class Game {
     private static Game single_instance = null;
 
     private boolean isPaused;
