@@ -1,4 +1,4 @@
-package com.domain;
+package domain;
 
 public class Game {
     private static Game single_instance = null;

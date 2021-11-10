@@ -1,5 +1,5 @@
-package com.ui;
-import com.domain.Game;
+package ui;
+import domain.Game;
 
 import javax.swing.*;
 import javax.swing.Timer;
