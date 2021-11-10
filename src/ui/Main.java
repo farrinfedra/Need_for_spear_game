@@ -1,5 +1,6 @@
 package ui;
 import domain.Game;
+import domain.GameStatus;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -45,9 +46,9 @@ public class Main {
 
         Timer timer = new Timer(100, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                String gameStatus = game.isPaused() ? "Paused" : "Running";
+                GameStatus gameStatus = game.isPaused();
 
-                gameStatusLabel.setText(gameStatus);
+                gameStatusLabel.setText(gameStatus.name());
             }
         });
 

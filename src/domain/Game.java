@@ -1,34 +1,69 @@
 package domain;
 
-public class Game {
-    private static Game single_instance = null;
+import physicalObjects.ObstacleType;
+import physicalObjects.Vector;
 
-    private boolean isPaused;
+public class Game {
+    private static Game instance = null;
+
+    private GameStatus status;
     private GameBoard gameBoard;
 
-    private Game()
-    {
-       isPaused = false;
+
+    private Game() {
+       status = GameStatus.PAUSED;
        gameBoard = new GameBoard();
     }
 
     public static Game getInstance() {
-        if (single_instance == null)
-            single_instance = new Game();
+        if (instance == null)
+            instance = new Game();
 
-        return single_instance;
+        return instance;
     }
 
+    public void movePaddle(Direction direction){ gameBoard.movePaddle(direction); }
 
-    public boolean isPaused() {
-        return isPaused;
+    public void rotatePaddle(Direction direction){ gameBoard.rotatePaddle(direction); }
+
+    public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
+
+    //TODO: implement magical ability functions
+
+    public void loadGame(int slot){
+        //TODO: implement loadGame
     }
+
+    public void saveGame(int slot){
+        //TODO: implement saveGame
+    }
+
+    public void enterBuildMode(){
+        //TODO: implement enterBuildMode
+    }
+
+    public void enterPlayMode(){
+        //TODO: implement enterPlayMode
+    }
+
+    public void doTickActions(){
+        //TODO: implement doTickActions
+    }
+
+    public GameStatus isPaused() { return status; }
 
     public void switchPaused() {
-        isPaused = !isPaused;
+        if (status == GameStatus.PAUSED) {
+            status = GameStatus.UNPAUSED;
+        } else {
+            status = GameStatus.PAUSED;
+        }
     }
 
     public GameSave saveGame(){
         return new GameSave(gameBoard);
     }
+
 }
+
+
