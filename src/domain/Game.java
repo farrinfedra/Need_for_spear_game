@@ -1,7 +1,7 @@
 package domain;
 
-import physicalObjects.ObstacleType;
-import physicalObjects.Vector;
+import domain.physicalObjects.ObstacleType;
+import domain.physicalObjects.Vector;
 
 public class Game {
     private static Game instance = null;
@@ -9,10 +9,12 @@ public class Game {
     private GameStatus status;
     private GameBoard gameBoard;
 
-
     private Game() {
        status = GameStatus.PAUSED;
-       gameBoard = new GameBoard();
+    }
+
+    public void createGameBoard(int width, int height){
+        gameBoard = new GameBoard(new Vector(width, height));
     }
 
     public static Game getInstance() {
@@ -22,10 +24,8 @@ public class Game {
         return instance;
     }
 
-    public void movePaddle(Direction direction){ gameBoard.movePaddle(direction); }
-
-    public void rotatePaddle(Direction direction){ gameBoard.rotatePaddle(direction); }
-
+    public void movePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.movePaddle(direction); }
+    public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
 
     //TODO: implement magical ability functions
@@ -50,11 +50,15 @@ public class Game {
         //TODO: implement doTickActions
     }
 
-    public GameStatus isPaused() { return status; }
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public GameStatus getStatus() { return status; }
 
     public void switchPaused() {
         if (status == GameStatus.PAUSED) {
-            status = GameStatus.UNPAUSED;
+            status = GameStatus.RESUMED;
         } else {
             status = GameStatus.PAUSED;
         }
@@ -63,7 +67,6 @@ public class Game {
     public GameSave saveGame(){
         return new GameSave(gameBoard);
     }
-
 }
 
 
