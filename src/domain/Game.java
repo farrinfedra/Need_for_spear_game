@@ -1,6 +1,6 @@
 package domain;
 
-import domain.physicalObjects.ObstacleType;
+import domain.physicalObjects.Obstacles.ObstacleType;
 import domain.physicalObjects.Vector;
 
 public class Game {

@@ -1,9 +1,8 @@
 package domain.physicalObjects;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
-public class PhysicalObject {
+public abstract class PhysicalObject {
     private Vector location;
     private ImageIcon image;
 
