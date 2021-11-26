@@ -6,7 +6,7 @@ import domain.physicalObjects.Paddle;
 import domain.physicalObjects.PhysicalObject;
 
 import javax.swing.*;
-import javax.swing.Timer;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,18 +42,76 @@ public class Main {
         f.setSize(400,500);//400 width and 500 height
         f.setLayout(null);//using no layout managers
 
+        JPanel titleScreen = new JPanel();
+        titleScreen.setSize(f.WIDTH, f.HEIGHT);
+        titleScreen.setLayout(null);
+        titleScreen.setBounds(0,0,f.getWidth(),f.getHeight());
+        titleScreen.setBackground(Color.RED);
+        f.add(titleScreen);
+        titleScreen.setVisible(true);
+        titleScreen.revalidate();
+        titleScreen.repaint();
+        JButton playButton = new JButton("Play");
+        
+        playButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				titleScreen.setVisible(false);
+			}
+		});
+       
+        playButton.setLocation(titleScreen.getWidth()/2, titleScreen.getHeight()/2);
+        titleScreen.add(playButton);
+        
+        
+        
         Game game = Game.getInstance();
         game.createGameBoard(f.getWidth(), f.getHeight());
 
         addPhysicalObjectLabel(game.getGameBoard().getPaddle());
 
-        JButton pauseButton =new JButton("Pause");
+        JButton pauseButton = new JButton("Pause");
         JButton saveButton = new JButton("Save");
 
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+               
+               JPanel pausedPanel = new JPanel();
+               pausedPanel.setLayout(new BoxLayout(pausedPanel, BoxLayout.Y_AXIS));
+               pausedPanel.setBounds(50,100,200,100);    
+               pausedPanel.setBackground(Color.orange);
+               pausedPanel.add(new JLabel("Game paused"));
+               
+               JButton button1 = new JButton("RESUME");
+               
+               button1.addActionListener(new ActionListener() {
+            	   public void actionPerformed(ActionEvent e){
+            	       game.resumeGame();
+            	       pausedPanel.setVisible(false);
+            	       game.switchPaused();
+            	   }
+               });
+               pausedPanel.add(button1, BorderLayout.WEST);
+               
+               JButton button2 = new JButton("SAVE");
+               
+               button2.addActionListener(new ActionListener() {
+            	   public void actionPerformed(ActionEvent e){
+            	       game.saveGame();
+            	   }
+               });
+               pausedPanel.add(button2, BorderLayout.EAST);
+               
+               f.add(pausedPanel);  
+               pausedPanel.setVisible(true);
+               pausedPanel.revalidate();
+               pausedPanel.repaint();
+               
                game.switchPaused();
+               
             }
         });
 

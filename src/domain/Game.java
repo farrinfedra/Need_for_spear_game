@@ -67,6 +67,10 @@ public class Game {
     public GameSave saveGame(){
         return new GameSave(gameBoard);
     }
+    
+    public void resumeGame() {
+    	 //TODO: implement resumeGame
+    }
 }
 
 
