@@ -1,18 +1,14 @@
 package ui;
 import domain.Direction;
 import domain.Game;
-import domain.GameStatus;
-import domain.physicalObjects.Paddle;
-import domain.physicalObjects.PhysicalObject;
+import domain.physicalobjects.PhysicalObject;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
@@ -44,6 +40,7 @@ public class Main {
 
         Game game = Game.getInstance();
         game.createGameBoard(f.getWidth(), f.getHeight());
+        game.start();
 
         addPhysicalObjectLabel(game.getGameBoard().getPaddle());
 

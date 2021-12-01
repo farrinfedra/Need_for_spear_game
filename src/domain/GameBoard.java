@@ -1,6 +1,6 @@
 package domain;
 
-import domain.physicalObjects.*;
+import domain.physicalobjects.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -21,11 +21,17 @@ public class GameBoard {
     }
 
     public Paddle getPaddle(){return this.paddle;}
-    public void movePaddle(Direction direction){ paddle.move(direction); }
+    public ArrayList<Obstacle> getObstacles(){return this.obstacles;}
+    public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -6: 6); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
     public void addObstacle(ObstacleType type, Vector location) {
         //TODO: implement functionality
+    }
+
+    public void doTickActions(){
+        //TODO: implement doTickActions
+        paddle.move();
     }
 
     public Vector getSize() {

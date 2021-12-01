@@ -1,6 +1,5 @@
-package domain.physicalObjects;
+package domain.physicalobjects;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class Ball extends PhysicalObject{
     public Ball(Vector location, ImageIcon image){

@@ -1,9 +1,8 @@
-package domain.physicalObjects;
+package domain.physicalobjects;
 
 import domain.Direction;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class Paddle extends PhysicalObject{
 
@@ -14,20 +13,21 @@ public class Paddle extends PhysicalObject{
     public Paddle(Vector location, ImageIcon image, int minXValue, int maxXValue){
         super(location, image);
 
-        speed = 20;
+        speed = 0;
         this.minXValue = minXValue;
         this.maxXValue = maxXValue;
     }
 
-    public void move(Direction direction){
+    public void move(){
         int dx = speed;
-        dx = direction == Direction.LEFT ? -1*dx : dx;
 
         Vector shiftVector = new Vector(dx, 0);
-        Vector newLocation = getLocation().shift(shiftVector);
+        Vector newLocation = getLocation().add(shiftVector);
 
         if(newLocation.getX()+getWidth()<maxXValue && newLocation.getX()>minXValue)
             setLocation(newLocation);
+
+        speed = 95*speed/100;
     }
 
     public void rotate(Direction direction){
@@ -37,7 +37,6 @@ public class Paddle extends PhysicalObject{
     public int getSpeed() {
         return speed;
     }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }

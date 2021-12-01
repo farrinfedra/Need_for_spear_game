@@ -1,12 +1,15 @@
-package domain.physicalObjects;
+package domain.physicalobjects;
+
+import domain.physicalobjects.boundingbox.BoundingBox;
+import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class PhysicalObject {
     private Vector location;
     private ImageIcon image;
 
+    private BoundingBox boundingBox;
     private int width;
     private int height;
 
@@ -19,6 +22,10 @@ public class PhysicalObject {
         this.image = image;
         this.width = width;
         this.height = height;
+
+        this.boundingBox = new PolygonBoundingBox(
+                location.add(new Vector(0, -height)), location.add(new Vector(width, -height)), location.add(new Vector(width, 0)), location
+        );
     }
 
     public Vector getLocation() {
@@ -42,5 +49,13 @@ public class PhysicalObject {
     }
     public int getHeight() {
         return height;
+    }
+
+    public BoundingBox getBoundingBox(){
+        return boundingBox;
+    }
+
+    public void setBoundingBox(BoundingBox boundingBox){
+        this.boundingBox = boundingBox;
     }
 }
