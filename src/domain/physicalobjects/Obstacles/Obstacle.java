@@ -1,7 +1,7 @@
-package domain.physicalObjects.Obstacles;
+package domain.physicalobjects.Obstacles;
 
-import domain.physicalObjects.PhysicalObject;
-import domain.physicalObjects.Vector;
+import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Vector;
 
 import javax.swing.*;
 

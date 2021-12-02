@@ -1,7 +1,7 @@
 package domain;
 
-import domain.physicalObjects.Obstacles.ObstacleType;
-import domain.physicalObjects.Vector;
+import domain.physicalobjects.Obstacles.ObstacleType;
+import domain.physicalobjects.Vector;
 
 public class Game {
     private static Game instance = null;

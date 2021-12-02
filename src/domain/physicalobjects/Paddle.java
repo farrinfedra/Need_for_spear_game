@@ -1,4 +1,4 @@
-package domain.physicalObjects;
+package domain.physicalobjects;
 
 import domain.Direction;
 

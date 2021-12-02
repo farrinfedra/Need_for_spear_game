@@ -1,4 +1,4 @@
-package domain.physicalObjects;
+package domain.physicalobjects;
 
 public class Vector {
     private int x;

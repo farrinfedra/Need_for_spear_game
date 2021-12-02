@@ -2,8 +2,7 @@ package ui;
 import domain.Direction;
 import domain.Game;
 import domain.GameStatus;
-import domain.physicalObjects.Paddle;
-import domain.physicalObjects.PhysicalObject;
+import domain.physicalobjects.PhysicalObject;
 
 import javax.swing.*;
 import javax.swing.Timer;

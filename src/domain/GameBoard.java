@@ -1,8 +1,8 @@
 package domain;
 
-import domain.physicalObjects.*;
-import domain.physicalObjects.Obstacles.Obstacle;
-import domain.physicalObjects.Obstacles.ObstacleType;
+import domain.physicalobjects.*;
+import domain.physicalobjects.Obstacles.Obstacle;
+import domain.physicalobjects.Obstacles.ObstacleType;
 
 import javax.swing.*;
 import java.util.ArrayList;
