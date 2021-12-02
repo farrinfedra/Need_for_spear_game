@@ -1,9 +1,9 @@
 package domain;
 
-import domain.physicalobjects.Obstacles.ObstacleType;
 import domain.physicalobjects.Vector;
+import domain.physicalobjects.obstacles.ObstacleType;
 
-public class Game {
+public class Game extends Thread {
     private static Game instance = null;
 
     private GameStatus status;
@@ -46,10 +46,6 @@ public class Game {
         //TODO: implement enterPlayMode
     }
 
-    public void doTickActions(){
-        //TODO: implement doTickActions
-    }
-
     public GameBoard getGameBoard() {
         return gameBoard;
     }
@@ -66,6 +62,26 @@ public class Game {
 
     public GameSave saveGame(){
         return new GameSave(gameBoard);
+    }
+
+    public void run(){
+        System.out.println("MyClass running");
+
+        while(true){
+            try {
+                Thread.sleep(10);
+
+                if(gameBoard != null)
+                    gameBoard.doTickActions();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void resumeGame() {
+        //TODO: implement resumeGame
     }
 }
 

@@ -1,4 +1,4 @@
-package domain.physicalobjects.Obstacles;
+package domain.physicalobjects.obstacles;
 
 public enum ObstacleType {
     SimpleObstacle,

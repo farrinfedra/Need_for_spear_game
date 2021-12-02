@@ -31,12 +31,49 @@ public class Vector {
         return this;
     }
 
-    public Vector shift(Vector shiftVector){
+    public Vector add(Vector shiftVector){
         Vector newVector = new Vector();
 
         newVector.setX(shiftVector.getX() + this.x);
         newVector.setY(shiftVector.getY() + this.y);
 
         return newVector;
+    }
+
+    public Vector subtract(Vector shiftVector){
+        Vector newVector = new Vector();
+
+        newVector.setX(-shiftVector.getX() + this.x);
+        newVector.setY(-shiftVector.getY() + this.y);
+
+        return newVector;
+    }
+
+    public int distance(Vector v){
+        return (int) Math.sqrt(
+                Math.pow(this.x-v.getX(),2) +
+                Math.pow(this.y-v.getY(),2)
+        );
+    }
+
+    public Vector scale(double c){
+        return new Vector((int) (this.x *c) , (int) (this.y*c));
+    }
+
+    public int cross(Vector v){
+        return this.x*v.getY()-this.y*v.getX();
+    }
+
+    public Vector rotate(double rad){
+        double sin = Math.sin(rad);
+        double cos = Math.cos(rad);
+
+        return new Vector((int) (this.x * cos  - this.y * sin),
+                (int) (this.x * sin + this.y * cos));
+
+    }
+
+    public String toString(){
+        return "<<Vector: (" + x + ", " + y +")>>";
     }
 }
