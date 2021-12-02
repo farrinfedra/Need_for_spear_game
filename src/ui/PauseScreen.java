@@ -27,7 +27,7 @@ public class PauseScreen {
         
         resumeButton.addActionListener(new ActionListener() {
      	   public void actionPerformed(ActionEvent e){
-     	       game.resumeGame();
+     	       //game.resumeGame();
      	       pausedPanel.setVisible(false);
      	       game.switchPaused();
      	   }
