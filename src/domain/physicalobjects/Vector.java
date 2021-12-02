@@ -56,8 +56,8 @@ public class Vector {
         );
     }
 
-    public Vector scale(int c){
-        return new Vector(this.x *c , this.y*c);
+    public Vector scale(double c){
+        return new Vector((int) (this.x *c) , (int) (this.y*c));
     }
 
     public int cross(Vector v){

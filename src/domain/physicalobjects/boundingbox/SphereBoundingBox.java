@@ -19,18 +19,22 @@ public class SphereBoundingBox extends BoundingBox{
 
     @Override
     public boolean isCollidingWith(BoundingBox b) {
-
         for(int j=0; j<fragmentation; j++){
             if(b.isInside(center.add(new Vector(radius, 0).rotate(Math.PI*2/fragmentation*j))))
                 return true;
         }
 
-        return b.isCollidingWith(this);
+        return false;
     }
 
     @Override
-    public void shift(Vector v) {
+    public BoundingBox shift(Vector v) {
         center = center.add(v);
+        return this;
     }
 
+    @Override
+    public SphereBoundingBox deepCopy(){
+        return new SphereBoundingBox(this.center, radius);
+    }
 }

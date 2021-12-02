@@ -10,7 +10,7 @@ public class PolygonBoundingBox extends BoundingBox{
     private Vector[] edges;
     private int numEdges;
 
-    private final int fragmentation = 5;
+    private final int fragmentation = 20;
 
     //IMPORTANT!
     //While creating this class give vectors in clockwise order.
@@ -31,10 +31,12 @@ public class PolygonBoundingBox extends BoundingBox{
     }
 
     public boolean isInside(Vector v){
-        System.out.println(v);
+
         for(int i =0; i< points.length; i++){
-            if(edges[i].cross(v.subtract(points[i])) < 0)
+            if(edges[i].cross(v.subtract(points[i])) < 0){
+
                 return false;
+            }
         }
 
         return true;
@@ -44,7 +46,7 @@ public class PolygonBoundingBox extends BoundingBox{
     public boolean isCollidingWith(BoundingBox b) {
         for(int i =0; i<numEdges; i++){
             for(int j=1; j<fragmentation+1; j++){
-                if(b.isInside(points[i].add(edges[i].scale(fragmentation/j))))
+                if(b.isInside(points[i].add(edges[i].scale(j/fragmentation))))
                     return true;
             }
         }
@@ -53,10 +55,15 @@ public class PolygonBoundingBox extends BoundingBox{
     }
 
     @Override
-    public void shift(Vector v) {
+    public BoundingBox shift(Vector v) {
         for(int i =0; i<numEdges; i++){
             edges[i] = edges[i].add(v);
             points[i] = points[i].add(v);
         }
+        return this;
+    }
+    @Override
+    public PolygonBoundingBox deepCopy(){
+        return new PolygonBoundingBox(this.points);
     }
 }
