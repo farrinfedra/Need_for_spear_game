@@ -20,6 +20,8 @@ public class Main {
 
     private static HashMap<JLabel, PhysicalObject> labelToObjectMap = new HashMap<>();
     private static JFrame f = new JFrame();
+    private static TitleScreen titleScreen = new TitleScreen();
+    private static PauseScreen pauseScreen = new PauseScreen();
 
     public static void addPhysicalObjectLabel(PhysicalObject object){
         JLabel objectLabel = new JLabel(object.getImage());
@@ -47,6 +49,11 @@ public class Main {
 
         f.setVisible(true);
         f.setLayout(null);//using no layout managers
+        
+        f.add(titleScreen.createTitleScreen(f.getWidth(), f.getHeight()));
+        
+        f.revalidate();
+        f.repaint();
 
         Game game = Game.getInstance();
         game.createGameBoard(f.getWidth(), f.getHeight());
@@ -57,22 +64,18 @@ public class Main {
         for(Wall wall: game.getGameBoard().getWalls())
             addPhysicalObjectLabel(wall);
 
-        JButton pauseButton =new JButton("Pause");
-        JButton saveButton = new JButton("Save");
-
+        JButton pauseButton = new JButton("Pause");
+        
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+               
+               pauseScreen.createPauseScreen(game, f);
                game.switchPaused();
+               
             }
         });
 
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                game.saveGame();
-            }
-        });
 
         f.addKeyListener(new KeyListener() {
             @Override
@@ -94,13 +97,10 @@ public class Main {
             }
         });
         pauseButton.setBounds(0,0,100, 40);//x axis, y axis, width, height
-        saveButton.setBounds(100,0,100, 40);//x axis, y axis, width, height
-
 
         f.add(pauseButton);
-        f.add(saveButton);
 
-
+        
         f.setVisible(true);//making the frame visible
 
         Timer timer = new Timer(100, new ActionListener() {
