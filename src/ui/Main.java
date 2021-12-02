@@ -1,18 +1,19 @@
 package ui;
 import domain.Direction;
 import domain.Game;
-import domain.GameStatus;
-import domain.physicalObjects.Paddle;
-import domain.physicalObjects.PhysicalObject;
+import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Wall;
+import domain.physicalobjects.boundingbox.BoundingBox;
+import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 
 import javax.swing.*;
-
+import javax.swing.Timer;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
@@ -24,6 +25,8 @@ public class Main {
 
     public static void addPhysicalObjectLabel(PhysicalObject object){
         JLabel objectLabel = new JLabel(object.getImage());
+        objectLabel.setBackground(Color.CYAN);
+        objectLabel.setOpaque(true);
         f.add(objectLabel);
 
         labelToObjectMap.put(objectLabel, object);
@@ -41,7 +44,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        f.setSize(400,500);//400 width and 500 height
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        f.setSize((int) dim.getWidth(), (int) dim.getHeight());
+
+        f.setVisible(true);
         f.setLayout(null);//using no layout managers
         
         f.add(titleScreen.createTitleScreen(f.getWidth(), f.getHeight()));
@@ -51,8 +57,12 @@ public class Main {
 
         Game game = Game.getInstance();
         game.createGameBoard(f.getWidth(), f.getHeight());
+        game.start();
 
+        //Adding all PhysicalObjects to GameBoard as JLabel
         addPhysicalObjectLabel(game.getGameBoard().getPaddle());
+        for(Wall wall: game.getGameBoard().getWalls())
+            addPhysicalObjectLabel(wall);
 
         JButton pauseButton = new JButton("Pause");
         
