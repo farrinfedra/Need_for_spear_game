@@ -76,7 +76,6 @@ public class Main {
             }
         });
 
-
         f.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
