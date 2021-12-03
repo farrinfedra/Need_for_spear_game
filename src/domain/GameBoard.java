@@ -28,8 +28,8 @@ public class GameBoard {
         walls.add(new Wall(new Vector(0, size.getY()), size.getX(), 50));
 
         paddle = new Paddle(new Vector(500,size.getY()-100), new ImageIcon(this.getClass().getResource("/img/paddle.png")));
-
-        //ball = new Ball(new Vector(0,100), null);
+        //TO-DO revise initial starting point
+        ball = new Ball(new Vector(500,size.getY()-200), new ImageIcon(this.getClass().getResource("/img/ball.png")));
     }
 
     public Paddle getPaddle(){return this.paddle;}
@@ -47,7 +47,7 @@ public class GameBoard {
 
         physicalObjects.add(paddle);
         physicalObjects.addAll(walls);
-
+        physicalObjects.add(ball);
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
     }
