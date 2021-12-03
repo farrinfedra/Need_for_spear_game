@@ -19,7 +19,7 @@ public class PaddleCollisionBehavior implements CollisionBehavior{
 
             if(paddle.getBoundingBox()
                     .deepCopy()
-                    .shift(new Vector(paddle.getSpeed()/2, 0))
+                    .shift(new Vector(paddle.getSpeed(), 0))
                     .isCollidingWith(wall.getBoundingBox()))
                    paddle.setSpeed(0);
         }
