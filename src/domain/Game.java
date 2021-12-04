@@ -10,7 +10,7 @@ import domain.physicalobjects.Vector;
     private GameBoard gameBoard;
 
     private Game() {
-       status = GameStatus.PAUSED;
+       status = GameStatus.RESUMED;
     }
 
     public void createGameBoard(int width, int height){
@@ -40,6 +40,7 @@ import domain.physicalobjects.Vector;
 
     public void enterBuildMode(){
         //TODO: implement enterBuildMode
+
     }
 
     public void enterPlayMode(){
@@ -60,9 +61,9 @@ import domain.physicalobjects.Vector;
         }
     }
 
-    public GameSave saveGame(){
-        return new GameSave(gameBoard);
-    }
+    //public GameSave saveGame(){
+    //    return new GameSave(gameBoard);
+   // }
 
     public void run(){
         System.out.println("MyClass running");
@@ -71,7 +72,7 @@ import domain.physicalobjects.Vector;
             try {
                 Thread.sleep(10);
 
-                if(gameBoard != null)
+                if(gameBoard != null && status == GameStatus.RESUMED)
                     gameBoard.doTickActions();
 
             } catch (InterruptedException e) {

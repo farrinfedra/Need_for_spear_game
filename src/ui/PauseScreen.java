@@ -39,7 +39,7 @@ public class PauseScreen {
         
         saveButton.addActionListener(new ActionListener() {
      	   public void actionPerformed(ActionEvent e){
-     	       game.saveGame();
+     	      // game.saveGame();
      	   }
         });
         pausedPanel.add(saveButton, BorderLayout.PAGE_END);

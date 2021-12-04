@@ -29,9 +29,10 @@ public class GameBoard {
 
         paddle = new Paddle(new Vector(500,size.getY()-100), new ImageIcon(this.getClass().getResource("/img/paddle.png")));
         //TO-DO revise initial starting point
-        ball = new Ball(new Vector(500,size.getY()-200), new ImageIcon(this.getClass().getResource("/img/ball.png")));
+        ball = new Ball(new Vector(50,size.getY()-400), null, 50, 50);
     }
 
+    public Ball getBall(){return this.ball;}
     public Paddle getPaddle(){return this.paddle;}
     public ArrayList<Obstacle> getObstacles(){return this.obstacles;}
     public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -10: 10); }
@@ -48,6 +49,7 @@ public class GameBoard {
         physicalObjects.add(paddle);
         physicalObjects.addAll(walls);
         physicalObjects.add(ball);
+
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
     }

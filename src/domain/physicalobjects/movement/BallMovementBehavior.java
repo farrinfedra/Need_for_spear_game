@@ -5,7 +5,7 @@ import java.math.*;
 public class BallMovementBehavior implements MovementBehavior{
     Vector speed;
     public BallMovementBehavior(){
-        this(new Vector(0,0));
+        this(new Vector(1,1));
     }
     public BallMovementBehavior(Vector speed){
         this.speed = speed;

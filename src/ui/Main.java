@@ -61,6 +61,8 @@ public class Main {
 
         //Adding all PhysicalObjects to GameBoard as JLabel
         addPhysicalObjectLabel(game.getGameBoard().getPaddle());
+        addPhysicalObjectLabel(game.getGameBoard().getBall());
+
         for(Wall wall: game.getGameBoard().getWalls())
             addPhysicalObjectLabel(wall);
 
@@ -102,7 +104,7 @@ public class Main {
         
         f.setVisible(true);//making the frame visible
 
-        Timer timer = new Timer(100, new ActionListener() {
+        Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
 
