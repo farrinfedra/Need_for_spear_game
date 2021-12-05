@@ -1,6 +1,7 @@
 package ui;
 import domain.Direction;
 import domain.Game;
+import domain.loadSave.SaveLoad;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Wall;
 import domain.physicalobjects.boundingbox.BoundingBox;
@@ -103,7 +104,8 @@ public class Main {
 
         
         f.setVisible(true);//making the frame visible
-
+        SaveLoad saveload = new SaveLoad(game.getGameBoard());
+        saveload.saveGame();
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());

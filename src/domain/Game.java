@@ -1,5 +1,6 @@
 package domain;
 
+import domain.loadSave.SaveLoad;
 import domain.physicalobjects.ObstacleType;
 import domain.physicalobjects.Vector;
 
@@ -8,6 +9,7 @@ import domain.physicalobjects.Vector;
 
     private GameStatus status;
     private GameBoard gameBoard;
+    private SaveLoad saveLoad;
 
     private Game() {
        status = GameStatus.RESUMED;
@@ -32,10 +34,14 @@ import domain.physicalobjects.Vector;
 
     public void loadGame(int slot){
         //TODO: implement loadGame
+        saveLoad = new SaveLoad(getGameBoard());
+        saveLoad.loadGame(username); //get username
     }
 
     public void saveGame(int slot){
         //TODO: implement saveGame
+        saveLoad = new SaveLoad(getGameBoard());
+        saveLoad.saveGame();
     }
 
     public void enterBuildMode(){
