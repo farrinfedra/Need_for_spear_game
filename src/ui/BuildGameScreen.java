@@ -122,6 +122,16 @@ public class BuildGameScreen extends JFrame{
         });
 		
 	}
+	//TODO: User Name 
+	private JPanel userNamePanel() {
+		JPanel userNamePanel = new JPanel(new GridLayout(1,2));
+		JLabel user = new JLabel("User name");
+		JTextField userName = new JTextField(10);
+		userNamePanel.add(user);
+		userNamePanel.add(userName);
+		return userNamePanel;
+		
+	}
 	
 	
 }
