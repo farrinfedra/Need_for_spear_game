@@ -9,9 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class LoadGame {
@@ -72,5 +70,6 @@ public ArrayList<ArrayList<Integer>> getObstacles(){
 
         return obstacles;
 }
+
 
 }

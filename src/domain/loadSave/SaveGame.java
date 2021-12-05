@@ -84,8 +84,6 @@ Format of json file
 {
   "playerInfo": {
     "Username": "username",
-    "score": "score",
-    "lives": "lives",
     "Obstacles": [
         [i, health, x, y],
         [i, health, x, y],
