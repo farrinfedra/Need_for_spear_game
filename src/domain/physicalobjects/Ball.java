@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Ball extends PhysicalObject{
 
     public Ball(Vector location, ImageIcon image, int width, int height ){
-        super(location, image, width, height, new SphereBoundingBox(location, width ), new BallMovementBehavior(), new BallCollisionBehavior());
+        super(location, image, width, height, new SphereBoundingBox(location.add(new Vector(width/2, width/2)), width/2 ), new BallMovementBehavior(), new BallCollisionBehavior());
     }
 
 	public Vector getSpeed() {
