@@ -9,6 +9,11 @@ import javax.swing.*;
 public class GiftObstacle extends Obstacle{
 
 
+    @Override
+    void specialAttribute() {
+
+    }
+
     public GiftObstacle(Vector location, ImageIcon image, int width, int height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 1;
