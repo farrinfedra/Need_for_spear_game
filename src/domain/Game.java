@@ -2,6 +2,7 @@ package domain;
 
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
+import domain.loadSave.SaveLoad;
 import domain.physicalobjects.Vector;
 
 public class Game extends Thread {
@@ -9,6 +10,7 @@ public class Game extends Thread {
 
     private GameStatus status;
     private GameBoard gameBoard;
+    private SaveLoad saveLoad;
 
     private Game() {
        status = GameStatus.RESUMED;
@@ -34,10 +36,14 @@ public class Game extends Thread {
 
     public void loadGame(int slot){
         //TODO: implement loadGame
+        saveLoad = new SaveLoad(getGameBoard());
+        //saveLoad.loadGame(username); //get username
     }
 
     public void saveGame(int slot){
         //TODO: implement saveGame
+        saveLoad = new SaveLoad(getGameBoard());
+        saveLoad.saveGame();
     }
 
     public void enterBuildMode(){
