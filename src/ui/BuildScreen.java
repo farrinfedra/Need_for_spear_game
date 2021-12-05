@@ -19,8 +19,7 @@ public class BuildScreen extends JFrame{
 	private ObstacleType currentObstacle = ObstacleType.SimpleObstacle;
 	private int width;
 	private int height;
-	private HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
-//	private ArrayList<Pair<>> = new HashMap<>();
+	private static HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
 
 	private Point drawPoint;
 
@@ -77,8 +76,6 @@ public class BuildScreen extends JFrame{
 		int y = (int) (50*Math.round(drawPoint.y/50) + 22.5);
 		Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
 		addPhysicalObjectLabel(obstacle);
-		addedObstacles.put(x)
-
 	}
 
 	private void addPhysicalObjectLabel(PhysicalObject object){
@@ -106,6 +103,17 @@ public class BuildScreen extends JFrame{
 	//TODO: Drag&Drop or Click and Drop?
 	private JPanel obstaclesPanel(){
 	JPanel obstaclesPanel = new JPanel(new GridLayout(4,1));
+	JButton startGameButton = new JButton("Start Game");
+		startGameButton.setActionCommand("Start Game");
+		startGameButton.addActionListener(new ActionListener()
+	{
+		public void actionPerformed(ActionEvent ae)
+		{
+			setVisible(false);
+			new RunningScreen();
+		}
+	});
+
 	//TODO : add figures of obstacles instead of texts
 	JButton simpleObstacleButton = new JButton("Simple Obstacle");
 	simpleObstacleButton.setActionCommand("Simple Obstacle)");
@@ -146,6 +154,7 @@ public class BuildScreen extends JFrame{
 			currentObstacle = ObstacleType.GiftObstacle;
         }
     });
+	obstaclesPanel.add(startGameButton);
 	obstaclesPanel.add(simpleObstacleButton);
 	obstaclesPanel.add(firmObstacleButton);
 	obstaclesPanel.add(explosiveObstacleButton);

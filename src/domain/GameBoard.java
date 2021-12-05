@@ -33,10 +33,6 @@ public class GameBoard implements RemoveObjectListener{
 
         //TO-DO revise initial starting point
         ball = new Ball(new Vector(100,100), null, 50, 50);
-
-        addObstacle(ObstacleType.SimpleObstacle, new Vector(1000,size.getY()-500));
-        addObstacle(ObstacleType.GiftObstacle, new Vector(1040,size.getY()-500));
-        addObstacle(ObstacleType.ExplosiveObstacle, new Vector(1080,size.getY()-500));
     }
 
     public Obstacle addObstacle(ObstacleType type, Vector location){
