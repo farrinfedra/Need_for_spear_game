@@ -33,24 +33,25 @@ public class SaveLoad {
     }
     public void saveGame() {
         JSONObject savedGame = new JSONObject();
-        JSONArray obstacles = new JSONArray();
+        JSONObject obstacles = new JSONObject();
         JSONObject playerInfo = new JSONObject();
         JSONObject magicalAbilities = new JSONObject();
-        int playerID = 45; //TODO: make dynamic
+        String username = "fedra"; //TODO: make dynamic
         int score = 100; // TODO: make dynamic
         int chances = 2; // TODO: make dynamic
 
         //adding player info.
-        playerInfo.put("playerID", String.valueOf(playerID));
+        playerInfo.put("Username", String.valueOf(username));
         playerInfo.put("Date", date.toString());
         playerInfo.put("Score", score);
         playerInfo.put("chances", chances);
         savedGame.put("PlayerInfo", playerInfo);
 
-        //adding obstacles object
-        for (Obstacle o : gameBoard.getObstacles() ){ //get name of obstacle
-            obstacles.add(o);
-        }
+        //adding obstacles object\
+        //obstacles.put("Simple Obstacle", gameBoard.getObstacles());
+//        for (Obstacle o : gameBoard.getObstacles() ){ //get name of obstacle
+//            obstacles.add(o);
+//        }
         savedGame.put("Obstacles", obstacles);
 
 
@@ -61,7 +62,7 @@ public class SaveLoad {
 
 
 
-        try(FileWriter file = new FileWriter("savedGame.json")){
+        try(FileWriter file = new FileWriter(String.format("%s.json", username))){
             file.write(savedGame.toJSONString());
             file.flush();
         }
@@ -71,10 +72,12 @@ public class SaveLoad {
         JSONParser jsonParser = new JSONParser();
         loadedGame = new HashMap<String, Integer>();
 
+        //read file
         try (FileReader reader = new FileReader(String.format("%s.json", username)))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
+            System.out.println(obj);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -87,7 +90,7 @@ public class SaveLoad {
 
 }
 
-}
+
 
 
 
