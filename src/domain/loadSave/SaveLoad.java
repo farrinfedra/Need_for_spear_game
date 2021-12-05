@@ -2,6 +2,7 @@ package domain.loadSave;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import domain.GameBoard;
 //import domain.physicalobjects.Obstacle;
 //external java-simple module for json
+import domain.physicalobjects.obstacles.Obstacle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,9 +35,9 @@ public class SaveLoad {
     }
     public void saveGame() {
         JSONObject savedGame = new JSONObject();
-        JSONObject obstacles = new JSONObject();
+        JSONObject obstaclesList = new JSONObject();
         JSONObject playerInfo = new JSONObject();
-        JSONObject magicalAbilities = new JSONObject();
+        //JSONObject magicalAbilities = new JSONObject();
         String username = "fedra"; //TODO: make dynamic
         int score = 100; // TODO: make dynamic
         int chances = 2; // TODO: make dynamic
@@ -43,8 +45,6 @@ public class SaveLoad {
         //adding player info.
         playerInfo.put("Username", String.valueOf(username));
         playerInfo.put("Date", date.toString());
-        playerInfo.put("Score", score);
-        playerInfo.put("chances", chances);
         savedGame.put("PlayerInfo", playerInfo);
 
         //adding obstacles object\
@@ -52,13 +52,10 @@ public class SaveLoad {
 //        for (Obstacle o : gameBoard.getObstacles() ){ //get name of obstacle
 //            obstacles.add(o);
 //        }
-        savedGame.put("Obstacles", obstacles);
+        ArrayList<Obstacle> obstacles = gameBoard.getObstacles(); //fix obstacle
+        obstacles.forEach(o -> {o.getClass().toString();});
+        savedGame.put("Obstacles", obstaclesList);
 
-
-        // TODO: 12/3/21
-        //Add player Id or name + level + #lives to player ID
-        //Add getName function for Obstacles
-        //modify the obstacle array in json to array of objects
 
 
 
@@ -68,6 +65,9 @@ public class SaveLoad {
         }
         catch(IOException e) {e.printStackTrace();}
     }
+
+
+
     public void loadGame(String username){
         JSONParser jsonParser = new JSONParser();
         loadedGame = new HashMap<String, Integer>();
@@ -99,23 +99,24 @@ Format of json file
 
 {
   "playerInfo": {
-    "playerID": "id",
     "Username": "username",
-    "level": "level",
+    "score": "score",
     "lives": "lives",
-    "obstacles": [
-      {
-        "obstacle1": "count",
-        "obstacle2": "count"
-      }
-    ]
-  },
-  "magicalAbilities": [
-    {
-      "magicalAbility": "count",
-      "magicalAbility2": "count"
+    "obstacles": {
+        "ExplosiveObstacle": "count",
+        "FirmObstacle": "count",
+        "GiftObstacle": "count",
+        "SimpleObstacle": "count"
     }
-  ]
+  },
+  "magicalAbilities": {
+    {
+      "ChanceGiving": "count",
+      "NoblePhantasmExpansion": "count",
+      "Magical Hex": "count",
+      "Unstoppable Enchanted Sphere": "count"
+    }
+  }
 }
  */
 
