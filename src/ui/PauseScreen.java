@@ -43,7 +43,7 @@ public class PauseScreen extends JFrame {
         });
         add(saveButton, BorderLayout.PAGE_END);
 
-
+        setResizable(false);
         setVisible(true);
         revalidate();
         repaint();

@@ -19,6 +19,7 @@ public class TitleScreen extends JFrame {
 		NFS.setBounds(getWidth()/3, getHeight()/5, 150, 20);
 		add(NFS);
 
+		setResizable(false);
 		setVisible(true);
 		revalidate();
 		repaint();
