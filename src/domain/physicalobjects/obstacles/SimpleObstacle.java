@@ -19,4 +19,18 @@ public class SimpleObstacle extends Obstacle {
         this.health = 1;
 
     }
+    @Override
+    public String toString(){
+        return "SimpleObstacle";
+    }
+
+    public int getHealth(){
+        return health;
+    }
+    public int getX(){
+        return getLocation().getX();
+    }
+    public int getY(){
+        return getLocation().getY();
+    }
 }

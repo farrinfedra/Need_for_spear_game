@@ -18,4 +18,18 @@ public class GiftObstacle extends Obstacle{
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 1;
     }
+    @Override
+    public String toString(){
+        return "GiftObstacle";
+    }
+
+    public int getHealth(){
+        return health;
+    }
+    public int getX(){
+        return getLocation().getX();
+    }
+    public int getY(){
+        return getLocation().getY();
+    }
 }

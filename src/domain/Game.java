@@ -1,15 +1,20 @@
 package domain;
 
+import domain.loadSave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
+import domain.loadSave.SaveGame;
 import domain.physicalobjects.Vector;
+
+import java.util.ArrayList;
 
 public class Game extends Thread {
     private static Game instance = null;
 
     private GameStatus status;
     private GameBoard gameBoard;
-
+    private SaveGame saveGame;
+    private LoadGame loadGame;
     private Game() {
        status = GameStatus.RESUMED;
     }
@@ -34,10 +39,18 @@ public class Game extends Thread {
 
     public void loadGame(int slot){
         //TODO: implement loadGame
+        //TODO: get username from user;
+
+        loadGame = new LoadGame("player1");
+        loadGame.loadGame();
+        ArrayList<ArrayList<Integer>> a = loadGame.getObstacles();
+
     }
 
     public void saveGame(int slot){
         //TODO: implement saveGame
+        saveGame = new SaveGame(getGameBoard());
+        saveGame.saveGame();
     }
 
     public void enterBuildMode(){
@@ -62,13 +75,10 @@ public class Game extends Thread {
         }
     }
 
-//    public GameSave saveGame(){
-//        return new GameSave(gameBoard);
-//    }
 
     public void run(){
-        System.out.println("MyClass running");
 
+        System.out.println("MyClass running");
         while(true){
             try {
                 Thread.sleep(10);

@@ -27,4 +27,7 @@ public abstract class Obstacle extends PhysicalObject {
         }
     }
 
+    public abstract int getHealth();
+    public abstract int getX();
+    public abstract int getY();
 }

@@ -55,5 +55,5 @@ public class TitleScreen extends JFrame {
 		loadGameButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*2, playButton.getWidth(), playButton.getHeight());
 		add(loadGameButton);
 	}
-	
+
 }

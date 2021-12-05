@@ -51,31 +51,31 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new PauseScreen();
-               game.switchPaused();
+                new PauseScreen();
+                game.switchPaused();
 
             }
         });
 
-    addKeyListener(new KeyListener() {
-        @Override
-        public void keyTyped(KeyEvent e) {
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
-        }
-        @Override
-        public void keyPressed(KeyEvent e) {
-            switch (e.getKeyCode()){
-                case KeyEvent.VK_LEFT :
-                    game.movePaddle(Direction.LEFT);
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    game.movePaddle(Direction.RIGHT);
-                    break;
             }
-        }
-        @Override
-        public void keyReleased(KeyEvent e) {
-        }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()){
+                    case KeyEvent.VK_LEFT :
+                        game.movePaddle(Direction.LEFT);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        game.movePaddle(Direction.RIGHT);
+                        break;
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
         });
 
 
@@ -84,13 +84,13 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         add(pauseButton);
 
         Timer timer = new Timer(10, new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-            pauseButton.setText(game.getStatus().toString());
+            public void actionPerformed(ActionEvent evt) {
+                pauseButton.setText(game.getStatus().toString());
 
-            //Update all physical objects
-            for(PhysicalObject object: objectToLabelMap.keySet()){
-                updatePhysicalObjectLabel(object);
-            }
+                //Update all physical objects
+                for(PhysicalObject object: objectToLabelMap.keySet()){
+                    updatePhysicalObjectLabel(object);
+                }
                 requestFocusInWindow();
             }
         });
