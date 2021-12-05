@@ -26,14 +26,13 @@ public class GameBoard implements RemoveObjectListener{
 
         walls = new ArrayList<Wall>();
 
-        walls.add(new Wall(new Vector(0,-50), size.getX(), 50));
-        walls.add(new Wall(new Vector(-50,0), 50, size.getY()));
-        walls.add(new Wall(new Vector(size.getX(), 0), 50, size.getY()));
-        walls.add(new Wall(new Vector(0, size.getY()), size.getX(), 50));
+        walls.add(new Wall(new Vector(0,-50), size.getX(), 50, new Vector(0, -1)));
+        walls.add(new Wall(new Vector(-50,0), 50, size.getY(), new Vector(-1, 0)));
+        walls.add(new Wall(new Vector(size.getX(), 0), 50, size.getY(), new Vector(1, 0)));
+        walls.add(new Wall(new Vector(0, size.getY()), size.getX(), 50,  new Vector(0, 1)));
 
         //TO-DO revise initial starting point
-        ball = new Ball(new Vector(50,size.getY()-400), null, 50, 50);
-
+        ball = new Ball(new Vector(100,100), null, 50, 50);
 
         addObstacle(ObstacleType.FirmObstacle, new Vector(960,size.getY()-500));
         addObstacle(ObstacleType.SimpleObstacle, new Vector(1000,size.getY()-500));
@@ -97,8 +96,9 @@ public class GameBoard implements RemoveObjectListener{
         ArrayList<PhysicalObject> physicalObjects = new ArrayList<>();
 
         physicalObjects.add(paddle);
-        physicalObjects.addAll(walls);
         physicalObjects.add(ball);
+        physicalObjects.addAll(walls);
+
 
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);

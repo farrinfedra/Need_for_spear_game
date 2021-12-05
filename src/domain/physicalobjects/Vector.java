@@ -60,9 +60,16 @@ public class Vector {
         return new Vector((int) (this.x *c) , (int) (this.y*c));
     }
 
+
+    public Vector norm(){
+        double length = Math.sqrt(x*x+y*y);
+
+        return new Vector(((int) (x/length)), ((int) (y/length)));
+    }
     public int cross(Vector v){
         return this.x*v.getY()-this.y*v.getX();
     }
+    public int dot(Vector v){return x*v.getX() + y + v.getY();}
 
     public Vector rotate(double rad){
         double sin = Math.sin(rad);

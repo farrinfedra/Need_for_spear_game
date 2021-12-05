@@ -4,7 +4,8 @@ import domain.physicalobjects.Vector;
 import java.math.*;
 
 public class BallMovementBehavior implements MovementBehavior{
-    Vector speed;
+    private Vector speed;
+
     public BallMovementBehavior(){
         this(new Vector(1,1));
     }
@@ -13,22 +14,15 @@ public class BallMovementBehavior implements MovementBehavior{
     }
 	@Override
     public void move(Object o) {
-
         Ball ball = (Ball) o;
-        double dx = speed.getX();
-        double dy = speed.getY();
-        
-        Vector shiftVector = new Vector((int) dx, (int) dy);
-        Vector newLocation = ball.getLocation().add(shiftVector);
-
+        Vector newLocation = ball.getLocation().add(speed);
         ball.setLocation(newLocation);
-        ball.getBoundingBox().shift(shiftVector);
+        ball.getBoundingBox().shift(speed);
     }
     
     public void setSpeed(Vector speed){
         this.speed = speed;
     }
-
     public Vector getSpeed() {
         return speed;
     }
