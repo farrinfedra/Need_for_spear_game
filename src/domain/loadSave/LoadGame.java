@@ -1,7 +1,7 @@
 package domain.loadSave;
 
-import domain.physicalobjects.Vector;
 import domain.physicalobjects.obstacles.Obstacle;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -11,16 +11,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
+
 
 public class LoadGame {
 
     private String username;
-    private HashMap<Vector, String> obstacles;
+    private ArrayList<Integer[]> obstacles;
 
     public LoadGame(String username) {this.username = username;}
-
+    private JSONObject obs;
     public void loadGame() {
         JSONParser jsonParser = new JSONParser();
 
@@ -30,9 +30,9 @@ public class LoadGame {
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
-            JSONObject obs = (JSONObject) obj;
-            getObstacles((JSONObject) obs.get("Obstacles"));
-
+            obs = new JSONObject();
+            obs = (JSONObject) obj;
+            System.out.println(obs);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -43,12 +43,18 @@ public class LoadGame {
     }
 
     //public ArrayList<Objects>
-public HashMap<Vector, String> getObstacles(JSONObject obs){
-        obstacles = new HashMap<Vector, String>();
-        //create Vectors of x and y
 
-
-        return obstacles;
-}
-
+//public ArrayList<Integer[]> getObstacles(){
+//        JSONArray obstacleArray = (JSONArray) obs.get("Obstacles");
+//        obstacles = new ArrayList<Integer[]>();
+//        obstacleArray.forEach(ar -> {
+//            int health = ar.
+//        });
+//        System.out.println(Arrays.toString(obstacles.toArray()));
+//
+//
+//
+//        return obstacles;
+//}
+//
 }

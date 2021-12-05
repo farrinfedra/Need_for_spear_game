@@ -6,6 +6,8 @@ import domain.physicalobjects.obstacles.ObstacleType;
 import domain.loadSave.SaveGame;
 import domain.physicalobjects.Vector;
 
+import java.util.ArrayList;
+
 public class Game extends Thread {
     private static Game instance = null;
 
@@ -39,7 +41,9 @@ public class Game extends Thread {
         //TODO: implement loadGame
         //TODO: get username from user;
 
-        loadGame = new LoadGame("fedra");
+        loadGame = new LoadGame("player1");
+        loadGame.loadGame();
+        //ArrayList<Integer[]> a = loadGame.getObstacles();
         //saveLoad.loadGame(username); //get username
         //get the obstacles and create them
         //get username set username
