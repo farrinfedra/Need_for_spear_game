@@ -23,4 +23,15 @@ public class FirmObstacle extends Obstacle{
     public String toString(){
         return "FirmObstacle";
     }
+
+    public int getHealth(){
+        return health;
+    }
+    public int getX(){
+        return getLocation().getX();
+    }
+    public int getY(){
+        return getLocation().getY();
+    }
+
 }

@@ -1,8 +1,9 @@
 package domain;
 
+import domain.loadSave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
-import domain.loadSave.SaveLoad;
+import domain.loadSave.SaveGame;
 import domain.physicalobjects.Vector;
 
 public class Game extends Thread {
@@ -10,8 +11,8 @@ public class Game extends Thread {
 
     private GameStatus status;
     private GameBoard gameBoard;
-    private SaveLoad saveLoad;
-
+    private SaveGame saveGame;
+    private LoadGame loadGame;
     private Game() {
        status = GameStatus.RESUMED;
     }
@@ -36,14 +37,20 @@ public class Game extends Thread {
 
     public void loadGame(int slot){
         //TODO: implement loadGame
-        saveLoad = new SaveLoad(getGameBoard());
+        //TODO: get username from user;
+
+        loadGame = new LoadGame("fedra");
         //saveLoad.loadGame(username); //get username
+        //get the obstacles and create them
+        //get username set username
+        //get score
+        //call boardgame add obstacle for each obstacle
     }
 
     public void saveGame(int slot){
         //TODO: implement saveGame
-        saveLoad = new SaveLoad(getGameBoard());
-        saveLoad.saveGame();
+        saveGame = new SaveGame(getGameBoard());
+        saveGame.saveGame();
     }
 
     public void enterBuildMode(){
@@ -68,13 +75,10 @@ public class Game extends Thread {
         }
     }
 
-//    public GameSave saveGame(){
-//        return new GameSave(gameBoard);
-//    }
 
     public void run(){
-        System.out.println("MyClass running");
 
+        System.out.println("MyClass running");
         while(true){
             try {
                 Thread.sleep(10);

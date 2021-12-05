@@ -17,26 +17,30 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class SaveLoad {
+public class SaveGame {
     private GameBoard gameBoard; //TODO: is it wrong to do this?
     private Date date;
-    HashMap<String, Integer> loadedGame;
+    HashMap<String, Integer[]> loadedGame;
 
 
 
-    public SaveLoad(GameBoard gameBoard){
+    public SaveGame(GameBoard gameBoard){
         this(gameBoard, new Date());
     }
-    public SaveLoad(GameBoard gameBoard, Date date){
+    public SaveGame(GameBoard gameBoard, Date date){
         this.gameBoard = gameBoard;
         this.date = date;
-        saveGame();
 
     }
     public void saveGame() {
         JSONObject savedGame = new JSONObject();
         JSONObject obstaclesList = new JSONObject();
         JSONObject playerInfo = new JSONObject();
+        JSONArray obj;
+//        JSONArray expOb = new JSONArray();
+//        JSONArray simpleOb = new JSONArray();
+//        JSONArray giftOb = new JSONArray();
+
         //JSONObject magicalAbilities = new JSONObject();
         String username = "fedra"; //TODO: make dynamic
         int score = 100; // TODO: make dynamic
@@ -53,22 +57,21 @@ public class SaveLoad {
 //            obstacles.add(o);
 //        }
         ArrayList<Obstacle> obstacles = gameBoard.getObstacles(); //fix obstacle
-        int firmObs = 0;
-        int explosiveObs = 0;
-        int simpleObs = 0;
-        int giftObs = 0;
 
-        for (Obstacle o : obstacles) {
-            switch (o.getClass().toString()){
-                case "ExplosiveObstacle":
-            }
 
+//get count of each obstacle
+int count = 0;
+        for(Obstacle o : obstacles) {
+            count++;
+            obj = new JSONArray();
+            obj.add(o.toString());
+            obj.add(o.getHealth());
+            obj.add(o.getX());
+            obj.add(o.getY());
+            obstaclesList.put(String.format("obstacle%d", count), obj);
         }
 
         savedGame.put("Obstacles", obstaclesList);
-
-
-
 
         try(FileWriter file = new FileWriter(String.format("%s.json", username))){
             file.write(savedGame.toJSONString());
@@ -81,7 +84,7 @@ public class SaveLoad {
 
     public void loadGame(String username){
         JSONParser jsonParser = new JSONParser();
-        loadedGame = new HashMap<String, Integer>();
+        loadedGame = new HashMap<String, Integer[]>();
 
         //read file
         try (FileReader reader = new FileReader(String.format("%s.json", username)))
@@ -113,19 +116,19 @@ Format of json file
     "Username": "username",
     "score": "score",
     "lives": "lives",
-    "obstacles": {
-        "ExplosiveObstacle": "count",
-        "FirmObstacle": "count",
-        "GiftObstacle": "count",
-        "SimpleObstacle": "count"
+    "objects": {
+        "obstacle1": [name, health, x, y],
+        "obstacle2": [name, health, x, y],
+        "obstacle3": [name, health, x, y],
+        "obstacle4": [name, health, x, y]
     }
   },
   "magicalAbilities": {
     {
-      "ChanceGiving": "count",
-      "NoblePhantasmExpansion": "count",
-      "Magical Hex": "count",
-      "Unstoppable Enchanted Sphere": "count"
+      "ChanceGiving": [count, location],
+      "NoblePhantasmExpansion": [count, location],
+      "Magical Hex": [count, location],
+      "Unstoppable Enchanted Sphere": [count, location]
     }
   }
 }

@@ -38,7 +38,7 @@ public class PauseScreen extends JFrame {
 
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-//                Game.getInstance().saveGame();
+                Game.getInstance().saveGame(2);
             }
         });
         add(saveButton, BorderLayout.PAGE_END);

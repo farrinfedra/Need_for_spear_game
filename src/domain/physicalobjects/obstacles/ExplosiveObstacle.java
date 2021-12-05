@@ -23,4 +23,13 @@ public class ExplosiveObstacle extends Obstacle{
     public String toString(){
         return "ExplosiveObstacle";
     }
+    public int getHealth(){
+        return health;
+    }
+    public int getX(){
+        return getLocation().getX();
+    }
+    public int getY(){
+        return getLocation().getY();
+    }
 }
