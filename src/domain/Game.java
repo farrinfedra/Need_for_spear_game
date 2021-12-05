@@ -43,12 +43,8 @@ public class Game extends Thread {
 
         loadGame = new LoadGame("player1");
         loadGame.loadGame();
-        //ArrayList<Integer[]> a = loadGame.getObstacles();
-        //saveLoad.loadGame(username); //get username
-        //get the obstacles and create them
-        //get username set username
-        //get score
-        //call boardgame add obstacle for each obstacle
+        ArrayList<ArrayList<Integer>> a = loadGame.getObstacles();
+
     }
 
     public void saveGame(int slot){

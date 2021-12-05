@@ -1,6 +1,5 @@
 package domain.loadSave;
 
-import domain.physicalobjects.obstacles.Obstacle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,14 +9,15 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class LoadGame {
 
     private String username;
-    private ArrayList<Integer[]> obstacles;
+    private ArrayList<ArrayList<Integer>> obstacles;
 
     public LoadGame(String username) {this.username = username;}
     private JSONObject obs;
@@ -44,17 +44,33 @@ public class LoadGame {
 
     //public ArrayList<Objects>
 
-//public ArrayList<Integer[]> getObstacles(){
-//        JSONArray obstacleArray = (JSONArray) obs.get("Obstacles");
-//        obstacles = new ArrayList<Integer[]>();
-//        obstacleArray.forEach(ar -> {
-//            int health = ar.
-//        });
-//        System.out.println(Arrays.toString(obstacles.toArray()));
-//
-//
-//
-//        return obstacles;
-//}
-//
+public ArrayList<ArrayList<Integer>> getObstacles(){
+        JSONArray obstacleArray = new JSONArray();
+        obstacleArray = (JSONArray) obs.get("Obstacles");
+
+        obstacles = new ArrayList<ArrayList<Integer>>();
+
+    int id = 0;
+    int health = 0;
+    int x = 0;
+    int y = 0;
+    for (int i = 0 ; i<obstacleArray.size(); i++){
+        JSONArray temp = new JSONArray();
+        temp = (JSONArray) obstacleArray.get(i);
+        id = Integer.valueOf(temp.get(0).toString());
+        health = Integer.valueOf(temp.get(1).toString());
+        x = Integer.valueOf(temp.get(2).toString());
+        y = Integer.valueOf(temp.get(3).toString());
+       ArrayList<Integer> temps = new ArrayList<Integer>();
+       temps.add(id);
+        temps.add(health);
+        temps.add(x);
+        temps.add(y);
+        obstacles.add(temps);
+
+    }
+
+        return obstacles;
+}
+
 }
