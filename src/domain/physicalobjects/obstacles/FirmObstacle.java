@@ -19,4 +19,8 @@ public class FirmObstacle extends Obstacle{
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 3;
     }
+    @Override
+    public String toString(){
+        return "FirmObstacle";
+    }
 }

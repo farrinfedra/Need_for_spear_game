@@ -53,7 +53,18 @@ public class SaveLoad {
 //            obstacles.add(o);
 //        }
         ArrayList<Obstacle> obstacles = gameBoard.getObstacles(); //fix obstacle
-        obstacles.forEach(o -> {o.getClass().toString();});
+        int firmObs = 0;
+        int explosiveObs = 0;
+        int simpleObs = 0;
+        int giftObs = 0;
+
+        for (Obstacle o : obstacles) {
+            switch (o.getClass().toString()){
+                case "ExplosiveObstacle":
+            }
+
+        }
+
         savedGame.put("Obstacles", obstaclesList);
 
 

@@ -18,4 +18,9 @@ public class ExplosiveObstacle extends Obstacle{
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 1;
     }
+
+    @Override
+    public String toString(){
+        return "ExplosiveObstacle";
+    }
 }

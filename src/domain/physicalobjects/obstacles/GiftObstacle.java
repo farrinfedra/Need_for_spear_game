@@ -18,4 +18,8 @@ public class GiftObstacle extends Obstacle{
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 1;
     }
+    @Override
+    public String toString(){
+        return "GiftObstacle";
+    }
 }
