@@ -1,9 +1,6 @@
 package domain.physicalobjects.engines;
 
-import domain.*;
-import domain.physicalobjects.ObstacleType;
 import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.Vector;
 
 import java.util.List;
 

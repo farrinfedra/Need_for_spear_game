@@ -1,9 +1,10 @@
 package domain;
 
-import domain.physicalobjects.ObstacleType;
+import domain.physicalobjects.engines.CollisionEngine;
+import domain.physicalobjects.obstacles.ObstacleType;
 import domain.physicalobjects.Vector;
 
-    public class Game extends Thread {
+public class Game extends Thread {
     private static Game instance = null;
 
     private GameStatus status;
@@ -15,6 +16,7 @@ import domain.physicalobjects.Vector;
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
+        addRemoveObjectListener(gameBoard);
     }
 
     public static Game getInstance() {
@@ -40,7 +42,6 @@ import domain.physicalobjects.Vector;
 
     public void enterBuildMode(){
         //TODO: implement enterBuildMode
-
     }
 
     public void enterPlayMode(){
@@ -61,9 +62,9 @@ import domain.physicalobjects.Vector;
         }
     }
 
-    //public GameSave saveGame(){
-    //    return new GameSave(gameBoard);
-   // }
+//    public GameSave saveGame(){
+//        return new GameSave(gameBoard);
+//    }
 
     public void run(){
         System.out.println("MyClass running");
@@ -72,7 +73,7 @@ import domain.physicalobjects.Vector;
             try {
                 Thread.sleep(10);
 
-                if(gameBoard != null && status == GameStatus.RESUMED)
+                if(gameBoard != null)
                     gameBoard.doTickActions();
 
             } catch (InterruptedException e) {
@@ -81,6 +82,9 @@ import domain.physicalobjects.Vector;
         }
     }
 
+    public void addRemoveObjectListener(RemoveObjectListener listener) {
+        CollisionEngine.getInstance().addRemoveObjectListener(listener);
     }
+}
 
 

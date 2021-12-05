@@ -2,6 +2,7 @@ package domain.physicalobjects.movement;
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.Vector;
 import java.math.*;
+
 public class BallMovementBehavior implements MovementBehavior{
     Vector speed;
     public BallMovementBehavior(){

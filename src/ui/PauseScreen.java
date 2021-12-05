@@ -13,42 +13,41 @@ import javax.swing.SwingConstants;
 
 import domain.Game;
 
-public class PauseScreen {
+public class PauseScreen extends JFrame {
 
-	public JPanel createPauseScreen(Game game, JFrame f) {
-		JPanel pausedPanel = new JPanel();
-        pausedPanel.setLayout(new BorderLayout());
-        pausedPanel.setBounds(50,100,200,100);    
-        pausedPanel.setBackground(Color.orange);
-        pausedPanel.add(new JLabel("Game paused", SwingConstants.CENTER));
-        
+    public PauseScreen(){
+        super("Paused");
+        setLayout(new BorderLayout());
+        setBounds(50,100,200,100);
+        setBackground(Color.orange);
+        add(new JLabel("Game paused", SwingConstants.CENTER));
+
         JButton resumeButton = new JButton("RESUME");
         resumeButton.setBounds(150, 150, 100, 50);
-        
-        resumeButton.addActionListener(new ActionListener() {
-     	   public void actionPerformed(ActionEvent e){
 
-     	       pausedPanel.setVisible(false);
-     	       game.switchPaused();
-     	   }
+        resumeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                setVisible(false);
+                Game.getInstance().switchPaused();
+            }
         });
-        pausedPanel.add(resumeButton, BorderLayout.PAGE_START);
-        
+        add(resumeButton, BorderLayout.PAGE_START);
+
         JButton saveButton = new JButton("SAVE");
         saveButton.setBounds(150, 150, 100, 50);
-        
+
         saveButton.addActionListener(new ActionListener() {
-     	   public void actionPerformed(ActionEvent e){
-     	      // game.saveGame();
-     	   }
+            public void actionPerformed(ActionEvent e){
+//                Game.getInstance().saveGame();
+            }
         });
-        pausedPanel.add(saveButton, BorderLayout.PAGE_END);
-    
-        f.add(pausedPanel);  
-        pausedPanel.setVisible(true);
-        pausedPanel.revalidate();
-        pausedPanel.repaint();
-        
-        return pausedPanel;
-	}
+        add(saveButton, BorderLayout.PAGE_END);
+
+
+        setVisible(true);
+        revalidate();
+        repaint();
+
+    }
+
 }

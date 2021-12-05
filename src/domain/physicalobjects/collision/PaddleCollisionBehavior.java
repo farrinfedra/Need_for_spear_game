@@ -8,7 +8,7 @@ import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 public class PaddleCollisionBehavior implements CollisionBehavior{
 
     @Override
-    public void collide(Object o1, Object o2) {
+    public Boolean collide(Object o1, Object o2) {
         Paddle paddle = (Paddle) o1;
 
         if(o2 instanceof Wall){
@@ -23,6 +23,6 @@ public class PaddleCollisionBehavior implements CollisionBehavior{
                     .isCollidingWith(wall.getBoundingBox()))
                    paddle.setSpeed(0);
         }
-
+        return false;
     }
 }

@@ -8,7 +8,7 @@ import domain.physicalobjects.Ball;
 public class BallCollisionBehavior implements CollisionBehavior {
 
 	@Override
-	public void collide(Object o1, Object o2) {
+	public Boolean collide(Object o1, Object o2) {
 		// TODO Auto-generated method stub
 		Ball ball = (Ball) o1;
 		Vector prior_speed =ball.getSpeed();
@@ -75,7 +75,7 @@ public class BallCollisionBehavior implements CollisionBehavior {
 
 			 
 		}
-		
+		return false;
 	}
 
 }
