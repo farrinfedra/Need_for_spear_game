@@ -33,12 +33,12 @@ public class GameBoard implements RemoveObjectListener{
 
         //TO-DO revise initial starting point
         ball = new Ball(new Vector(100,100), null, 50, 50);
+    }
 
-        addObstacle(ObstacleType.FirmObstacle, new Vector(960,size.getY()-500));
-        addObstacle(ObstacleType.SimpleObstacle, new Vector(1000,size.getY()-500));
-        addObstacle(ObstacleType.GiftObstacle, new Vector(1040,size.getY()-500));
-        addObstacle(ObstacleType.ExplosiveObstacle, new Vector(1080,size.getY()-500));
-
+    public Obstacle addObstacle(ObstacleType type, Vector location){
+        Obstacle obstacle = ObstacleFactory.getInstance().create(type, location);
+        obstacles.add(obstacle);
+        return obstacle;
     }
 
     public Ball getBall(){return this.ball;}
@@ -53,43 +53,6 @@ public class GameBoard implements RemoveObjectListener{
         obstacles.remove(obstacle);
     }
 
-
-
-    public void addObstacle(ObstacleType type, Vector location) {
-        switch (type) {
-            case SimpleObstacle:
-                obstacles.add(new SimpleObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new NoCollisionBehavior()));
-                break;
-            case FirmObstacle:
-                obstacles.add(new FirmObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/FirmObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new NoCollisionBehavior()));
-                break;
-            case GiftObstacle:
-                obstacles.add(new GiftObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new NoCollisionBehavior()));
-                break;
-            case ExplosiveObstacle:
-                obstacles.add(new SimpleObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new NoCollisionBehavior()));
-                break;
-            default:
-                System.err.println("Type " + type + "could not found.");
-        }
-
-    }
 
     public void doTickActions(){
         //TODO: implement doTickActions

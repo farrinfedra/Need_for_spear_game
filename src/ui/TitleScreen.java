@@ -39,6 +39,14 @@ public class TitleScreen extends JFrame {
 		playButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2, playButton.getWidth(), playButton.getHeight());
 		add(playButton);
 
+		buildModeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new BuildScreen(width, height);
+			}
+		});
+
 		buildModeButton.setSize(100,30);
 		buildModeButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight(), playButton.getWidth(), playButton.getHeight());
 		add(buildModeButton);

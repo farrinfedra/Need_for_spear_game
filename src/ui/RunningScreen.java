@@ -28,7 +28,10 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
 
         setLayout(null);//using no layout managers
         Game game = Game.getInstance();
-        game.createGameBoard(width, height);
+
+        if (game.getGameBoard() == null){
+            game.createGameBoard(width, height);
+        }
 
         game.addRemoveObjectListener(this);
 
