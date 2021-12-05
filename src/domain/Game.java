@@ -73,7 +73,7 @@ public class Game extends Thread {
             try {
                 Thread.sleep(10);
 
-                if(gameBoard != null)
+                if(gameBoard != null && status == GameStatus.RESUMED)
                     gameBoard.doTickActions();
 
             } catch (InterruptedException e) {
