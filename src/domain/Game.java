@@ -1,7 +1,9 @@
 package domain;
 
 import domain.physicalobjects.Vector;
+import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
+import ui.RunningScreen;
 
 public class Game extends Thread {
     private static Game instance = null;
@@ -9,12 +11,14 @@ public class Game extends Thread {
     private GameStatus status;
     private GameBoard gameBoard;
 
+
     private Game() {
        status = GameStatus.PAUSED;
     }
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
+        addRemoveObjectListener(gameBoard);
     }
 
     public static Game getInstance() {
@@ -82,6 +86,12 @@ public class Game extends Thread {
 
     public void resumeGame() {
         //TODO: implement resumeGame
+    }
+
+
+    public void addRemoveObjectListener(RemoveObjectListener listener) {
+        CollisionEngine.getInstance().addRemoveObjectListener(listener);
+
     }
 }
 

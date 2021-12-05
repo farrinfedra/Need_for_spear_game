@@ -1,20 +1,21 @@
 package domain;
 
 import domain.physicalobjects.*;
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
+import domain.physicalobjects.collision.NoCollisionBehavior;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
-import domain.physicalobjects.obstacles.Obstacle;
-import domain.physicalobjects.obstacles.ObstacleType;
+import domain.physicalobjects.movement.StationaryMovementBehavior;
+import domain.physicalobjects.obstacles.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
-public class GameBoard {
+public class GameBoard implements RemoveObjectListener{
 
     private ArrayList<Obstacle> obstacles;
     private ArrayList<Wall> walls;
+
     private Ball ball;
     private Paddle paddle;
     private Vector size;
@@ -31,7 +32,18 @@ public class GameBoard {
 
         paddle = new Paddle(new Vector(500,size.getY()-100), new ImageIcon(this.getClass().getResource("/img/paddle.png")));
 
+        addObstacle(ObstacleType.FirmObstacle, new Vector(960,size.getY()-500));
+        addObstacle(ObstacleType.SimpleObstacle, new Vector(1000,size.getY()-500));
+        addObstacle(ObstacleType.GiftObstacle, new Vector(1040,size.getY()-500));
+        addObstacle(ObstacleType.ExplosiveObstacle, new Vector(1080,size.getY()-500));
+
+
+
+
+
         //ball = new Ball(new Vector(0,100), null);
+
+
     }
 
     public Paddle getPaddle(){return this.paddle;}
@@ -39,8 +51,48 @@ public class GameBoard {
     public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -10: 10); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
+
+
+    public void removeObstacle(Obstacle obstacle){
+        obstacles.remove(obstacle);
+    }
+
+
+
     public void addObstacle(ObstacleType type, Vector location) {
-        //TODO: implement functionality
+        switch (type) {
+            case SimpleObstacle:
+                obstacles.add(new SimpleObstacle(location,
+                        new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
+                        40, 40,
+                        new StationaryMovementBehavior(),
+                        new NoCollisionBehavior()));
+                break;
+            case FirmObstacle:
+                obstacles.add(new FirmObstacle(location,
+                        new ImageIcon(this.getClass().getResource("/img/FirmObstacleImage.png")),
+                        40, 40,
+                        new StationaryMovementBehavior(),
+                        new NoCollisionBehavior()));
+                break;
+            case GiftObstacle:
+                obstacles.add(new GiftObstacle(location,
+                        new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")),
+                        40, 40,
+                        new StationaryMovementBehavior(),
+                        new NoCollisionBehavior()));
+                break;
+            case ExplosiveObstacle:
+                obstacles.add(new SimpleObstacle(location,
+                        new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")),
+                        40, 40,
+                        new StationaryMovementBehavior(),
+                        new NoCollisionBehavior()));
+                break;
+            default:
+                System.err.println("Type " + type + "could not found.");
+        }
+
     }
 
     public void doTickActions(){
@@ -60,5 +112,12 @@ public class GameBoard {
 
     public ArrayList<Wall> getWalls() {
         return walls;
+    }
+
+    @Override
+    public void onPropertyEvent(PhysicalObject physicalObject) {
+        if (physicalObject instanceof Obstacle){
+            removeObstacle((Obstacle) physicalObject);
+        }
     }
 }
