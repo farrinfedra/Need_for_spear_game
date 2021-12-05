@@ -10,7 +10,7 @@ public class Main{
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dim.getWidth();
         int height = (int) dim.getHeight();
-        TitleScreen titleScreen = new TitleScreen(width, height);
+        BuildScreen buildScreen = new BuildScreen(width, height);
 
         Game game = Game.getInstance();
         game.start();

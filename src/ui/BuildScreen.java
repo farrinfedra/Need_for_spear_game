@@ -1,25 +1,109 @@
 package ui;
+import domain.Game;
+import domain.GameBoard;
+import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Vector;
+import domain.physicalobjects.obstacles.Obstacle;
+import domain.physicalobjects.obstacles.ObstacleType;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
 
-public class BuildGameScreen extends JFrame{
-	public BuildGameScreen(int width, int height) {
+public class BuildScreen extends JFrame{
+	private Game game;
+	private ObstacleType currentObstacle = ObstacleType.SimpleObstacle;
+	private int width;
+	private int height;
+	private HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
+//	private ArrayList<Pair<>> = new HashMap<>();
+
+	private Point drawPoint;
+
+	public BuildScreen(int width, int height) {
 		super("BuildGameScreen");
+		this.width = width;
+		this.height = height;
 		setBounds(0,0,width,height);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		add(mainPanel);
+
+		game = Game.getInstance();
+		game.createGameBoard(width, height);
+
+//		JPanel mainPanel = new JPanel();
+//		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+//		add(mainPanel, BorderLayout.PAGE_END);
 		JPanel obstaclePanel = obstaclesPanel();
-		mainPanel.add(obstaclePanel);
+		add(obstaclePanel, BorderLayout.PAGE_START);
+
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				drawPoint = MouseInfo.getPointerInfo().getLocation();
+				drawPoint.x -= 25;
+				drawPoint.y -= 45;
+				addObstacle(drawPoint, currentObstacle);
+				repaint();
+			}
+		});
+
+		Timer timer = new Timer(10, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+
+				//Update all physical objects
+				for(PhysicalObject object: objectToLabelMap.keySet()){
+					updatePhysicalObjectLabel(object);
+				}
+				requestFocusInWindow();
+			}
+		});
+
+		timer.start();
+
+		setVisible(true);
+		revalidate();
+		repaint();
 	}
+
+
+
+	private void addObstacle(Point drawPoint, ObstacleType type){
+		int x = (int) (50*Math.round(drawPoint.x/50) + 22.5);
+		int y = (int) (50*Math.round(drawPoint.y/50) + 22.5);
+		Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
+		addPhysicalObjectLabel(obstacle);
+		addedObstacles.put(x)
+
+	}
+
+	private void addPhysicalObjectLabel(PhysicalObject object){
+		JLabel objectLabel = new JLabel(object.getImage());
+		objectLabel.setBackground(Color.CYAN);
+		objectLabel.setOpaque(true);
+		add(objectLabel);
+		objectToLabelMap.put(object, objectLabel);
+	}
+
+	private static void updatePhysicalObjectLabel(PhysicalObject object){
+
+		int x = object.getLocation().getX();
+		int y = object.getLocation().getY();
+		int height = object.getHeight();
+		int width = object.getWidth();
+
+		objectToLabelMap.get(object)
+				.setBounds(x, y, width, height);
+	}
+
+
+
 	//TODO: Obstacles Panel
-		//TODO: Drag&Drop or Click and Drop?
+	//TODO: Drag&Drop or Click and Drop?
 	private JPanel obstaclesPanel(){
 	JPanel obstaclesPanel = new JPanel(new GridLayout(4,1));
 	//TODO : add figures of obstacles instead of texts
@@ -31,7 +115,7 @@ public class BuildGameScreen extends JFrame{
 		
 		public void actionPerformed(ActionEvent ae)
         {
-                                       
+			currentObstacle = ObstacleType.SimpleObstacle;
         }
     });
 	JButton firmObstacleButton= new JButton("Firm Obstacle");
@@ -40,7 +124,7 @@ public class BuildGameScreen extends JFrame{
     {
         public void actionPerformed(ActionEvent ae)
         {
-           
+			currentObstacle = ObstacleType.FirmObstacle;
                         
         }
     });
@@ -50,8 +134,7 @@ public class BuildGameScreen extends JFrame{
     {
         public void actionPerformed(ActionEvent ae)
         {
-            
-                           
+			currentObstacle = ObstacleType.ExplosiveObstacle;
         }
     });
 	JButton giftObstacleButton = new JButton("Gift Obstacle");
@@ -60,8 +143,7 @@ public class BuildGameScreen extends JFrame{
     {
         public void actionPerformed(ActionEvent ae)
         {
-           
-                         
+			currentObstacle = ObstacleType.GiftObstacle;
         }
     });
 	obstaclesPanel.add(simpleObstacleButton);
@@ -70,6 +152,8 @@ public class BuildGameScreen extends JFrame{
 	obstaclesPanel.add(giftObstacleButton);
 	return obstaclesPanel;
 	}
+
+
 	//TODO: Total Show Panel
 	private JPanel TotalShowPanel() {
 		JPanel totalShowPanel = new JPanel(new GridLayout(5,2));
