@@ -98,7 +98,6 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
 
         revalidate();
         repaint();
-
     }
 
 
