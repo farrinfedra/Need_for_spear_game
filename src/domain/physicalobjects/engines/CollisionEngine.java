@@ -2,9 +2,12 @@ package domain.physicalobjects.engines;
 
 import domain.RemoveObjectListener;
 import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 public class CollisionEngine {
     private static CollisionEngine instance = null;
@@ -23,6 +26,7 @@ public class CollisionEngine {
         for(RemoveObjectListener l: removeObjectListeners){
             l.onPropertyEvent(physicalObject);
         }
+
     }
     public void addRemoveObjectListener(RemoveObjectListener listener){
         removeObjectListeners.add(listener);

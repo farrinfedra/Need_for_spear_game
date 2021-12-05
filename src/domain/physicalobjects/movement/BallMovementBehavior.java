@@ -7,7 +7,7 @@ public class BallMovementBehavior implements MovementBehavior{
     private Vector speed;
 
     public BallMovementBehavior(){
-        this(new Vector(1,1));
+        this(new Vector(2,2));
     }
     public BallMovementBehavior(Vector speed){
         this.speed = speed;

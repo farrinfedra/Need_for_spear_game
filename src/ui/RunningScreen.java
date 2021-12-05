@@ -97,8 +97,8 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
 
         timer.start();
 
+        setResizable(false);
         setVisible(true);
-
         revalidate();
         repaint();
     }

@@ -1,7 +1,7 @@
 package domain;
 
 import domain.physicalobjects.*;
-import domain.physicalobjects.collision.NoCollisionBehavior;
+import domain.physicalobjects.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.movement.StationaryMovementBehavior;
@@ -57,11 +57,10 @@ public class GameBoard implements RemoveObjectListener{
     public void doTickActions(){
         //TODO: implement doTickActions
         ArrayList<PhysicalObject> physicalObjects = new ArrayList<>();
-
+        physicalObjects.addAll(obstacles);
         physicalObjects.add(paddle);
         physicalObjects.add(ball);
         physicalObjects.addAll(walls);
-
 
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
