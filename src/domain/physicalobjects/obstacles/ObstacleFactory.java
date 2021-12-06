@@ -3,6 +3,7 @@ package domain.physicalobjects.obstacles;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.collision.CollisionBehavior;
 import domain.physicalobjects.collision.NoCollisionBehavior;
+import domain.physicalobjects.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.movement.MovementBehavior;
 import domain.physicalobjects.movement.StationaryMovementBehavior;
 
@@ -28,30 +29,30 @@ public class ObstacleFactory {
                         new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
                         40, 40,
                         new StationaryMovementBehavior(),
-                        new NoCollisionBehavior());
+                        new ObstacleCollisionBehavior());
             case FirmObstacle:
                 return new FirmObstacle(location,
                         new ImageIcon(this.getClass().getResource("/img/FirmObstacleImage.png")),
                         40, 40,
                         new StationaryMovementBehavior(),
-                        new NoCollisionBehavior());
+                        new ObstacleCollisionBehavior());
             case GiftObstacle:
                 return new GiftObstacle(location,
                         new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")),
                         40, 40,
                         new StationaryMovementBehavior(),
-                        new NoCollisionBehavior());
+                        new ObstacleCollisionBehavior());
             case ExplosiveObstacle:
                 return new ExplosiveObstacle(location,
                         new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")),
                         40, 40,
                         new StationaryMovementBehavior(),
-                        new NoCollisionBehavior());
+                        new ObstacleCollisionBehavior());
             default:
                 return new SimpleObstacle(location,
                         new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
                         40, 40,
                         new StationaryMovementBehavior(),
-                        new NoCollisionBehavior());        }
+                        new ObstacleCollisionBehavior());        }
     }
 }

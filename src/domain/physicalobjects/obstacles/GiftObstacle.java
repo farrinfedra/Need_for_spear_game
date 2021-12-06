@@ -7,23 +7,17 @@ import domain.physicalobjects.movement.MovementBehavior;
 import javax.swing.*;
 
 public class GiftObstacle extends Obstacle{
-
+    public GiftObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
+        super(location, image, width, height, movementBehavior, collisionBehavior, 1);
+    }
 
     @Override
     void specialAttribute() {
 
     }
 
-    public GiftObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
-        super(location, image, width, height, movementBehavior, collisionBehavior);
-        this.health = 1;
-    }
     @Override
     public String toString(){
         return "GiftObstacle";
-    }
-
-    public int getHealth(){
-        return health;
     }
 }

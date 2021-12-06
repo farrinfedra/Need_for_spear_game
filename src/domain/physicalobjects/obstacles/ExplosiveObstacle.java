@@ -8,22 +8,17 @@ import javax.swing.*;
 
 public class ExplosiveObstacle extends Obstacle{
 
+    public ExplosiveObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
+        super(location, image, width, height, movementBehavior, collisionBehavior, 1);
+    }
 
     @Override
     void specialAttribute() {
 
     }
 
-    public ExplosiveObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
-        super(location, image, width, height, movementBehavior, collisionBehavior);
-        this.health = 1;
-    }
-
     @Override
     public String toString(){
         return "ExplosiveObstacle";
-    }
-    public int getHealth(){
-        return health;
     }
 }

@@ -15,7 +15,7 @@ import domain.physicalobjects.obstacles.SimpleObstacle;
 public class BallCollisionBehavior implements CollisionBehavior {
 
 	@Override
-	public Boolean collide(Object o1, Object o2) {
+	public void collide(Object o1, Object o2) {
 
 		Ball ball = (Ball) o1;
 		Vector ballSpeed = ball.getSpeed();
@@ -59,52 +59,51 @@ public class BallCollisionBehavior implements CollisionBehavior {
 
 		}
 			 else if (o2 instanceof Obstacle /*SimpleObstacle || o2 instanceof FirmObstacle*/){
-                 Obstacle obstacle = (Obstacle) o2;
-				double obstacleWidth = obstacle.getWidth();
-				double obstacleHeight = obstacle.getHeight();
-				double obstacleX = obstacle.getLocation().getX();
-				double obstacleY = obstacle.getLocation().getY();
-
-				double ballX = ball.getLocation().getX();
-				double ballY = ball.getLocation().getY();
-
-				double ballRadius = ball.getWidth();
-
-                 Vector newSpeed;
-                 System.out.printf("ball Y:" + ballY + " ball X: " + ballX + "obstacle x:" + obstacleX + "obstacle y:" + obstacleY);
-                 //Bottom-Up
-                 if ((obstacleX < ballX -(ballRadius /2 ) || obstacleX + obstacleWidth > ballX)
-                         &&
-                     (ballY + ballRadius<= obstacleY  || ballY >= obstacleY)){
-                     newSpeed = new Vector(ballSpeed.getX(), -ballSpeed.getY());
-
-                     ball.setSpeed(newSpeed);
-                 }
-                 //sides
-                 else if ((obstacleY < ballY-(ballRadius /2 ) || obstacleY + obstacleHeight > ballY)
-                         &&
-                         (ballX <= obstacleX ||  ballX >= obstacleX)){
-                     newSpeed = new Vector(-ballSpeed.getX(), ballSpeed.getY());
-
-
-                     ball.setSpeed(newSpeed);
-                 }
-                 
-                 if(o2 instanceof FirmObstacle) {
-                	 FirmObstacle fo = (FirmObstacle) o2;
-                	 if(((FirmObstacle) o2).getHealth() ==2) {
-                	 fo.setImage(new ImageIcon(this.getClass().getResource("/img/firm2.png")));
-                	 }
-                	 else if(((FirmObstacle) o2).getHealth() ==1) {
-                    	 fo.setImage(new ImageIcon(this.getClass().getResource("/img/firm1.png")));
-                    	 }
-                	 
-                 }
-                 
-        
-                 
+//                 Obstacle obstacle = (Obstacle) o2;
+//				double obstacleWidth = obstacle.getWidth();
+//				double obstacleHeight = obstacle.getHeight();
+//				double obstacleX = obstacle.getLocation().getX();
+//				double obstacleY = obstacle.getLocation().getY();
+//
+//				double ballX = ball.getLocation().getX();
+//				double ballY = ball.getLocation().getY();
+//
+//				double ballRadius = ball.getWidth();
+//
+//                 Vector newSpeed;
+//                 System.out.printf("ball Y:" + ballY + " ball X: " + ballX + "obstacle x:" + obstacleX + "obstacle y:" + obstacleY);
+//                 //Bottom-Up
+//                 if ((obstacleX < ballX -(ballRadius /2 ) || obstacleX + obstacleWidth > ballX)
+//                         &&
+//                     (ballY + ballRadius<= obstacleY  || ballY >= obstacleY)){
+//                     newSpeed = new Vector(ballSpeed.getX(), -ballSpeed.getY());
+//
+//                     ball.setSpeed(newSpeed);
+//                 }
+//                 //sides
+//                 else if ((obstacleY < ballY-(ballRadius /2 ) || obstacleY + obstacleHeight > ballY)
+//                         &&
+//                         (ballX <= obstacleX ||  ballX >= obstacleX)){
+//                     newSpeed = new Vector(-ballSpeed.getX(), ballSpeed.getY());
+//
+//
+//                     ball.setSpeed(newSpeed);
+//                 }
+//
+//                 if(o2 instanceof FirmObstacle) {
+//                	 FirmObstacle fo = (FirmObstacle) o2;
+//                	 if(((FirmObstacle) o2).getHealth() ==2) {
+//                	 fo.setImage(new ImageIcon(this.getClass().getResource("/img/firm2.png")));
+//                	 }
+//                	 else if(((FirmObstacle) o2).getHealth() ==1) {
+//                    	 fo.setImage(new ImageIcon(this.getClass().getResource("/img/firm1.png")));
+//                    	 }
+//
+//                 }
+//
+//
+//
           }
-		return false;
 	}
 
 }

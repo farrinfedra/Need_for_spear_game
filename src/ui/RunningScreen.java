@@ -2,11 +2,8 @@ package ui;
 
 import domain.Direction;
 import domain.Game;
-import domain.RemoveObjectListener;
 import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.Vector;
 import domain.physicalobjects.Wall;
-import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.physicalobjects.obstacles.Obstacle;
 
 import javax.swing.*;
@@ -15,12 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class RunningScreen extends JFrame implements RemoveObjectListener {
-    private static HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
+public class RunningScreen extends JFrame{
+    private static Map<JLabel, PhysicalObject> objectToLabelMap = new HashMap<>();
 
     public RunningScreen(){
         super("Need for Spear");
@@ -28,16 +25,16 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         int width = (int) dim.getWidth();
         int height = (int) dim.getHeight();
 
-        setBounds(0,0, width, height);
+        setVisible(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLayout(null);
 
-        setLayout(null);//using no layout managers
+
         Game game = Game.getInstance();
 
         if (game.getGameBoard() == null){
             game.createGameBoard(width, height);
         }
-
-        game.addRemoveObjectListener(this);
 
         //Adding all PhysicalObjects to GameBoard as JLabel
         addPhysicalObjectLabel(game.getGameBoard().getPaddle());
@@ -55,9 +52,8 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PauseScreen();
+                add(new PauseScreen(getWidth()/2, getHeight()/2));
                 game.switchPaused();
-
             }
         });
 
@@ -91,13 +87,25 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
 
+                //Deletion of Destroyed PhysicalObjects
+                objectToLabelMap.entrySet()
+                                                    .stream()
+                                                    .filter(map -> map.getValue().isDestroyed())
+                                                    .forEach(map->remove(map.getKey()));
+
+                objectToLabelMap = objectToLabelMap.entrySet()
+                                                    .stream()
+                                                    .filter(map -> !map.getValue().isDestroyed())
+                                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
                 //Update all physical objects
-                for(PhysicalObject object: objectToLabelMap.keySet()){
-                    updatePhysicalObjectLabel(object);
+                for(JLabel l: objectToLabelMap.keySet()){
+                    updatePhysicalObjectLabel(l);
                 }
 
-
                 requestFocusInWindow();
+                revalidate();
+                repaint();
             }
         });
 
@@ -110,36 +118,31 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         repaint();
     }
 
-
     private void addPhysicalObjectLabel(PhysicalObject object){
         JLabel objectLabel = new JLabel(object.getImage());
         objectLabel.setBackground(Color.CYAN);
         objectLabel.setOpaque(true);
         add(objectLabel);
 
-        objectToLabelMap.put(object, objectLabel);
+        objectToLabelMap.put(objectLabel, object);
     }
 
-    private void removePhysicalObject(PhysicalObject physicalObject){
-        remove(objectToLabelMap.get(physicalObject));
+    private void removePhysicalObjectLabel(JLabel label){
+        objectToLabelMap.remove(label);
+        remove(label);
         revalidate();
         repaint();
     }
 
-    private void updatePhysicalObjectLabel(PhysicalObject object){
+    private void updatePhysicalObjectLabel(JLabel label){
+        PhysicalObject object = objectToLabelMap.get(label);
+
         int x =  (int) object.getLocation().getX();
         int y = (int) object.getLocation().getY();
         int height = (int) object.getHeight();
         int width = (int) object.getWidth();
 
-        objectToLabelMap.get(object).setBounds(x, y, width, height);
-
-    }
-
-
-
-    @Override
-    public void onPropertyEvent(PhysicalObject physicalObject) {
-        removePhysicalObject(physicalObject);
+       // label.setIcon(object.getImage());
+        label.setBounds(x, y, width, height);
     }
 }

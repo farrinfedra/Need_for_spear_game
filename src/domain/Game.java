@@ -23,7 +23,6 @@ public class Game extends Thread {
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
-        addRemoveObjectListener(gameBoard);
     }
 
     public static Game getInstance() {
@@ -90,10 +89,6 @@ public class Game extends Thread {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void addRemoveObjectListener(RemoveObjectListener listener) {
-        CollisionEngine.getInstance().addRemoveObjectListener(listener);
     }
 }
 

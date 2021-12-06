@@ -29,6 +29,8 @@ public class BuildScreen extends JFrame{
 		this.height = height;
 		setBounds(0,0,width,height);
 		setResizable(false);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		game = Game.getInstance();

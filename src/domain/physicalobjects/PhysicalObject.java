@@ -9,8 +9,12 @@ import domain.physicalobjects.movement.StationaryMovementBehavior;
 
 import javax.swing.*;
 import java.util.Objects;
+import java.util.UUID;
 
 public class PhysicalObject {
+
+    private UUID id;
+
     private Vector location;
     private ImageIcon image;
 
@@ -20,12 +24,16 @@ public class PhysicalObject {
     private MovementBehavior movementBehavior;
     private CollisionBehavior collisionBehavior;
 
+    private boolean isDestroyed;
+
     public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
         this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
                 movementBehavior, collisionBehavior);
     }
 
     public PhysicalObject(Vector location, ImageIcon image, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
+        this.id = UUID.randomUUID();
+
         this.location = location;
         this.image = image;
         this.width = width;
@@ -34,12 +42,13 @@ public class PhysicalObject {
         this.boundingBox = boundingBox;
         this.movementBehavior = movementBehavior;
         this.collisionBehavior = collisionBehavior;
+
+        this.isDestroyed = false;
     }
 
     public Vector getLocation() {
         return location;
     }
-
     public void setLocation(Vector location) {
         this.location = location;
     }
@@ -47,7 +56,6 @@ public class PhysicalObject {
     public ImageIcon getImage() {
         return image;
     }
-
     public void setImage(ImageIcon image) {
         this.image = image;
     }
@@ -70,4 +78,25 @@ public class PhysicalObject {
     public CollisionBehavior getCollisionBehavior() {return collisionBehavior;}
     public void setCollisionBehavior(CollisionBehavior collisionBehavior) {this.collisionBehavior = collisionBehavior;}
 
+    public boolean isDestroyed(){
+        return isDestroyed;
+    }
+
+    public void destroy(){
+        this.isDestroyed = true;
+    }
+
+    public UUID getId(){
+        return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((PhysicalObject) o).getId().equals(this.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

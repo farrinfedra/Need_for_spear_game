@@ -13,14 +13,25 @@ import javax.swing.SwingConstants;
 
 import domain.Game;
 
-public class PauseScreen extends JFrame {
+public class PauseScreen extends JPanel {
 
-    public PauseScreen(){
-        super("Paused");
+    public PauseScreen(int x, int y){
+        int width = 200;
+        int height = 100;
+        setBounds(x-width/2,y-height/2,200,100);
         setLayout(new BorderLayout());
-        setBounds(50,100,200,100);
+
         setBackground(Color.orange);
         add(new JLabel("Game paused", SwingConstants.CENTER));
+
+        JButton quitButton = new JButton("Quit Game");
+        quitButton.setBounds(150, 150, 100, 50);
+        quitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+            }
+        });
 
         JButton resumeButton = new JButton("RESUME");
         resumeButton.setBounds(150, 150, 100, 50);
@@ -41,13 +52,12 @@ public class PauseScreen extends JFrame {
                 Game.getInstance().saveGame(2);
             }
         });
-        add(saveButton, BorderLayout.PAGE_END);
+        add(saveButton, BorderLayout.CENTER);
+        add(quitButton, BorderLayout.PAGE_END);
 
-        setResizable(false);
         setVisible(true);
         revalidate();
         repaint();
-
     }
 
 }

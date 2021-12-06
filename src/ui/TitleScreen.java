@@ -14,6 +14,10 @@ public class TitleScreen extends JFrame {
 		setLayout(null);
 		setBounds(0,0,width,height);
 		setBackground(Color.RED);
+
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
+
 		JLabel NFS = new JLabel("NEED FOR SPEAR");
 		NFS.setFont(new Font("Helvetica", Font.BOLD, 14));
 		NFS.setBounds(getWidth()/3, getHeight()/5, 150, 20);
@@ -23,6 +27,7 @@ public class TitleScreen extends JFrame {
 		setVisible(true);
 		revalidate();
 		repaint();
+
 
 		JButton playButton = new JButton("Play");
 		JButton buildModeButton = new JButton("Build Mode");
