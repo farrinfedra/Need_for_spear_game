@@ -2,7 +2,9 @@ package domain.physicalobjects.boundingbox;
 
 import domain.physicalobjects.Vector;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PolygonBoundingBox extends BoundingBox{
 
@@ -10,7 +12,7 @@ public class PolygonBoundingBox extends BoundingBox{
     private Vector[] edges;
     private int numEdges;
 
-    private final int fragmentation = 20;
+    private final int fragmentation = 1;
 
     //IMPORTANT!
     //While creating this class give vectors in clockwise order.
@@ -21,8 +23,8 @@ public class PolygonBoundingBox extends BoundingBox{
             throw new RuntimeException("Not enough edges");
 
         this.points = Arrays.copyOf(points, numEdges);
-        this.edges = new Vector[numEdges];
 
+        this.edges = new Vector[numEdges];
 
         for(int i=0; i<numEdges-1; i++)
             edges[i] = points[i+1].subtract(points[i]);
@@ -31,10 +33,8 @@ public class PolygonBoundingBox extends BoundingBox{
     }
 
     public boolean isInside(Vector v){
-
         for(int i =0; i< points.length; i++){
-            if(edges[i].cross(v.subtract(points[i])) < 0){
-
+            if(edges[i].crossForBoundingBox(v.subtract(points[i])) < 0){
                 return false;
             }
         }
@@ -45,19 +45,17 @@ public class PolygonBoundingBox extends BoundingBox{
     @Override
     public boolean isCollidingWith(BoundingBox b) {
         for(int i =0; i<numEdges; i++){
-            for(int j=1; j<fragmentation+1; j++){
+            for(double j=1; j<fragmentation+1; j++){
                 if(b.isInside(points[i].add(edges[i].scale(j/fragmentation))))
                     return true;
             }
         }
-
         return false;
     }
 
     @Override
     public BoundingBox shift(Vector v) {
         for(int i =0; i<numEdges; i++){
-            edges[i] = edges[i].add(v);
             points[i] = points[i].add(v);
         }
         return this;
@@ -65,5 +63,18 @@ public class PolygonBoundingBox extends BoundingBox{
     @Override
     public PolygonBoundingBox deepCopy(){
         return new PolygonBoundingBox(this.points);
+    }
+
+    @Override
+    public List<Vector> getFragmentation() {
+        ArrayList<Vector> fragmentationList = new ArrayList<>();
+
+        for(int i =0; i<numEdges; i++){
+            for(double j=1; j<fragmentation+1; j++){
+               fragmentationList.add(points[i].add(edges[i].scale(j/fragmentation)));
+            }
+        }
+
+        return fragmentationList;
     }
 }

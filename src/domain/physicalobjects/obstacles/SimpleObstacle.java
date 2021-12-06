@@ -14,7 +14,7 @@ public class SimpleObstacle extends Obstacle {
         //do nothing
     }
 
-    public SimpleObstacle(Vector location, ImageIcon image, int width, int height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
+    public SimpleObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 1;
 
@@ -26,11 +26,5 @@ public class SimpleObstacle extends Obstacle {
 
     public int getHealth(){
         return health;
-    }
-    public int getX(){
-        return getLocation().getX();
-    }
-    public int getY(){
-        return getLocation().getY();
     }
 }

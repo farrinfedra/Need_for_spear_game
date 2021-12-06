@@ -1,32 +1,34 @@
 package domain.physicalobjects;
 
+import java.util.Objects;
+
 public class Vector {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     public Vector(){
         this(0,0);
     }
 
-    public Vector(int x, int y){
+    public Vector(double x, double y){
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public Vector setX(int x) {
+    public Vector setX(double x) {
         this.x = x;
         return this;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public Vector setY(int y) {
+    public Vector setY(double y) {
         this.y = y;
         return this;
     }
@@ -49,38 +51,50 @@ public class Vector {
         return newVector;
     }
 
-    public int distance(Vector v){
-        return (int) Math.sqrt(
+    public double distance(Vector v){
+        return Math.sqrt(
                 Math.pow(this.x-v.getX(),2) +
                 Math.pow(this.y-v.getY(),2)
         );
     }
 
     public Vector scale(double c){
-        return new Vector((int) (this.x *c) , (int) (this.y*c));
+        return new Vector(this.x *c ,  this.y*c);
     }
-
 
     public Vector norm(){
         double length = Math.sqrt(x*x+y*y);
 
-        return new Vector(((int) (x/length)), ((int) (y/length)));
+        return new Vector(x/length, y/length);
     }
-    public int cross(Vector v){
+    public double crossForBoundingBox(Vector v){
         return this.x*v.getY()-this.y*v.getX();
     }
-    public int dot(Vector v){return x*v.getX() + y + v.getY();}
+    public double dot(Vector v){return x*v.getX() + y + v.getY();}
 
     public Vector rotate(double rad){
         double sin = Math.sin(rad);
         double cos = Math.cos(rad);
 
-        return new Vector((int) (this.x * cos  - this.y * sin),
-                (int) (this.x * sin + this.y * cos));
+        return new Vector(this.x * cos  - this.y * sin,
+                this.x * sin + this.y * cos);
 
     }
 
     public String toString(){
         return "<<Vector: (" + x + ", " + y +")>>";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Double.compare(vector.x, x) == 0 && Double.compare(vector.y, y) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

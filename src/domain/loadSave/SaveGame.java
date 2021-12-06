@@ -58,8 +58,8 @@ int i = 0;
             obj = new JSONArray();
             obj.add(i);
             obj.add(o.getHealth());
-            obj.add(o.getX());
-            obj.add(o.getY());
+            obj.add(o.getLocation().getX());
+            obj.add(o.getLocation().getY());
             obstaclesList.add(obj);
         }
 

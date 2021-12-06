@@ -6,13 +6,13 @@ import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 
 public class PaddleMovementBehavior implements MovementBehavior{
 
-    private int speed;
+    private double speed;
 
     public PaddleMovementBehavior(){
         this(0);
     }
 
-    public PaddleMovementBehavior(int speed){
+    public PaddleMovementBehavior(double speed){
         this.speed = speed;
     }
 
@@ -20,7 +20,7 @@ public class PaddleMovementBehavior implements MovementBehavior{
     public void move(Object o){
         Paddle paddle = (Paddle) o;
 
-        int dx = speed;
+        double dx = speed;
 
         Vector shiftVector = new Vector(dx, 0);
         Vector newLocation = paddle.getLocation().add(shiftVector);
@@ -31,11 +31,11 @@ public class PaddleMovementBehavior implements MovementBehavior{
         speed = 95*speed/100;
     }
 
-    public void setSpeed(int speed){
+    public void setSpeed(double speed){
         this.speed = speed;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 }

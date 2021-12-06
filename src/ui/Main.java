@@ -13,8 +13,6 @@ public class Main{
         TitleScreen titleScreen = new TitleScreen(width, height);
 
         Game game = Game.getInstance();
-        game.start();
-
     }
 
 }

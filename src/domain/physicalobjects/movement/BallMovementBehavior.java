@@ -16,6 +16,7 @@ public class BallMovementBehavior implements MovementBehavior{
     public void move(Object o) {
         Ball ball = (Ball) o;
         Vector newLocation = ball.getLocation().add(speed);
+
         ball.setLocation(newLocation);
         ball.getBoundingBox().shift(speed);
     }

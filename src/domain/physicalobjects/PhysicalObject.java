@@ -8,25 +8,24 @@ import domain.physicalobjects.movement.MovementBehavior;
 import domain.physicalobjects.movement.StationaryMovementBehavior;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class PhysicalObject {
     private Vector location;
     private ImageIcon image;
 
     private BoundingBox boundingBox;
-    private int width;
-    private int height;
+    private double width;
+    private double height;
     private MovementBehavior movementBehavior;
     private CollisionBehavior collisionBehavior;
 
-
-
-    public PhysicalObject(Vector location, ImageIcon image, int width, int height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
+    public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
         this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
                 movementBehavior, collisionBehavior);
     }
 
-    public PhysicalObject(Vector location, ImageIcon image, int width, int height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
+    public PhysicalObject(Vector location, ImageIcon image, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
         this.location = location;
         this.image = image;
         this.width = width;
@@ -53,10 +52,10 @@ public class PhysicalObject {
         this.image = image;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -70,4 +69,5 @@ public class PhysicalObject {
     public void setMovementBehavior(MovementBehavior movementBehavior){ this.movementBehavior = movementBehavior;}
     public CollisionBehavior getCollisionBehavior() {return collisionBehavior;}
     public void setCollisionBehavior(CollisionBehavior collisionBehavior) {this.collisionBehavior = collisionBehavior;}
+
 }

@@ -12,7 +12,7 @@ public abstract class Obstacle extends PhysicalObject {
     abstract void specialAttribute();
 
 
-    public Obstacle(Vector location, ImageIcon image, int width, int height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
+    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
         super(location, image, width, height, movementBehavior, collisionBehavior);
     }
 
@@ -28,6 +28,4 @@ public abstract class Obstacle extends PhysicalObject {
     }
 
     public abstract int getHealth();
-    public abstract int getX();
-    public abstract int getY();
 }

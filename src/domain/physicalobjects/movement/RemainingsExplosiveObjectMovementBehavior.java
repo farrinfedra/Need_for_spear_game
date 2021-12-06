@@ -5,13 +5,13 @@ import domain.physicalobjects.Vector;
 
 public class RemainingsExplosiveObjectMovementBehavior implements MovementBehavior {
 
-    private int speed;
+    private double speed;
 
     public RemainingsExplosiveObjectMovementBehavior(){
         this(0);
     }
 
-    public RemainingsExplosiveObjectMovementBehavior(int speed){
+    public RemainingsExplosiveObjectMovementBehavior(double speed){
         this.speed = speed;
     }
 
@@ -19,7 +19,7 @@ public class RemainingsExplosiveObjectMovementBehavior implements MovementBehavi
     public void move(Object o){
     	RemainingsExplosiveObject remainings = (RemainingsExplosiveObject) o;
 
-        int dy = speed;
+        double dy = speed;
 
         Vector shiftVector = new Vector(0, dy);
         Vector newLocation = remainings.getLocation().add(shiftVector);

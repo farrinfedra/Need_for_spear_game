@@ -88,10 +88,10 @@ public class BuildScreen extends JFrame{
 
 	private static void updatePhysicalObjectLabel(PhysicalObject object){
 
-		int x = object.getLocation().getX();
-		int y = object.getLocation().getY();
-		int height = object.getHeight();
-		int width = object.getWidth();
+		int x = (int) object.getLocation().getX();
+		int y = (int) object.getLocation().getY();
+		int height = (int) object.getHeight();
+		int width = (int) object.getWidth();
 
 		objectToLabelMap.get(object)
 				.setBounds(x, y, width, height);

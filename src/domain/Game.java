@@ -11,10 +11,12 @@ import java.util.ArrayList;
 public class Game extends Thread {
     private static Game instance = null;
 
+
     private GameStatus status;
     private GameBoard gameBoard;
     private SaveGame saveGame;
     private LoadGame loadGame;
+
     private Game() {
        status = GameStatus.RESUMED;
     }
@@ -44,7 +46,6 @@ public class Game extends Thread {
         loadGame = new LoadGame("player1");
         loadGame.loadGame();
         ArrayList<ArrayList<Integer>> a = loadGame.getObstacles();
-
     }
 
     public void saveGame(int slot){
@@ -74,7 +75,6 @@ public class Game extends Thread {
             status = GameStatus.PAUSED;
         }
     }
-
 
     public void run(){
 

@@ -22,7 +22,7 @@ public class GameBoard implements RemoveObjectListener{
     public GameBoard(Vector size){
         this.size = size;
         obstacles = new ArrayList<Obstacle>();
-        paddle = new Paddle(new Vector(500,size.getY()-100), new ImageIcon(this.getClass().getResource("/img/paddle.png")));
+        paddle = new Paddle(new Vector(500,size.getY()-100), null, 200, 10);
 
         walls = new ArrayList<Wall>();
 
@@ -32,7 +32,7 @@ public class GameBoard implements RemoveObjectListener{
         walls.add(new Wall(new Vector(0, size.getY()), size.getX(), 50,  new Vector(0, 1)));
 
         //TO-DO revise initial starting point
-        ball = new Ball(new Vector(100,100), null, 50, 50);
+        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
     }
 
     public Obstacle addObstacle(ObstacleType type, Vector location){
@@ -44,22 +44,20 @@ public class GameBoard implements RemoveObjectListener{
     public Ball getBall(){return this.ball;}
     public Paddle getPaddle(){return this.paddle;}
     public ArrayList<Obstacle> getObstacles(){return this.obstacles;}
-    public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -10: 10); }
+    public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -9: 9); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
-
-
 
     public void removeObstacle(Obstacle obstacle){
         obstacles.remove(obstacle);
     }
 
-
     public void doTickActions(){
         //TODO: implement doTickActions
         ArrayList<PhysicalObject> physicalObjects = new ArrayList<>();
+
+        physicalObjects.add(ball);
         physicalObjects.addAll(obstacles);
         physicalObjects.add(paddle);
-        physicalObjects.add(ball);
         physicalObjects.addAll(walls);
 
         CollisionEngine.getInstance().handleCollisions(physicalObjects);

@@ -15,7 +15,7 @@ public class FirmObstacle extends Obstacle{
 
     }
 
-    public FirmObstacle(Vector location, ImageIcon image, int width, int height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
+    public FirmObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {
         super(location, image, width, height, movementBehavior, collisionBehavior);
         this.health = 3;
     }
@@ -26,12 +26,6 @@ public class FirmObstacle extends Obstacle{
 
     public int getHealth(){
         return health;
-    }
-    public int getX(){
-        return getLocation().getX();
-    }
-    public int getY(){
-        return getLocation().getY();
     }
 
 }

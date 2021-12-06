@@ -2,13 +2,16 @@ package domain.physicalobjects.boundingbox;
 
 import domain.physicalobjects.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SphereBoundingBox extends BoundingBox{
 
     private Vector center;
-    private int radius;
+    private double radius;
     private final int fragmentation = 10;
 
-    public SphereBoundingBox(Vector center, int radius){
+    public SphereBoundingBox(Vector center, double radius){
         this.center = center;
         this.radius = radius;
     }
@@ -36,5 +39,15 @@ public class SphereBoundingBox extends BoundingBox{
     @Override
     public SphereBoundingBox deepCopy(){
         return new SphereBoundingBox(this.center, radius);
+    }
+
+    @Override
+    public List<Vector> getFragmentation() {
+        ArrayList<Vector> fragmentationList = new ArrayList<>();
+
+        for(int j=0; j<fragmentation; j++){
+            fragmentationList.add(center.add(new Vector(radius, 0).rotate(Math.PI*2/fragmentation*j)));
+        }
+        return fragmentationList;
     }
 }

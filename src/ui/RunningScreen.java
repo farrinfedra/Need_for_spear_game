@@ -4,7 +4,9 @@ import domain.Direction;
 import domain.Game;
 import domain.RemoveObjectListener;
 import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Vector;
 import domain.physicalobjects.Wall;
+import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.physicalobjects.obstacles.Obstacle;
 
 import javax.swing.*;
@@ -13,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RunningScreen extends JFrame implements RemoveObjectListener {
@@ -24,7 +28,7 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         int width = (int) dim.getWidth();
         int height = (int) dim.getHeight();
 
-        setSize(width, height);
+        setBounds(0,0, width, height);
 
         setLayout(null);//using no layout managers
         Game game = Game.getInstance();
@@ -91,13 +95,16 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
                 for(PhysicalObject object: objectToLabelMap.keySet()){
                     updatePhysicalObjectLabel(object);
                 }
+
+
                 requestFocusInWindow();
             }
         });
 
         timer.start();
+        game.start();
 
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
         revalidate();
         repaint();
@@ -109,6 +116,7 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         objectLabel.setBackground(Color.CYAN);
         objectLabel.setOpaque(true);
         add(objectLabel);
+
         objectToLabelMap.put(object, objectLabel);
     }
 
@@ -118,16 +126,16 @@ public class RunningScreen extends JFrame implements RemoveObjectListener {
         repaint();
     }
 
-    private static void updatePhysicalObjectLabel(PhysicalObject object){
+    private void updatePhysicalObjectLabel(PhysicalObject object){
+        int x =  (int) object.getLocation().getX();
+        int y = (int) object.getLocation().getY();
+        int height = (int) object.getHeight();
+        int width = (int) object.getWidth();
 
-        int x = object.getLocation().getX();
-        int y = object.getLocation().getY();
-        int height = object.getHeight();
-        int width = object.getWidth();
+        objectToLabelMap.get(object).setBounds(x, y, width, height);
 
-        objectToLabelMap.get(object)
-                .setBounds(x, y, width, height);
     }
+
 
 
     @Override
