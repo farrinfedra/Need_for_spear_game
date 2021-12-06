@@ -1,4 +1,4 @@
-package domain.loadSave;
+package domain.loadsave;
 
 import java.util.ArrayList;
 import java.util.Date;

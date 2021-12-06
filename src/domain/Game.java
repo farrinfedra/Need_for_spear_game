@@ -1,9 +1,9 @@
 package domain;
 
-import domain.loadSave.LoadGame;
+import domain.loadsave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
-import domain.loadSave.SaveGame;
+import domain.loadsave.SaveGame;
 import domain.physicalobjects.Vector;
 
 import java.util.ArrayList;
