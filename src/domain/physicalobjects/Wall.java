@@ -8,14 +8,7 @@ import javax.swing.*;
 
 public class Wall extends PhysicalObject{
 
-    private Vector normal;
-
-    public Wall(Vector location, double width, double height, Vector normal) {
+    public Wall(Vector location, double width, double height) {
         super(location, null, width, height, new StationaryMovementBehavior(), new NoCollisionBehavior());
-        this.normal = normal;
-    }
-
-    public Vector getNormal() {
-        return normal;
     }
 }

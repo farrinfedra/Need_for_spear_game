@@ -17,7 +17,6 @@ public abstract class Obstacle extends PhysicalObject {
         this.health = health;
     }
 
-    //Returns true if broken.
     public void decreaseHealth(int damage){
         if (this.health <= damage){
             this.specialAttribute();

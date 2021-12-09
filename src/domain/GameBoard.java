@@ -25,10 +25,10 @@ public class GameBoard{
 
         walls = new ArrayList<Wall>();
 
-        walls.add(new Wall(new Vector(0,-20), size.getX(), 50, new Vector(0, 1)));
-        walls.add(new Wall(new Vector(-20,0), 50, size.getY(), new Vector(1, 0)));
-        walls.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY(), new Vector(-1, 0)));
-        walls.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50,  new Vector(0, -1)));
+        walls.add(new Wall(new Vector(0,-20), size.getX(), 50));
+        walls.add(new Wall(new Vector(-20,0), 50, size.getY()));
+        walls.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY()));
+        walls.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50));
 
         //TO-DO revise initial starting point
         ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
