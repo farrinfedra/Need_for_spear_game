@@ -3,7 +3,7 @@ package domain.physicalobjects.movement;
 import domain.physicalobjects.RemainingsExplosiveObject;
 import domain.physicalobjects.Vector;
 
-public class RemainingsExplosiveObjectMovementBehavior implements MovementBehavior {
+public class RemainingsExplosiveObjectMovementBehavior extends MovementBehavior {
 
     private double speed;
 
@@ -12,7 +12,11 @@ public class RemainingsExplosiveObjectMovementBehavior implements MovementBehavi
     }
 
     public RemainingsExplosiveObjectMovementBehavior(double speed){
-        this.speed = speed;
+        super(new Vector(0, speed));
+    }
+
+    public RemainingsExplosiveObjectMovementBehavior(Vector speed){
+        super(speed);
     }
 
     @Override

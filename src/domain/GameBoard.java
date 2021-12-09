@@ -21,14 +21,14 @@ public class GameBoard{
     public GameBoard(Vector size){
         this.size = size;
         obstacles = new ArrayList<Obstacle>();
-        paddle = new Paddle(new Vector(500,size.getY()-100), null, 200, 10);
+        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
 
         walls = new ArrayList<Wall>();
 
-        walls.add(new Wall(new Vector(0,-50), size.getX(), 50, new Vector(0, -1)));
-        walls.add(new Wall(new Vector(-50,0), 50, size.getY(), new Vector(-1, 0)));
-        walls.add(new Wall(new Vector(size.getX(), 0), 50, size.getY(), new Vector(1, 0)));
-        walls.add(new Wall(new Vector(0, size.getY()), size.getX(), 50,  new Vector(0, 1)));
+        walls.add(new Wall(new Vector(0,-20), size.getX(), 50, new Vector(0, 1)));
+        walls.add(new Wall(new Vector(-20,0), 50, size.getY(), new Vector(1, 0)));
+        walls.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY(), new Vector(-1, 0)));
+        walls.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50,  new Vector(0, -1)));
 
         //TO-DO revise initial starting point
         ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
@@ -43,21 +43,23 @@ public class GameBoard{
     public Ball getBall(){return this.ball;}
     public Paddle getPaddle(){return this.paddle;}
     public ArrayList<Obstacle> getObstacles(){return this.obstacles;}
-    public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? -9: 9); }
+    public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? new Vector(-9, 0): new Vector(9, 0)); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
     public void removeObstacle(Obstacle obstacle){
         obstacles.remove(obstacle);
     }
 
+
     public void doTickActions(){
         //TODO: implement doTickActions
         ArrayList<PhysicalObject> physicalObjects = new ArrayList<>();
-
         physicalObjects.add(ball);
         physicalObjects.addAll(obstacles);
         physicalObjects.add(paddle);
         physicalObjects.addAll(walls);
+
+
 
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);

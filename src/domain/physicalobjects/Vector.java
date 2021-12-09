@@ -63,22 +63,32 @@ public class Vector {
     }
 
     public Vector norm(){
-        double length = Math.sqrt(x*x+y*y);
+        double length = Math.sqrt(x*x + y*y);
 
         return new Vector(x/length, y/length);
     }
     public double crossForBoundingBox(Vector v){
         return this.x*v.getY()-this.y*v.getX();
     }
-    public double dot(Vector v){return x*v.getX() + y + v.getY();}
+    public double dot(Vector v){
+        return x*v.getX() + y*v.getY();}
 
     public Vector rotate(double rad){
+        if(rad == 0 || rad == 2*Math.PI)
+            return new Vector(this.x, this.y);
+        else if(rad == Math.PI/2)
+            return new Vector(-this.y, this.x);
+
         double sin = Math.sin(rad);
         double cos = Math.cos(rad);
 
         return new Vector(this.x * cos  - this.y * sin,
                 this.x * sin + this.y * cos);
 
+    }
+
+    public Vector reverse(){
+        return this.scale(-1);
     }
 
     public String toString(){

@@ -1,6 +1,7 @@
 package domain.physicalobjects.engines;
 
 import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.collision.Collision;
 
 import java.util.List;
 
@@ -19,10 +20,14 @@ public class CollisionEngine {
     public void handleCollisions(List<PhysicalObject> physicalObjects){
         for(int i=0; i<physicalObjects.size()-1; i++){
             for(int j=i+1; j < physicalObjects.size(); j++){
-                if(physicalObjects.get(i).getBoundingBox().isCollidingWith(
-                        physicalObjects.get(j).getBoundingBox())){
-                   physicalObjects.get(i).getCollisionBehavior().collide(physicalObjects.get(i), physicalObjects.get(j));
-                   physicalObjects.get(j).getCollisionBehavior().collide(physicalObjects.get(j), physicalObjects.get(i));
+
+                Collision collision =
+                            physicalObjects.get(i).getBoundingBox().
+                                    getCollisionWith(physicalObjects.get(j).getBoundingBox());
+
+                if(collision != null){
+                   physicalObjects.get(i).getCollisionBehavior().collide(physicalObjects.get(i), physicalObjects.get(j), collision);
+                   physicalObjects.get(j).getCollisionBehavior().collide(physicalObjects.get(j), physicalObjects.get(i), collision.reverseNormal());
                 }
             }
         }

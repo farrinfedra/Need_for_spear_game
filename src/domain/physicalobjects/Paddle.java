@@ -13,12 +13,12 @@ public class Paddle extends PhysicalObject{
     }
 
     public void rotate(Direction direction){
-        //TODO
+
     }
 
-    public void setSpeed(double speed){
-        ((PaddleMovementBehavior) getMovementBehavior()).setSpeed(speed);
+    public void setSpeed(Vector speed){
+        getMovementBehavior().setSpeed(speed);
     }
 
-    public double getSpeed(){ return  ((PaddleMovementBehavior) getMovementBehavior()).getSpeed();}
+    public Vector getSpeed(){ return  ((PaddleMovementBehavior) getMovementBehavior()).getSpeed();}
 }

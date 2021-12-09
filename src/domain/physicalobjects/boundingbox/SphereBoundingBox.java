@@ -1,6 +1,7 @@
 package domain.physicalobjects.boundingbox;
 
 import domain.physicalobjects.Vector;
+import domain.physicalobjects.collision.Collision;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,25 +10,31 @@ public class SphereBoundingBox extends BoundingBox{
 
     private Vector center;
     private double radius;
-    private final int fragmentation = 10;
+    private final int fragmentation = 30;
 
     public SphereBoundingBox(Vector center, double radius){
         this.center = center;
         this.radius = radius;
     }
+
     @Override
-    public boolean isInside(Vector v) {
-        return center.distance(v) <= radius;
+    public Collision getPointCollision(Vector v) {
+        if(center.distance(v) <= radius)
+            return new Collision(v, v.subtract(center).norm());
+        else
+            return null;
     }
 
     @Override
-    public boolean isCollidingWith(BoundingBox b) {
-        for(int j=0; j<fragmentation; j++){
-            if(b.isInside(center.add(new Vector(radius, 0).rotate(Math.PI*2/fragmentation*j))))
-                return true;
-        }
+    public Collision getCollisionWith(BoundingBox b) {
 
-        return false;
+        for(int j=0; j<fragmentation; j++){
+            Vector p = center.add(new Vector(radius, 0).rotate(Math.PI*2/fragmentation*j));
+            Collision col = b.getPointCollision(p);
+            if(col != null)
+                return col;
+        }
+        return null;
     }
 
     @Override

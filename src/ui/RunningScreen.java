@@ -5,6 +5,7 @@ import domain.Game;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Wall;
 import domain.physicalobjects.obstacles.Obstacle;
+import org.w3c.dom.css.RGBColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,9 +27,8 @@ public class RunningScreen extends JFrame{
         int height = (int) dim.getHeight();
 
         setVisible(true);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         Game game = Game.getInstance();
 
@@ -48,7 +48,6 @@ public class RunningScreen extends JFrame{
 
 
         JButton pauseButton = new JButton("Pause");
-
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +55,8 @@ public class RunningScreen extends JFrame{
                 game.switchPaused();
             }
         });
+        pauseButton.setBounds(0,0,100, 40);
+        add(pauseButton);
 
         addKeyListener(new KeyListener() {
             @Override
@@ -79,9 +80,8 @@ public class RunningScreen extends JFrame{
         });
 
 
-        pauseButton.setBounds(0,0,100, 40);//x axis, y axis, width, height
-//
-        add(pauseButton);
+
+
 
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -120,7 +120,7 @@ public class RunningScreen extends JFrame{
 
     private void addPhysicalObjectLabel(PhysicalObject object){
         JLabel objectLabel = new JLabel(object.getImage());
-        objectLabel.setBackground(Color.CYAN);
+        objectLabel.setBackground(Color.GREEN);
         objectLabel.setOpaque(true);
         add(objectLabel);
 
