@@ -1,5 +1,5 @@
 package domain.listeners;
 
-public class ServiceListener {
-
+public interface ServiceListener {
+      void onServicePerformed(Object o);
 }

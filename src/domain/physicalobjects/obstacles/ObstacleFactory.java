@@ -7,6 +7,7 @@ import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.GameBoardService;
 import domain.services.GameBoardServiceFactory;
 import domain.services.GameBoardServiceType;
+import domain.services.Service;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -26,44 +27,19 @@ public class ObstacleFactory {
     }
 
     public Obstacle create(ObstacleType type, Vector location, GameBoardServiceFactory gameBoardServiceFactory) {
-        ArrayList<GameBoardService> gameBoardServices = new ArrayList<>();
+        List<GameBoardService> gameBoardServices = new ArrayList<>();
+        gameBoardServices.add(gameBoardServiceFactory.create(GameBoardServiceType.DESTROY));
 
         switch (type) {
-            case SimpleObstacle:
-                return new SimpleObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new ObstacleCollisionBehavior());
             case FirmObstacle:
-                return new FirmObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/FirmObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new ObstacleCollisionBehavior());
+                return new FirmObstacle(location, gameBoardServices);
             case GiftObstacle:
-                return new GiftObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new ObstacleCollisionBehavior());
+                return new GiftObstacle(location, gameBoardServices);
             case ExplosiveObstacle:
-                gameBoardServices.add(gameBoardServiceFactory
-                        .getInstance()
-                        .create(GameBoardServiceType.SUMMON));
-
-            return new ExplosiveObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new ExplosiveObstacleCollisionBehavior((List) gameBoardServices),
-                        gameBoardServices
-                        );
+                gameBoardServices.add(gameBoardServiceFactory.create(GameBoardServiceType.SUMMON));
+                return new ExplosiveObstacle(location, gameBoardServices);
             default:
-                return new SimpleObstacle(location,
-                        new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")),
-                        40, 40,
-                        new StationaryMovementBehavior(),
-                        new ObstacleCollisionBehavior());        }
+                return new SimpleObstacle(location, gameBoardServices);
+        }
     }
 }

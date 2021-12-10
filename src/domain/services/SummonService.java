@@ -9,7 +9,7 @@ public class SummonService extends GameBoardService {
     }
 
     @Override
-    public void perform(Object o) {
+    public void performSpecification(Object o) {
         PhysicalObject physicalObject = (PhysicalObject) o;
         getGameBoard().addPhysicalObject(physicalObject);
     }

@@ -9,9 +9,8 @@ public class DestroyService extends GameBoardService {
     }
 
     @Override
-    public void perform(Object o) {
-        //TO-DO
-        //PhysicalObject physicalObject = (PhysicalObject) o;
-        //getGameBoard().getPhysicalObjects().remove(physicalObject);
+    public void performSpecification(Object o) {
+        PhysicalObject physicalObject = (PhysicalObject) o;
+        getGameBoard().getPhysicalObjects().remove(physicalObject);
     }
 }

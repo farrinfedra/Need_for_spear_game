@@ -2,9 +2,12 @@ package ui;
 
 import domain.Direction;
 import domain.Game;
+import domain.listeners.ServiceListener;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Wall;
 import domain.physicalobjects.obstacles.Obstacle;
+import domain.services.DestroyService;
+import domain.services.SummonService;
 import org.w3c.dom.css.RGBColor;
 
 import javax.swing.*;
@@ -48,6 +51,37 @@ public class RunningScreen extends JFrame{
                 game.switchPaused();
             }
         });
+
+        SummonService.addServiceListener(
+                new ServiceListener() {
+                    @Override
+                    public void onServicePerformed(Object o) {
+
+                    }
+                }
+        );
+
+        DestroyService.addServiceListener(
+                new ServiceListener() {
+                    @Override
+                    public void onServicePerformed(Object o) {
+                                //Deletion of Destroyed PhysicalObjects
+                                objectToLabelMap.entrySet()
+                                        .stream()
+                                        .filter(map -> map.getValue().equals(o))
+                                        .forEach(map->remove(map.getKey()));
+
+                                objectToLabelMap = objectToLabelMap.entrySet()
+                                        .stream()
+                                        .filter(map -> !map.getValue().equals(o))
+                                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                                revalidate();
+                                repaint();
+                    }
+                }
+        );
+
         pauseButton.setBounds(0,0,100, 40);
         add(pauseButton);
 
@@ -75,17 +109,6 @@ public class RunningScreen extends JFrame{
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
-
-                //Deletion of Destroyed PhysicalObjects
-                objectToLabelMap.entrySet()
-                                                    .stream()
-                                                    .filter(map -> map.getValue().isDestroyed())
-                                                    .forEach(map->remove(map.getKey()));
-
-                objectToLabelMap = objectToLabelMap.entrySet()
-                                                    .stream()
-                                                    .filter(map -> !map.getValue().isDestroyed())
-                                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
                 //Update all physical objects
                 for(JLabel l: objectToLabelMap.keySet()){
@@ -122,13 +145,6 @@ public class RunningScreen extends JFrame{
         add(objectLabel);
 
         objectToLabelMap.put(objectLabel, object);
-    }
-
-    private void removePhysicalObjectLabel(JLabel label){
-        objectToLabelMap.remove(label);
-        remove(label);
-        revalidate();
-        repaint();
     }
 
     private void updatePhysicalObjectLabel(JLabel label){

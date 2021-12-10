@@ -2,7 +2,7 @@ package domain.services;
 
 import domain.GameBoard;
 
-public abstract class GameBoardService  implements Service{
+public abstract class GameBoardService extends Service {
     private GameBoard gameBoard;
 
     public GameBoardService(GameBoard gameBoard){
@@ -17,5 +17,5 @@ public abstract class GameBoardService  implements Service{
         this.gameBoard = gameBoard;
     }
 
-    public abstract void perform(Object o);
+    abstract void performSpecification(Object o);
 }

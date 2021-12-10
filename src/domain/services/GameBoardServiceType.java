@@ -1,5 +1,5 @@
 package domain.services;
 
 public enum GameBoardServiceType {
-    SUMMON
+    SUMMON, DESTROY
 }

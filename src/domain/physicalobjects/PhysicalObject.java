@@ -75,6 +75,10 @@ public class PhysicalObject {
         return height;
     }
 
+    public GameBoardService getService(int i){
+        return services.get(i);
+    }
+
     public BoundingBox getBoundingBox(){
         return boundingBox;
     }
@@ -98,7 +102,7 @@ public class PhysicalObject {
         return this.id;
     }
 
-    protected List<GameBoardService> getServices() {
+    public List<GameBoardService> getServices() {
         return services;
     }
 

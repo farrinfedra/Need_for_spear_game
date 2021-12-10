@@ -1,7 +1,6 @@
 package domain.physicalobjects.behaviors.movement;
 
 import domain.physicalobjects.ExplosiveFragment;
-import domain.physicalobjects.RemainingsExplosiveObject;
 import domain.physicalobjects.Vector;
 
 public class ExplosiveFragmentMovementBehavior extends MovementBehavior {

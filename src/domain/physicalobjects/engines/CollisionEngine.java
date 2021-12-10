@@ -3,6 +3,7 @@ package domain.physicalobjects.engines;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.behaviors.collision.Collision;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionEngine {
@@ -18,6 +19,8 @@ public class CollisionEngine {
     }
 
     public void handleCollisions(List<PhysicalObject> physicalObjects){
+        physicalObjects = new ArrayList<>(physicalObjects);
+
         int size = physicalObjects.size();
         for(int i=0; i<size-1; i++){
             for(int j=i+1; j < size; j++){

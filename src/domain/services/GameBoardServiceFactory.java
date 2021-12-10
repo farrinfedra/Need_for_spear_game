@@ -25,6 +25,8 @@ public class GameBoardServiceFactory {
         switch (serviceType){
             case SUMMON :
                 return new SummonService(gameBoard);
+            case DESTROY:
+                return new DestroyService(gameBoard);
         }
         return null;
     }

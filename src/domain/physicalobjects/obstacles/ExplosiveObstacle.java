@@ -2,16 +2,23 @@ package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.CollisionBehavior;
+import domain.physicalobjects.behaviors.collision.ExplosiveObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.MovementBehavior;
+import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.GameBoardService;
+import domain.services.Service;
 
 import javax.swing.*;
 import java.util.List;
 
 public class ExplosiveObstacle extends Obstacle{
 
-    public ExplosiveObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<GameBoardService> gameBoardServices) {
-        super(location, image, width, height, movementBehavior, collisionBehavior, 1, gameBoardServices);
+    public ExplosiveObstacle(Vector location, List<GameBoardService> services) {
+        super(location, null,40, 40,
+                new StationaryMovementBehavior(),
+                new ExplosiveObstacleCollisionBehavior(), 1, services);
+
+        setImage(new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")));
     }
 
     @Override

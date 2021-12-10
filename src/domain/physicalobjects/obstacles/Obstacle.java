@@ -5,6 +5,7 @@ import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.CollisionBehavior;
 import domain.physicalobjects.behaviors.movement.MovementBehavior;
 import domain.services.GameBoardService;
+import domain.services.Service;
 
 import javax.swing.*;
 import java.util.List;
@@ -18,8 +19,8 @@ public abstract class Obstacle extends PhysicalObject {
         this.health = health;
     }
 
-    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<GameBoardService> gameBoardServices) {
-        super(location, image, width, height, movementBehavior, collisionBehavior, gameBoardServices);
+    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<GameBoardService> services) {
+        super(location, image, width, height, movementBehavior, collisionBehavior, services);
         this.health = health;
     }
 
@@ -28,7 +29,6 @@ public abstract class Obstacle extends PhysicalObject {
             this.specialAttribute();
 
             this.health = 0;
-            this.destroy();
         }
         else if(this.health != 0){
             this.health -= damage;
