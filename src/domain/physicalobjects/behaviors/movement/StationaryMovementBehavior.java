@@ -1,4 +1,4 @@
-package domain.physicalobjects.movement;
+package domain.physicalobjects.behaviors.movement;
 
 import domain.physicalobjects.Vector;
 

@@ -1,10 +1,7 @@
 package domain.physicalobjects;
 
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
-import domain.physicalobjects.collision.NoCollisionBehavior;
-import domain.physicalobjects.movement.StationaryMovementBehavior;
-
-import javax.swing.*;
+import domain.physicalobjects.behaviors.collision.NoCollisionBehavior;
+import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 
 public class Wall extends PhysicalObject{
 

@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,16 +37,8 @@ public class RunningScreen extends JFrame{
             game.createGameBoard(width, height);
         }
 
-        //Adding all PhysicalObjects to GameBoard as JLabel
-        addPhysicalObjectLabel(game.getGameBoard().getPaddle());
-        addPhysicalObjectLabel(game.getGameBoard().getBall());
-
-        for(Wall wall: game.getGameBoard().getWalls())
-            addPhysicalObjectLabel(wall);
-
-        for(Obstacle obstacle: game.getGameBoard().getObstacles())
-            addPhysicalObjectLabel(obstacle);
-
+        for(PhysicalObject physicalObject: game.getGameBoard().getPhysicalObjects())
+            addPhysicalObjectLabel(physicalObject);
 
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
@@ -79,10 +72,6 @@ public class RunningScreen extends JFrame{
             }
         });
 
-
-
-
-
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
@@ -101,6 +90,14 @@ public class RunningScreen extends JFrame{
                 //Update all physical objects
                 for(JLabel l: objectToLabelMap.keySet()){
                     updatePhysicalObjectLabel(l);
+                }
+
+                int size = game.getGameBoard().getPhysicalObjects().size();
+                for(int i = 0; i< size; i++){
+                    PhysicalObject physicalObject = game.getGameBoard().getPhysicalObjects().get(i);
+                    if(!objectToLabelMap.values().contains(physicalObject)){
+                        addPhysicalObjectLabel(physicalObject);
+                    }
                 }
 
                 requestFocusInWindow();

@@ -1,15 +1,10 @@
-package domain.physicalobjects.collision;
+package domain.physicalobjects.behaviors.collision;
 
 import domain.physicalobjects.*;
 
-import javax.swing.ImageIcon;
-
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
-import domain.physicalobjects.obstacles.FirmObstacle;
 import domain.physicalobjects.obstacles.Obstacle;
-import domain.physicalobjects.obstacles.SimpleObstacle;
 
-public class BallCollisionBehavior implements CollisionBehavior {
+public class BallCollisionBehavior extends CollisionBehavior {
     private boolean isColliding = false;
 	@Override
 	public void collide(Object o1, Object o2,  Collision collision) {

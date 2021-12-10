@@ -2,12 +2,13 @@ package domain.physicalobjects;
 
 import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.physicalobjects.boundingbox.PolygonBoundingBox;
-import domain.physicalobjects.collision.CollisionBehavior;
-import domain.physicalobjects.collision.NoCollisionBehavior;
-import domain.physicalobjects.movement.MovementBehavior;
-import domain.physicalobjects.movement.StationaryMovementBehavior;
+import domain.physicalobjects.behaviors.collision.CollisionBehavior;
+import domain.physicalobjects.behaviors.movement.MovementBehavior;
+import domain.services.GameBoardService;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -25,13 +26,19 @@ public class PhysicalObject {
     private CollisionBehavior collisionBehavior;
 
     private boolean isDestroyed;
+    private final List<GameBoardService> services;
+
+    public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<GameBoardService> gameBoardServices){
+        this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
+                movementBehavior, collisionBehavior, gameBoardServices);
+    }
 
     public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
         this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
-                movementBehavior, collisionBehavior);
+                movementBehavior, collisionBehavior, new ArrayList<>());
     }
 
-    public PhysicalObject(Vector location, ImageIcon image, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
+    public PhysicalObject(Vector location, ImageIcon image, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<GameBoardService> services){
         this.id = UUID.randomUUID();
 
         this.location = location;
@@ -42,6 +49,7 @@ public class PhysicalObject {
         this.boundingBox = boundingBox;
         this.movementBehavior = movementBehavior;
         this.collisionBehavior = collisionBehavior;
+        this.services = services;
 
         this.isDestroyed = false;
     }
@@ -88,6 +96,10 @@ public class PhysicalObject {
 
     public UUID getId(){
         return this.id;
+    }
+
+    protected List<GameBoardService> getServices() {
+        return services;
     }
 
     @Override

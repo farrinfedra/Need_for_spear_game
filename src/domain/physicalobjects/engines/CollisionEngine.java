@@ -1,7 +1,7 @@
 package domain.physicalobjects.engines;
 
 import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.collision.Collision;
+import domain.physicalobjects.behaviors.collision.Collision;
 
 import java.util.List;
 
@@ -18,8 +18,9 @@ public class CollisionEngine {
     }
 
     public void handleCollisions(List<PhysicalObject> physicalObjects){
-        for(int i=0; i<physicalObjects.size()-1; i++){
-            for(int j=i+1; j < physicalObjects.size(); j++){
+        int size = physicalObjects.size();
+        for(int i=0; i<size-1; i++){
+            for(int j=i+1; j < size; j++){
 
                 Collision collision =
                             physicalObjects.get(i).getBoundingBox().

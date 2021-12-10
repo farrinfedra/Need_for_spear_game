@@ -1,9 +1,9 @@
-package domain.physicalobjects.collision;
+package domain.physicalobjects.behaviors.collision;
 
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.obstacles.Obstacle;
 
-public class ObstacleCollisionBehavior implements CollisionBehavior{
+public class ObstacleCollisionBehavior extends CollisionBehavior{
 
     @Override
     public void collide(Object o1, Object o2,  Collision collision) {

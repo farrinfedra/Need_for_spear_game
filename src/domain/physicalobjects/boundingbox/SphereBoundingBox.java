@@ -1,7 +1,7 @@
 package domain.physicalobjects.boundingbox;
 
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.collision.Collision;
+import domain.physicalobjects.behaviors.collision.Collision;
 
 import java.util.ArrayList;
 import java.util.List;

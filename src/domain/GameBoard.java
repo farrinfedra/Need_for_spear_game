@@ -1,66 +1,57 @@
 package domain;
 
 import domain.physicalobjects.*;
-import domain.physicalobjects.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
-import domain.physicalobjects.movement.StationaryMovementBehavior;
 import domain.physicalobjects.obstacles.*;
+import domain.services.GameBoardServiceFactory;
 
-import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameBoard{
-    private ArrayList<Obstacle> obstacles;
-    private ArrayList<Wall> walls;
+    private ArrayList<PhysicalObject> physicalObjects;
+
     private Ball ball;
     private Paddle paddle;
     private Vector size;
 
     public GameBoard(Vector size){
         this.size = size;
-        obstacles = new ArrayList<Obstacle>();
+        physicalObjects = new ArrayList<>();
+
         paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
-
-        walls = new ArrayList<Wall>();
-
-        walls.add(new Wall(new Vector(0,-20), size.getX(), 50));
-        walls.add(new Wall(new Vector(-20,0), 50, size.getY()));
-        walls.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY()));
-        walls.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50));
+        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
 
         //TO-DO revise initial starting point
-        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
+        physicalObjects.add(ball);
+        physicalObjects.add(paddle);
+        physicalObjects.add(new Wall(new Vector(0,-20), size.getX(), 50));
+        physicalObjects.add(new Wall(new Vector(-20,0), 50, size.getY()));
+        physicalObjects.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY()));
+        physicalObjects.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50));
+    }
+
+    public void addPhysicalObject(PhysicalObject physicalObject){
+        physicalObjects.add(physicalObject);
+    }
+
+    public List<PhysicalObject> getPhysicalObjects(){
+        return this.physicalObjects;
     }
 
     public Obstacle addObstacle(ObstacleType type, Vector location){
-        Obstacle obstacle = ObstacleFactory.getInstance().create(type, location);
-        obstacles.add(obstacle);
+        Obstacle obstacle = ObstacleFactory.getInstance().create(type, location, GameBoardServiceFactory.getInstance().setGameBoard(this));
+        physicalObjects.add(obstacle);
         return obstacle;
     }
 
-    public Ball getBall(){return this.ball;}
-    public Paddle getPaddle(){return this.paddle;}
-    public ArrayList<Obstacle> getObstacles(){return this.obstacles;}
     public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? new Vector(-9, 0): new Vector(9, 0)); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
-    public void removeObstacle(Obstacle obstacle){
-        obstacles.remove(obstacle);
-    }
-
-
     public void doTickActions(){
         //TODO: implement doTickActions
-        ArrayList<PhysicalObject> physicalObjects = new ArrayList<>();
-        physicalObjects.add(ball);
-        physicalObjects.addAll(obstacles);
-        physicalObjects.add(paddle);
-        physicalObjects.addAll(walls);
-
-
-
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
 
@@ -70,19 +61,21 @@ public class GameBoard{
     public Vector getSize() {
         return size;
     }
-    public ArrayList<Wall> getWalls() {
-        return walls;
-    }
 
     public void clearDestroyed(ArrayList<PhysicalObject> physicalObjects) {
-        for(PhysicalObject physicalObject: physicalObjects)
+        for(int i=0; i<physicalObjects.size(); i++){
+            PhysicalObject physicalObject = physicalObjects.get(i);
+
             if(physicalObject.isDestroyed()){
-                if(physicalObject instanceof Obstacle)
-                    obstacles.remove(physicalObject);
-                else if(physicalObject instanceof Paddle)
+                physicalObjects.remove(physicalObject);
+
+                if(physicalObject instanceof Paddle)
                     paddle = null;
                 else if(physicalObject instanceof Ball)
                     ball = null;
+
+                i--;
             }
+        }
     }
 }

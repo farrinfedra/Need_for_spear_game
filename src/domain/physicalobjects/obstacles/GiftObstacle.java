@@ -1,8 +1,8 @@
 package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.collision.CollisionBehavior;
-import domain.physicalobjects.movement.MovementBehavior;
+import domain.physicalobjects.behaviors.collision.CollisionBehavior;
+import domain.physicalobjects.behaviors.movement.MovementBehavior;
 
 import javax.swing.*;
 

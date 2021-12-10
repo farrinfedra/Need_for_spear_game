@@ -1,11 +1,12 @@
 package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.boundingbox.BoundingBox;
-import domain.physicalobjects.collision.CollisionBehavior;
-import domain.physicalobjects.movement.MovementBehavior;
+import domain.physicalobjects.behaviors.collision.CollisionBehavior;
+import domain.physicalobjects.behaviors.movement.MovementBehavior;
+import domain.services.GameBoardService;
 
 import javax.swing.*;
+import java.util.List;
 
 public class FirmObstacle extends Obstacle{
     public FirmObstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior) {

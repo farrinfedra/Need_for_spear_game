@@ -1,8 +1,7 @@
-package domain.physicalobjects.movement;
+package domain.physicalobjects.behaviors.movement;
 
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 
 public class PaddleMovementBehavior extends MovementBehavior{
 

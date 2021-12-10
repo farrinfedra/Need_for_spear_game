@@ -1,4 +1,4 @@
-package domain.physicalobjects.collision;
+package domain.physicalobjects.behaviors.collision;
 
 import domain.physicalobjects.Vector;
 

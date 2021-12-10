@@ -1,9 +1,8 @@
-package domain.physicalobjects.collision;
+package domain.physicalobjects.behaviors.collision;
 
 import domain.physicalobjects.*;
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 
-public class PaddleCollisionBehavior implements CollisionBehavior{
+public class PaddleCollisionBehavior extends CollisionBehavior{
 
     @Override
     public void collide(Object o1, Object o2, Collision collision) {

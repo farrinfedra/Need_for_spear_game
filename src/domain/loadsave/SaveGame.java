@@ -5,10 +5,12 @@ import java.util.Date;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import domain.GameBoard;
 //import domain.physicalobjects.Obstacle;
 //external java-simple module for json
+import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.obstacles.Obstacle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -45,11 +47,11 @@ public class SaveGame {
         savedGame.put("PlayerInfo", playerInfo);
 
 
-        ArrayList<Obstacle> obstacles = gameBoard.getObstacles();
+        List<PhysicalObject> obstacles = gameBoard.getPhysicalObjects();
 
 
 int i = 0;
-        for(Obstacle o : obstacles) {
+        for(PhysicalObject o : obstacles) {
 
             if(o.toString().equals("FirmObstacle")) {i = 0;}
             if(o.toString().equals("SimpleObstacle")) {i = 1;}
@@ -57,7 +59,7 @@ int i = 0;
             if(o.toString().equals("GiftObstacle")) {i = 3;}
             obj = new JSONArray();
             obj.add(i);
-            obj.add(o.getHealth());
+            //obj.add(o.getHealth());
             obj.add(o.getLocation().getX());
             obj.add(o.getLocation().getY());
             obstaclesList.add(obj);

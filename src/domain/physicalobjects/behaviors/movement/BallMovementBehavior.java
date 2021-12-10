@@ -1,7 +1,6 @@
-package domain.physicalobjects.movement;
+package domain.physicalobjects.behaviors.movement;
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.Vector;
-import java.math.*;
 
 public class BallMovementBehavior extends MovementBehavior{
 

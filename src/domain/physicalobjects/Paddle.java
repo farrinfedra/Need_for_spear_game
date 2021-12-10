@@ -1,8 +1,8 @@
 package domain.physicalobjects;
 
 import domain.Direction;
-import domain.physicalobjects.collision.PaddleCollisionBehavior;
-import domain.physicalobjects.movement.PaddleMovementBehavior;
+import domain.physicalobjects.behaviors.collision.PaddleCollisionBehavior;
+import domain.physicalobjects.behaviors.movement.PaddleMovementBehavior;
 
 import javax.swing.*;
 
