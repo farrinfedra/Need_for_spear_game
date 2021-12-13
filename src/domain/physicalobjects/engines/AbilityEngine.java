@@ -26,10 +26,13 @@ public class AbilityEngine {
     		int choosen = rnd.nextInt(3);
     		switch (choosen) {
     		case 0:
+    			//sadece obstacles verilebilir
     			InfiniteVoidAbility.perform(physicalObjects);
     		case 1:
+    			//sadece paddleı verebiliriz
     			DoubleAccelAbility.perform(physicalObjects);
     		case 2:
+    			//Sadece obstacleları da verebiliriz
     			HollowPurpleAbility.perform(physicalObjects);
     	}
     		}
