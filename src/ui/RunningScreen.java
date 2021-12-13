@@ -16,14 +16,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RunningScreen extends JFrame{
-    private static Map<JLabel, PhysicalObject> objectToLabelMap = new HashMap<>();
-
+    private static ArrayList<PhysicalObjectLabel> labelList = new ArrayList<>();
     public RunningScreen(){
         super("Need for Spear");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -40,8 +40,11 @@ public class RunningScreen extends JFrame{
             game.createGameBoard(width, height);
         }
 
-        for(PhysicalObject physicalObject: game.getGameBoard().getPhysicalObjects())
-            addPhysicalObjectLabel(physicalObject);
+        for(PhysicalObject physicalObject: game.getGameBoard().getPhysicalObjects()){
+            PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
+            labelList.add(label);
+            add(label);
+        }
 
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
@@ -66,15 +69,14 @@ public class RunningScreen extends JFrame{
                     @Override
                     public void onServicePerformed(Object o) {
                                 //Deletion of Destroyed PhysicalObjects
-                                objectToLabelMap.entrySet()
-                                        .stream()
-                                        .filter(map -> map.getValue().equals(o))
-                                        .forEach(map->remove(map.getKey()));
+                                labelList.stream()
+                                        .filter(label -> label.getPhysicalObject().equals(o))
+                                        .forEach(label->remove(label));
 
-                                objectToLabelMap = objectToLabelMap.entrySet()
-                                        .stream()
-                                        .filter(map -> !map.getValue().equals(o))
-                                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//                                objectToLabelMap = objectToLabelMap.entrySet()
+//                                        .stream()
+//                                        .filter(map -> !map.getValue().equals(o))
+//                                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
                                 revalidate();
                                 repaint();
@@ -111,15 +113,17 @@ public class RunningScreen extends JFrame{
                 pauseButton.setText(game.getStatus().toString());
 
                 //Update all physical objects
-                for(JLabel l: objectToLabelMap.keySet()){
+                for(PhysicalObjectLabel l: labelList){
                     updatePhysicalObjectLabel(l);
                 }
 
                 int size = game.getGameBoard().getPhysicalObjects().size();
                 for(int i = 0; i< size; i++){
                     PhysicalObject physicalObject = game.getGameBoard().getPhysicalObjects().get(i);
-                    if(!objectToLabelMap.values().contains(physicalObject)){
-                        addPhysicalObjectLabel(physicalObject);
+                    if(!existsInLabelsList(physicalObject)){
+                        PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
+                        labelList.add(label);
+                        add(label);
                     }
                 }
 
@@ -138,17 +142,17 @@ public class RunningScreen extends JFrame{
         repaint();
     }
 
-    private void addPhysicalObjectLabel(PhysicalObject object){
-        JLabel objectLabel = new JLabel(object.getImage());
-        objectLabel.setBackground(Color.GREEN);
-        objectLabel.setOpaque(true);
-        add(objectLabel);
-
-        objectToLabelMap.put(objectLabel, object);
+    private Boolean existsInLabelsList(PhysicalObject physicalObject){
+        for(PhysicalObjectLabel label: labelList){
+            if(label.getPhysicalObject() != physicalObject){
+                return true;
+            }
+        }
+        return false;
     }
 
-    private void updatePhysicalObjectLabel(JLabel label){
-        PhysicalObject object = objectToLabelMap.get(label);
+    private void updatePhysicalObjectLabel(PhysicalObjectLabel label){
+        PhysicalObject object = label.getPhysicalObject();
 
         int x =  (int) object.getLocation().getX();
         int y = (int) object.getLocation().getY();
