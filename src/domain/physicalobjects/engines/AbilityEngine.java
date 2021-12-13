@@ -6,7 +6,7 @@ import domain.physicalobjects.PhysicalObject;
 public class AbilityEngine {
     private static AbilityEngine instance = null;
     static int tickCounter = 0;
-    Random rnd = new Random();
+    static Random rnd = new Random();
     private AbilityEngine() {}
     
     public static AbilityEngine getInstance() {
