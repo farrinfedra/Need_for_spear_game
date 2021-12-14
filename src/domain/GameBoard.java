@@ -1,6 +1,7 @@
 package domain;
 
 import domain.physicalobjects.*;
+import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
@@ -54,8 +55,7 @@ public class GameBoard{
         //TODO: implement doTickActions
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
-
-        clearDestroyed(physicalObjects);
+        AbilityEngine.getInstance().calculate(physicalObjects);
     }
 
     public Vector getSize() {
