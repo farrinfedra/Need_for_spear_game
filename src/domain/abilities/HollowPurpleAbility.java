@@ -6,8 +6,8 @@ import domain.physicalobjects.PhysicalObject;
 
 public class HollowPurpleAbility implements Ability {
 
-	public static void perform(ArrayList<PhysicalObject> physicalObjects) {
-		// TODO Auto-generated method stub
-		
+	@Override
+	public void perform(Object o) {
+
 	}
 }

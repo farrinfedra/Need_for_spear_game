@@ -7,7 +7,7 @@ import domain.physicalobjects.PhysicalObject;
 public class InfiniteVoidAbility implements Ability {
 
 	
-	public static void perform(ArrayList<PhysicalObject> physicalObjects) {
+	public void perform(Object o) {
 		
 	}
 

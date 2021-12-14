@@ -6,7 +6,7 @@ import domain.physicalobjects.PhysicalObject;
 
 public class DoubleAccelAbility implements Ability {
 
-	public static void perform(ArrayList<PhysicalObject> physicalObjects) {
+	public void perform(Object o) {
 		// TODO 
 		
 	}
