@@ -61,21 +61,4 @@ public class GameBoard{
     public Vector getSize() {
         return size;
     }
-
-    public void clearDestroyed(ArrayList<PhysicalObject> physicalObjects) {
-        for(int i=0; i<physicalObjects.size(); i++){
-            PhysicalObject physicalObject = physicalObjects.get(i);
-
-            if(physicalObject.isDestroyed()){
-                physicalObjects.remove(physicalObject);
-
-                if(physicalObject instanceof Paddle)
-                    paddle = null;
-                else if(physicalObject instanceof Ball)
-                    ball = null;
-
-                i--;
-            }
-        }
-    }
 }
