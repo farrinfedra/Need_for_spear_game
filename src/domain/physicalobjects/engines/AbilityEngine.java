@@ -6,8 +6,8 @@ import domain.physicalobjects.PhysicalObject;
 public class AbilityEngine {
     private static AbilityEngine instance = null;
 
-	static int tickCounter = 0;
-    static Random rnd = new Random();
+	private static int tickCounter = 0;
+    private static Random rnd = new Random();
 
     private AbilityEngine() {}
     
@@ -25,7 +25,7 @@ public class AbilityEngine {
     		tickCounter = 0;
     		//coin toss
     		if (rnd.nextInt(2) == 1) {
-    		int chosen = rnd.nextInt(3);
+    		int chosen = 0;//rnd.nextInt(3);
     		switch (chosen) {
     		case 0:
     			//sadece obstacles verilebilir

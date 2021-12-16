@@ -5,7 +5,8 @@ import domain.GameBoard;
 public abstract class GameBoardService extends Service {
     private GameBoard gameBoard;
 
-    public GameBoardService(GameBoard gameBoard){
+    public GameBoardService(ServiceType serviceType, GameBoard gameBoard){
+        super(serviceType);
         this.gameBoard = gameBoard;
     }
 
@@ -17,5 +18,5 @@ public abstract class GameBoardService extends Service {
         this.gameBoard = gameBoard;
     }
 
-    abstract void performSpecification(Object o);
+    abstract Object performSpecification(Object o);
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import domain.physicalobjects.PhysicalObject;
 
-public class DoubleAccelAbility implements Ability {
+public class DoubleAccelAbility extends Ability {
 
 	public void perform(Object o) {
 		// TODO 

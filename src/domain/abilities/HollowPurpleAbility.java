@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import domain.physicalobjects.PhysicalObject;
 
-public class HollowPurpleAbility implements Ability {
+public class HollowPurpleAbility extends Ability {
 
 	@Override
 	public void perform(Object o) {

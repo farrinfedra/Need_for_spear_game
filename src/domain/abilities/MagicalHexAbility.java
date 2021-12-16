@@ -1,6 +1,6 @@
 package domain.abilities;
 
-public class MagicalHexAbility implements Ability {
+public class MagicalHexAbility extends Ability {
 
 
     @Override

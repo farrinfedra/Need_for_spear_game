@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import domain.physicalobjects.PhysicalObject;
 
-public class ChanceGivingAbility implements Ability {
+public class ChanceGivingAbility extends Ability {
 	public void perform(Object o) {
 		
 	}

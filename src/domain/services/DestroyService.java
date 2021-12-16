@@ -5,12 +5,14 @@ import domain.physicalobjects.PhysicalObject;
 
 public class DestroyService extends GameBoardService {
     public DestroyService(GameBoard gameBoard) {
-        super(gameBoard);
+        super(ServiceType.DESTROY, gameBoard);
     }
 
     @Override
-    public void performSpecification(Object o) {
+    public Object performSpecification(Object o) {
         PhysicalObject physicalObject = (PhysicalObject) o;
         getGameBoard().getPhysicalObjects().remove(physicalObject);
+
+        return null;
     }
 }

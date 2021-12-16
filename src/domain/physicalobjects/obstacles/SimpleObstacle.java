@@ -6,13 +6,14 @@ import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.MovementBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.GameBoardService;
+import domain.services.Service;
 
 import javax.swing.*;
 import java.util.List;
 
 public class SimpleObstacle extends Obstacle {
 
-    public SimpleObstacle(Vector location, List<GameBoardService> services) {
+    public SimpleObstacle(Vector location, List<Service> services) {
         super(location, null,
                 40, 40,
                 new StationaryMovementBehavior(),

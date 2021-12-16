@@ -7,8 +7,10 @@ import java.util.List;
 
 public abstract class Service {
     private static List<ServiceListener> serviceListeners;
+    private final ServiceType type;
 
-    public Service(){
+    public Service(ServiceType type){
+        this.type = type;
     }
 
     public static void addServiceListener(ServiceListener listener){
@@ -17,12 +19,15 @@ public abstract class Service {
         serviceListeners.add(listener);
     }
 
-    public final void perform(Object o){
-        performSpecification(o);
+    public final Object perform(Object o){
+        Object temp = performSpecification(o);
+
 
         for(ServiceListener listener: serviceListeners)
-            listener.onServicePerformed(o);
-    };
+            listener.onServicePerformed(type, o, temp);
 
-    abstract void performSpecification(Object o);
+        return temp;
+    }
+
+    abstract Object performSpecification(Object o);
 }

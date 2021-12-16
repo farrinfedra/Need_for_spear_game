@@ -1,6 +1,6 @@
 package domain.abilities;
 
-public class PaddleExpansionAbility implements Ability {
+public class PaddleExpansionAbility extends Ability {
 
 	@Override
 	public void perform(Object o) {

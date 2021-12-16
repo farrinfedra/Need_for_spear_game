@@ -1,15 +1,11 @@
 package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.behaviors.collision.ExplosiveObstacleCollisionBehavior;
-import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
-import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
-import domain.services.GameBoardService;
+
 import domain.services.GameBoardServiceFactory;
-import domain.services.GameBoardServiceType;
+import domain.services.ServiceType;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,19 +23,19 @@ public class ObstacleFactory {
     }
 
     public Obstacle create(ObstacleType type, Vector location, GameBoardServiceFactory gameBoardServiceFactory) {
-        List<GameBoardService> gameBoardServices = new ArrayList<>();
-        gameBoardServices.add(gameBoardServiceFactory.create(GameBoardServiceType.DESTROY));
+        List<Service> services = new ArrayList<>();
+        services.add(gameBoardServiceFactory.create(ServiceType.DESTROY));
 
         switch (type) {
             case FirmObstacle:
-                return new FirmObstacle(location, gameBoardServices);
+                return new FirmObstacle(location, services);
             case GiftObstacle:
-                return new GiftObstacle(location, gameBoardServices);
+                return new GiftObstacle(location, services);
             case ExplosiveObstacle:
-                gameBoardServices.add(gameBoardServiceFactory.create(GameBoardServiceType.SUMMON));
-                return new ExplosiveObstacle(location, gameBoardServices);
+                services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));
+                return new ExplosiveObstacle(location, services);
             default:
-                return new SimpleObstacle(location, gameBoardServices);
+                return new SimpleObstacle(location, services);
         }
     }
 }
