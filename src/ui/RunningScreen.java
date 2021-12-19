@@ -3,8 +3,12 @@ package ui;
 import domain.Direction;
 import domain.Game;
 import domain.listeners.ServiceListener;
+import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 
+import domain.physicalobjects.Wall;
+import domain.physicalobjects.behaviors.collision.Collision;
+import domain.physicalobjects.engines.CollisionEngine;
 import domain.services.Service;
 import domain.services.ServiceType;
 
@@ -56,6 +60,30 @@ public class RunningScreen extends JFrame{
         });
         pauseButton.setBounds(0,0,100, 40);
         add(pauseButton);
+
+        CollisionEngine.addEventListener(o -> {
+            Collision collision = (Collision) o;
+
+            labels.stream()
+                    .filter(label ->
+                            label.getPhysicalObject().equals(collision.getO1())
+                                    || label.getPhysicalObject().equals(collision.getO2()))
+                            .forEach(label-> label.flash());
+
+            Timer timer = new Timer(100, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    labels.stream()
+                            .filter(label ->
+                                    label.getPhysicalObject().equals(collision.getO1())
+                                            || label.getPhysicalObject().equals(collision.getO2()))
+                            .forEach(label-> label.unflash());
+                }
+            });
+            timer.setInitialDelay(100);
+            timer.setRepeats(false);
+            timer.start();
+        }
+        );
 
         Service.addServiceListener(
                 (serviceType, input, result) -> {
