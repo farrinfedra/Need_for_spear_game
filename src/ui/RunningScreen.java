@@ -4,11 +4,10 @@ import domain.Direction;
 import domain.Game;
 import domain.listeners.ServiceListener;
 import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.Wall;
-import domain.physicalobjects.obstacles.Obstacle;
-import domain.services.DestroyService;
-import domain.services.SummonService;
-import org.w3c.dom.css.RGBColor;
+
+import domain.services.Service;
+import domain.services.ServiceType;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,38 +51,35 @@ public class RunningScreen extends JFrame{
                 game.switchPaused();
             }
         });
-
-        SummonService.addServiceListener(
-                new ServiceListener() {
-                    @Override
-                    public void onServicePerformed(Object o) {
-
-                    }
-                }
-        );
-
-        DestroyService.addServiceListener(
-                new ServiceListener() {
-                    @Override
-                    public void onServicePerformed(Object o) {
-                                //Deletion of Destroyed PhysicalObjects
-                                labelList.stream()
-                                        .filter(label -> label.getPhysicalObject().equals(o))
-                                        .forEach(label->remove(label));
-
-//                                objectToLabelMap = objectToLabelMap.entrySet()
-//                                        .stream()
-//                                        .filter(map -> !map.getValue().equals(o))
-//                                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-                                revalidate();
-                                repaint();
-                    }
-                }
-        );
-
         pauseButton.setBounds(0,0,100, 40);
         add(pauseButton);
+
+        Service.addServiceListener(
+                (serviceType, input, result) -> {
+                    switch (serviceType){
+                        case DESTROY:
+                            objectToLabelMap.entrySet()
+                                    .stream()
+                                    .filter(map -> map.getValue().equals(input))
+                                    .forEach(map->remove(map.getKey()));
+
+                            objectToLabelMap = objectToLabelMap.entrySet()
+                                    .stream()
+                                    .filter(map -> !map.getValue().equals(input))
+                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                            break;
+                        case SUMMON:
+                            PhysicalObject physicalObject = (PhysicalObject) input;
+                            addPhysicalObjectLabel(physicalObject);
+                            break;
+                    }
+
+                    revalidate();
+                    repaint();
+                }
+        );
+
+
 
         addKeyListener(new KeyListener() {
             @Override
@@ -112,19 +106,10 @@ public class RunningScreen extends JFrame{
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
 
+                Map<JLabel, PhysicalObject> mapCopy = new HashMap<>(objectToLabelMap);
                 //Update all physical objects
-                for(PhysicalObjectLabel l: labelList){
+                for(JLabel l: mapCopy.keySet()){
                     updatePhysicalObjectLabel(l);
-                }
-
-                int size = game.getGameBoard().getPhysicalObjects().size();
-                for(int i = 0; i< size; i++){
-                    PhysicalObject physicalObject = game.getGameBoard().getPhysicalObjects().get(i);
-                    if(!existsInLabelsList(physicalObject)){
-                        PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
-                        labelList.add(label);
-                        add(label);
-                    }
                 }
 
                 requestFocusInWindow();
@@ -153,6 +138,9 @@ public class RunningScreen extends JFrame{
 
     private void updatePhysicalObjectLabel(PhysicalObjectLabel label){
         PhysicalObject object = label.getPhysicalObject();
+
+        if(object == null)
+            return;
 
         int x =  (int) object.getLocation().getX();
         int y = (int) object.getLocation().getY();

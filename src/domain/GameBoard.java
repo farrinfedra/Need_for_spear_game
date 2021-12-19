@@ -1,6 +1,7 @@
 package domain;
 
 import domain.physicalobjects.*;
+import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
@@ -54,28 +55,10 @@ public class GameBoard{
         //TODO: implement doTickActions
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
-
-        clearDestroyed(physicalObjects);
+        AbilityEngine.getInstance().calculate(physicalObjects);
     }
 
     public Vector getSize() {
         return size;
-    }
-
-    public void clearDestroyed(ArrayList<PhysicalObject> physicalObjects) {
-        for(int i=0; i<physicalObjects.size(); i++){
-            PhysicalObject physicalObject = physicalObjects.get(i);
-
-            if(physicalObject.isDestroyed()){
-                physicalObjects.remove(physicalObject);
-
-                if(physicalObject instanceof Paddle)
-                    paddle = null;
-                else if(physicalObject instanceof Ball)
-                    ball = null;
-
-                i--;
-            }
-        }
     }
 }
