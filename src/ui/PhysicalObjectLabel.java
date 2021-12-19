@@ -5,6 +5,7 @@ import domain.physicalobjects.Vector;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class PhysicalObjectLabel extends JLabel{
     private PhysicalObject physicalObject;
@@ -26,5 +27,18 @@ public class PhysicalObjectLabel extends JLabel{
 
     public PhysicalObject getPhysicalObject() {
         return physicalObject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhysicalObjectLabel that = (PhysicalObjectLabel) o;
+        return Objects.equals(physicalObject, that.physicalObject);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(physicalObject);
     }
 }

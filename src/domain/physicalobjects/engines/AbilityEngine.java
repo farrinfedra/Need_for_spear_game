@@ -29,13 +29,13 @@ public class AbilityEngine {
     		switch (chosen) {
     		case 0:
     			//sadece obstacles verilebilir
-    			new InfiniteVoidAbility().perform(physicalObjects);
+    			//new InfiniteVoidAbility().perform(physicalObjects);
     		case 1:
     			//sadece paddleı verebiliriz
-    			new DoubleAccelAbility().perform(physicalObjects);
+    			//new DoubleAccelAbility().perform(physicalObjects);
     		case 2:
     			//Sadece obstacleları da verebiliriz
-    			new HollowPurpleAbility().perform(physicalObjects);
+    			//new HollowPurpleAbility().perform(physicalObjects);
     	}
 			}
     	}
