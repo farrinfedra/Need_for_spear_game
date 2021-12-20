@@ -3,8 +3,12 @@ package ui;
 import domain.Direction;
 import domain.Game;
 import domain.listeners.ServiceListener;
+import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 
+import domain.physicalobjects.Wall;
+import domain.physicalobjects.behaviors.collision.Collision;
+import domain.physicalobjects.engines.CollisionEngine;
 import domain.services.Service;
 import domain.services.ServiceType;
 
@@ -15,12 +19,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RunningScreen extends JFrame{
-    private static Map<JLabel, PhysicalObject> objectToLabelMap = new HashMap<>();
+    private static List<PhysicalObjectLabel> labels = new ArrayList<>();
 
     public RunningScreen(){
         super("Need for Spear");
@@ -38,8 +44,11 @@ public class RunningScreen extends JFrame{
             game.createGameBoard(width, height);
         }
 
-        for(PhysicalObject physicalObject: game.getGameBoard().getPhysicalObjects())
-            addPhysicalObjectLabel(physicalObject);
+        for(PhysicalObject physicalObject: game.getGameBoard().getPhysicalObjects()){
+            PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
+            labels.add(label);
+            add(label);
+        }
 
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
@@ -52,23 +61,48 @@ public class RunningScreen extends JFrame{
         pauseButton.setBounds(0,0,100, 40);
         add(pauseButton);
 
+        CollisionEngine.addEventListener(o -> {
+            Collision collision = (Collision) o;
+
+            labels.stream()
+                    .filter(label ->
+                            label.getPhysicalObject().equals(collision.getO1())
+                                    || label.getPhysicalObject().equals(collision.getO2()))
+                            .forEach(label-> label.flash());
+
+            Timer timer = new Timer(100, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    labels.stream()
+                            .filter(label ->
+                                    label.getPhysicalObject().equals(collision.getO1())
+                                            || label.getPhysicalObject().equals(collision.getO2()))
+                            .forEach(label-> label.unflash());
+                }
+            });
+            timer.setInitialDelay(100);
+            timer.setRepeats(false);
+            timer.start();
+        }
+        );
+
         Service.addServiceListener(
                 (serviceType, input, result) -> {
                     switch (serviceType){
                         case DESTROY:
-                            objectToLabelMap.entrySet()
-                                    .stream()
-                                    .filter(map -> map.getValue().equals(input))
-                                    .forEach(map->remove(map.getKey()));
-
-                            objectToLabelMap = objectToLabelMap.entrySet()
-                                    .stream()
-                                    .filter(map -> !map.getValue().equals(input))
-                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                            labels = labels.stream()
+                                            .filter(label -> {
+                                                      boolean predicate =  !(label.getPhysicalObject().equals(input));
+                                                      if(!predicate)
+                                                          remove(label);
+                                                      return predicate;
+                                            })
+                                            .collect(Collectors.toList());
                             break;
                         case SUMMON:
                             PhysicalObject physicalObject = (PhysicalObject) input;
-                            addPhysicalObjectLabel(physicalObject);
+                            PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
+                            labels.add(label);
+                            add(label);
                             break;
                     }
 
@@ -76,8 +110,6 @@ public class RunningScreen extends JFrame{
                     repaint();
                 }
         );
-
-
 
         addKeyListener(new KeyListener() {
             @Override
@@ -104,10 +136,11 @@ public class RunningScreen extends JFrame{
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
 
-                Map<JLabel, PhysicalObject> mapCopy = new HashMap<>(objectToLabelMap);
+                //Take the copy to avoid exceptions due to iterator usage.
+                List<PhysicalObjectLabel> labelsCopy = new ArrayList<>(labels);
                 //Update all physical objects
-                for(JLabel l: mapCopy.keySet()){
-                    updatePhysicalObjectLabel(l);
+                for(PhysicalObjectLabel label: labelsCopy){
+                    label.update();
                 }
 
                 requestFocusInWindow();
@@ -123,29 +156,5 @@ public class RunningScreen extends JFrame{
         setVisible(true);
         revalidate();
         repaint();
-    }
-
-    private void addPhysicalObjectLabel(PhysicalObject object){
-        JLabel objectLabel = new JLabel(object.getImage());
-        objectLabel.setBackground(Color.GREEN);
-        objectLabel.setOpaque(true);
-        add(objectLabel);
-
-        objectToLabelMap.put(objectLabel, object);
-    }
-
-    private void updatePhysicalObjectLabel(JLabel label){
-        PhysicalObject object = objectToLabelMap.get(label);
-
-        if(object == null)
-            return;
-
-        int x =  (int) object.getLocation().getX();
-        int y = (int) object.getLocation().getY();
-        int height = (int) object.getHeight();
-        int width = (int) object.getWidth();
-
-       // label.setIcon(object.getImage());
-        label.setBounds(x, y, width, height);
     }
 }
