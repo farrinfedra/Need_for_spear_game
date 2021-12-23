@@ -104,7 +104,7 @@ public class BuildScreen extends JFrame{
 	//TODO: Obstacles Panel
 	//TODO: Drag&Drop or Click and Drop?
 	private JPanel obstaclesPanel(){
-	JPanel obstaclesPanel = new JPanel(new GridLayout(4,1));
+	JPanel obstaclesPanel = new JPanel(new GridLayout(3,2));
 	JButton startGameButton = new JButton("Start Game");
 		startGameButton.setActionCommand("Start Game");
 		startGameButton.addActionListener(new ActionListener()
@@ -156,11 +156,26 @@ public class BuildScreen extends JFrame{
 			currentObstacle = ObstacleType.GiftObstacle;
         }
     });
+	JTextField usernameField = new JTextField("username",10);
+
+//		usernameField.addFocusListener(new FocusListener() {
+//			public void focusGained(FocusEvent e) {
+//				usernameField.setText("");
+//			}
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				//leave user text
+//			}
+//		});
+	//JLabel user = new JLabel("User name");
 	obstaclesPanel.add(startGameButton);
 	obstaclesPanel.add(simpleObstacleButton);
 	obstaclesPanel.add(firmObstacleButton);
 	obstaclesPanel.add(explosiveObstacleButton);
 	obstaclesPanel.add(giftObstacleButton);
+	obstaclesPanel.add(usernameField);
+	//obstaclesPanel.add(user);
 	return obstaclesPanel;
 	}
 
@@ -225,7 +240,7 @@ public class BuildScreen extends JFrame{
 		userNamePanel.add(user);
 		userNamePanel.add(userName);
 		return userNamePanel;
-		
+
 	}
 	
 	
