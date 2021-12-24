@@ -5,12 +5,14 @@ import domain.physicalobjects.PhysicalObject;
 
 public class SummonService extends GameBoardService {
     public SummonService(GameBoard gameBoard) {
-        super(gameBoard);
+        super(ServiceType.SUMMON, gameBoard);
     }
 
     @Override
-    public void performSpecification(Object o) {
+    public Object performSpecification(Object o) {
         PhysicalObject physicalObject = (PhysicalObject) o;
         getGameBoard().addPhysicalObject(physicalObject);
+
+        return null;
     }
 }

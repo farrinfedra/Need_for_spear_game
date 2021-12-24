@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class GiftObstacle extends Obstacle{
-    public GiftObstacle(Vector location, List<GameBoardService> services) {
+    public GiftObstacle(Vector location, List<Service> services) {
         super(location,null,
                 40, 40,
                 new StationaryMovementBehavior(),

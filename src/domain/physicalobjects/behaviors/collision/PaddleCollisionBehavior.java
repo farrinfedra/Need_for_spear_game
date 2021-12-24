@@ -5,12 +5,12 @@ import domain.physicalobjects.*;
 public class PaddleCollisionBehavior extends CollisionBehavior{
 
     @Override
-    public void collide(Object o1, Object o2, Collision collision) {
-        Paddle paddle = (Paddle) o1;
+    public void collide(Collision collision) {
+        Paddle paddle = (Paddle) collision.getO1();
+        PhysicalObject o2 = collision.getO2();
 
         if(o2 instanceof Wall ||
             o2 instanceof Ball){
-            PhysicalObject p2 = (PhysicalObject) o2;
 
             //If paddle is still trying to move pass the wall or the ball, stop it
             //Else, it can move
@@ -18,7 +18,7 @@ public class PaddleCollisionBehavior extends CollisionBehavior{
             if(paddle.getBoundingBox()
                     .deepCopy()
                     .shift(paddle.getSpeed())
-                    .getCollisionWith(p2.getBoundingBox()) != null)
+                    .getCollisionWith(o2.getBoundingBox()) != null)
                    paddle.setSpeed(new Vector(0,0));
         }
     }

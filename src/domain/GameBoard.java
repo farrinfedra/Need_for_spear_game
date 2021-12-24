@@ -1,6 +1,7 @@
 package domain;
 
 import domain.physicalobjects.*;
+import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
@@ -22,15 +23,15 @@ public class GameBoard{
         physicalObjects = new ArrayList<>();
 
         paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
-        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 50, 50);
+        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 25, 25);
 
         //TO-DO revise initial starting point
         physicalObjects.add(ball);
         physicalObjects.add(paddle);
-        physicalObjects.add(new Wall(new Vector(0,-20), size.getX(), 50));
-        physicalObjects.add(new Wall(new Vector(-20,0), 50, size.getY()));
-        physicalObjects.add(new Wall(new Vector(size.getX()-30, 0), 50, size.getY()));
-        physicalObjects.add(new Wall(new Vector(0, size.getY()-30), size.getX(), 50));
+        physicalObjects.add(new Wall(new Vector(0,-21), size.getX(), 20));
+        physicalObjects.add(new Wall(new Vector(-21,20), 20, size.getY()));
+        physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
+        physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));
     }
 
     public void addPhysicalObject(PhysicalObject physicalObject){
@@ -54,28 +55,10 @@ public class GameBoard{
         //TODO: implement doTickActions
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
-
-        clearDestroyed(physicalObjects);
+        AbilityEngine.getInstance().calculate(physicalObjects);
     }
 
     public Vector getSize() {
         return size;
-    }
-
-    public void clearDestroyed(ArrayList<PhysicalObject> physicalObjects) {
-        for(int i=0; i<physicalObjects.size(); i++){
-            PhysicalObject physicalObject = physicalObjects.get(i);
-
-            if(physicalObject.isDestroyed()){
-                physicalObjects.remove(physicalObject);
-
-                if(physicalObject instanceof Paddle)
-                    paddle = null;
-                else if(physicalObject instanceof Ball)
-                    ball = null;
-
-                i--;
-            }
-        }
     }
 }

@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class FirmObstacle extends Obstacle{
-    public FirmObstacle(Vector location, List<GameBoardService> services) {
+    public FirmObstacle(Vector location, List<Service> services) {
         super(location, null,
                 40, 40,
                 new StationaryMovementBehavior(),

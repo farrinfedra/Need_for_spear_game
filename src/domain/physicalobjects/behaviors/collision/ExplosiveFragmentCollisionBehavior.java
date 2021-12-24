@@ -5,10 +5,10 @@ import domain.physicalobjects.Wall;
 
 public class ExplosiveFragmentCollisionBehavior extends CollisionBehavior {
     @Override
-    public void collide(Object o1, Object o2, Collision collision) {
+    public void collide(Collision collision) {
     	//RemainingsExplosiveObject paddle = (RemainingsExplosiveObject) o1;
-        if(o2 instanceof Wall)
-            ((PhysicalObject) o1).getService(0).perform(o1);
+        if(collision.getO2() instanceof Wall)
+            collision.getO1().getService(0).perform(collision.getO1());
     }
 }
 
