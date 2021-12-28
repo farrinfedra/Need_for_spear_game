@@ -21,7 +21,6 @@ public class PaddleExpansionAbility extends Ability {
 
 	@Override
 	public void revert() {
-		System.out.println("lol");
 		Paddle paddle = (Paddle) getAppliesTo();
 
 		paddle.setWidth(Constants.PADDLE_LENGTH);

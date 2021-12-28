@@ -58,20 +58,20 @@ public class PolygonBoundingBox extends BoundingBox{
 
     @Override
     public Collision getCollisionWith(BoundingBox b) {
-        List<Collision> collisions = new ArrayList<>();
+        //List<Collision> collisions = new ArrayList<>();
         for(int i =0; i<numEdges; i++){
             for(double j=1; j<fragmentation+1; j++){
                 Vector p = points[i].add(edges[i].scale(j/fragmentation));
                 Collision col = b.getPointCollision(p);
                 if(col != null){
-                    collisions.add(col);
-                    break;
+                    return col;
+                    //collisions.add(col);
                 }
             }
         }
-        if(collisions.size() == 0)
-            return null;
 
+        return null;
+/*
         PhysicalObject o1 = collisions.get(0).getO1();
         PhysicalObject o2 = collisions.get(0).getO2();
         Vector location = new Vector(0,0);
@@ -88,6 +88,7 @@ public class PolygonBoundingBox extends BoundingBox{
         result.setO1(o1);
         result.setO2(o2);
         return result;
+        */
     }
 
     @Override
