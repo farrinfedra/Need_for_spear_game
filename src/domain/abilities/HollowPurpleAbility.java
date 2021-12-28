@@ -6,8 +6,18 @@ import domain.physicalobjects.PhysicalObject;
 
 public class HollowPurpleAbility extends Ability {
 
+
+	public HollowPurpleAbility(PhysicalObject appliesTo) {
+		super(appliesTo);
+	}
+
 	@Override
-	public void perform(Object o) {
+	public void perform() {
+
+	}
+
+	@Override
+	public void revert() {
 
 	}
 }

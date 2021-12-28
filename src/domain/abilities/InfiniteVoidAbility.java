@@ -8,9 +8,18 @@ import domain.physicalobjects.obstacles.Obstacle;
 
 public class InfiniteVoidAbility extends Ability {
 
-	public void perform(Object o) {
+	public InfiniteVoidAbility(PhysicalObject appliesTo) {
+		super(appliesTo);
+	}
+
+	public void perform() {
 		List<Obstacle> obstacles = (List<Obstacle>) getService(0).perform(null);
 		System.out.println(obstacles.size());
+	}
+
+	@Override
+	public void revert() {
+
 	}
 
 }

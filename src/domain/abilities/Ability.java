@@ -1,5 +1,6 @@
 package domain.abilities;
 
+import domain.physicalobjects.PhysicalObject;
 import domain.services.Service;
 import domain.services.ServiceAttachable;
 
@@ -8,12 +9,21 @@ import java.util.List;
 
 public abstract class Ability extends ServiceAttachable {
 
-	public Ability(){
-		super(new ArrayList<Service>());
-	}
-	public Ability(List<Service> services){
-		super(services);
+	private PhysicalObject appliesTo;
+
+	public Ability(PhysicalObject appliesTo){
+		this(appliesTo, null);
 	}
 
-	abstract void perform(Object o);
+	public Ability(PhysicalObject appliesTo, List<Service> services){
+		super(new ArrayList<Service>());
+		this.appliesTo = appliesTo;
+	}
+
+	public abstract void perform();
+	public abstract void revert();
+
+	public PhysicalObject getAppliesTo() {
+		return appliesTo;
+	}
 }
