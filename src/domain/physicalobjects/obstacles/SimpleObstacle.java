@@ -16,7 +16,7 @@ public class SimpleObstacle extends Obstacle {
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(),1, services);
 
-        setImage(new ImageIcon(this.getClass().getResource("/img/SimpleObstacleImage.png")));
+        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/SimpleObstacleImage.png")));
     }
     @Override
     public String toString(){

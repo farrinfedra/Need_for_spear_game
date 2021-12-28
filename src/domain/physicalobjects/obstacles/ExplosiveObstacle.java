@@ -15,7 +15,7 @@ public class ExplosiveObstacle extends Obstacle{
                 new StationaryMovementBehavior(),
                 new ExplosiveObstacleCollisionBehavior(), 1, services);
 
-        setImage(new ImageIcon(this.getClass().getResource("/img/ExplosiveObstacleImage.png")));
+        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/ExplosiveObstacleImage.png")));
     }
 
     @Override

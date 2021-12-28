@@ -15,7 +15,7 @@ public class FirmObstacle extends Obstacle{
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(), 3, services);
 
-        setImage(new ImageIcon(super.getClass().getResource("/img/FirmObstacleImage.png")));
+        setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImage.png")));
     }
 
     @Override

@@ -15,7 +15,7 @@ public class GiftObstacle extends Obstacle{
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(), 1, services);
 
-        setImage(new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")));
+        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/GiftObstacleImage.png")));
     }
 
     @Override
