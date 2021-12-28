@@ -61,4 +61,8 @@ public class GameBoard{
     public Vector getSize() {
         return size;
     }
+
+    public Ball getBall(){
+        return ball;
+    }
 }
