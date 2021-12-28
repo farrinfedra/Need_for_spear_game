@@ -1,5 +1,6 @@
 package domain.physicalobjects.engines;
 
+import domain.listeners.EventListener;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.behaviors.collision.Collision;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class CollisionEngine {
     private static CollisionEngine instance = null;
+    private static final List<EventListener> listeners = new ArrayList<>();
 
     private CollisionEngine() {}
 
@@ -24,16 +26,24 @@ public class CollisionEngine {
         int size = physicalObjects.size();
         for(int i=0; i<size-1; i++){
             for(int j=i+1; j < size; j++){
-
                 Collision collision =
                             physicalObjects.get(i).getBoundingBox().
                                     getCollisionWith(physicalObjects.get(j).getBoundingBox());
-
                 if(collision != null){
-                   physicalObjects.get(i).getCollisionBehavior().collide(physicalObjects.get(i), physicalObjects.get(j), collision);
-                   physicalObjects.get(j).getCollisionBehavior().collide(physicalObjects.get(j), physicalObjects.get(i), collision.reverseNormal());
+                   collision.setO1(physicalObjects.get(i));
+                   collision.setO2(physicalObjects.get(j));
+
+                   physicalObjects.get(i).getCollisionBehavior().collide(collision);
+                   physicalObjects.get(j).getCollisionBehavior().collide(collision.reverse());
+                   for(EventListener listener: listeners){
+                       listener.onEventOccured(collision);
+                   }
                 }
             }
         }
+    }
+
+    public static void addEventListener(EventListener listener){
+        listeners.add(listener);
     }
 }

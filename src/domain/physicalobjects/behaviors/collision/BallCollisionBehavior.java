@@ -7,9 +7,11 @@ import domain.physicalobjects.obstacles.Obstacle;
 public class BallCollisionBehavior extends CollisionBehavior {
 
 	@Override
-	public void collide(Object o1, Object o2,  Collision collision) {
+	public void collide(Collision collision) {
 
-		Ball ball = (Ball) o1;
+		Ball ball = (Ball) collision.getO1();
+		PhysicalObject o2 = collision.getO2();
+
 		Vector ballSpeed = ball.getSpeed();
 		Vector normal = collision.getNormal();
 
