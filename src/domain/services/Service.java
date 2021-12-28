@@ -11,11 +11,10 @@ public abstract class Service {
 
     public Service(ServiceType type){
         this.type = type;
+        serviceListeners = new ArrayList<>();
     }
 
     public static void addServiceListener(ServiceListener listener){
-        if(serviceListeners == null)
-            serviceListeners = new ArrayList<>();
         serviceListeners.add(listener);
     }
 
