@@ -43,6 +43,9 @@ public class GameBoard{
     }
 
     public Obstacle addObstacle(ObstacleType type, Vector location){
+        //MODIFIES: physicalObjects list
+        //EFFECTS: adds a new obstacle to physicalObjects list on given location and in given type.
+
         Obstacle obstacle = ObstacleFactory.getInstance().create(type, location, GameBoardServiceFactory.getInstance().setGameBoard(this));
         physicalObjects.add(obstacle);
         return obstacle;
