@@ -38,6 +38,7 @@ public class Game extends Thread {
     public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
     public List<AbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
+    public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
     //TODO: implement magical ability functions
 

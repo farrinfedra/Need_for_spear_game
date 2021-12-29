@@ -5,7 +5,6 @@ import domain.physicalobjects.MagicalHexAmmo;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.obstacles.Obstacle;
 
-
 public class ObstacleCollisionBehavior extends CollisionBehavior{
 
     @Override
@@ -25,7 +24,6 @@ public class ObstacleCollisionBehavior extends CollisionBehavior{
         }
 
         if(obstacle.getHealth() == 0){
-
             obstacle.getService(0).perform(o1);
         }
     }

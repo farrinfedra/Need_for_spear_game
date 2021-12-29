@@ -129,6 +129,10 @@ public class RunningScreen extends JFrame{
                     case KeyEvent.VK_RIGHT:
                         game.movePaddle(Direction.RIGHT);
                         break;
+
+                    case KeyEvent.VK_H:
+                        game.shootMagicalHex();
+                        break;
                 }
             }
             @Override

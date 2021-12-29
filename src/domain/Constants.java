@@ -13,6 +13,8 @@ public class Constants {
 
     public static Vector MAGICAL_HEX_AMMO_SPEED = new Vector(0,-4);
     public static final int MAGICAL_HEX_ATTACK_DAMAGE = 1;
+
+    public static int PLAYER_INITIAL_LIVES = 3;
 }
 
 

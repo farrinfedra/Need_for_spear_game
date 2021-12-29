@@ -31,6 +31,7 @@ public class ObstacleFactory {
             case FirmObstacle:
                 return new FirmObstacle(location, services);
             case GiftObstacle:
+                services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));
                 services.add(gameBoardServiceFactory.create(ServiceType.EQUIP_ABILITY));
                 return new GiftObstacle(location, services);
             case ExplosiveObstacle:

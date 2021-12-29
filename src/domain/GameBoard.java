@@ -6,7 +6,10 @@ import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
+import domain.services.DestroyService;
 import domain.services.GameBoardServiceFactory;
+import domain.services.Service;
+import domain.services.SummonService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +27,12 @@ public class GameBoard{
         this.size = size;
         physicalObjects = new ArrayList<>();
 
+        List<Service> basicServices = new ArrayList<>();
+        basicServices.add(new SummonService(this));
+        basicServices.add(new DestroyService(this));
+
+        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20, basicServices);
         player = new Player("anonymous");
-        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
         ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 25, 25);
 
         //TO-DO revise initial starting point
@@ -67,6 +74,10 @@ public class GameBoard{
 
     public Ball getBall(){
         return ball;
+    }
+
+    public void shootMagicalHex() {
+        paddle.shootMagicalHex();
     }
 
     public List<AbilityType> getAvailableAbilities() {

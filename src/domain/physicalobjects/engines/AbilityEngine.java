@@ -32,7 +32,7 @@ public class AbilityEngine {
 		 */
 		if(test){
 			test= false;
-			Ability testAbility = new DoubleAccelAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Ball).findFirst().get());
+			Ability testAbility = new MagicalHexAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Paddle).findFirst().get());
 			activateAbility(testAbility);
 		}
 		//TEST CODE ENDS HERE
