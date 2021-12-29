@@ -1,5 +1,7 @@
 package domain;
 
+import domain.abilities.Ability;
+import domain.abilities.AbilityFactory;
 import domain.abilities.UsefulAbilityType;
 import domain.physicalobjects.*;
 import domain.physicalobjects.engines.AbilityEngine;
@@ -86,5 +88,12 @@ public class GameBoard{
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void useAbility(UsefulAbilityType type) {
+        if(player.removeAbility(type)){
+            Ability ability = AbilityFactory.getInstance().create(type, physicalObjects);
+            AbilityEngine.getInstance().activateAbility(ability);
+        }
     }
 }

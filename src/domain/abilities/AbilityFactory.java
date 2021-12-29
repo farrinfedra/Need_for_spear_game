@@ -1,5 +1,7 @@
 package domain.abilities;
 
+import domain.physicalobjects.Ball;
+import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
 
@@ -23,16 +25,16 @@ public class AbilityFactory {
         return instance;
     }
 
-    public Ability create(UsefulAbilityType type, PhysicalObject appliesTo) {
+    public Ability create(UsefulAbilityType type, List<PhysicalObject> physicalObjects) {
         switch (type) {
             case ChanceGivingAbility:
-                return new ChanceGivingAbility(appliesTo);
+                return new ChanceGivingAbility(null);
             case MagicalHexAbility:
-                return new MagicalHexAbility(appliesTo);
+                return new MagicalHexAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Paddle).findFirst().get());
             case PaddleExpansionAbility:
-                return new PaddleExpansionAbility(appliesTo);
+                return new PaddleExpansionAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Paddle).findFirst().get());
             case UnstoppableBallAbility:
-                return new UnstoppableBallAbility(appliesTo);
+                return new UnstoppableBallAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Ball).findFirst().get());
         }
         return null;
     }

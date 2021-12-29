@@ -2,6 +2,7 @@ package ui;
 
 import domain.Direction;
 import domain.Game;
+import domain.abilities.UsefulAbilityType;
 import domain.listeners.ServiceListener;
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
@@ -129,8 +130,14 @@ public class RunningScreen extends JFrame{
                     case KeyEvent.VK_RIGHT:
                         game.movePaddle(Direction.RIGHT);
                         break;
-
                     case KeyEvent.VK_H:
+                        game.useAbility(UsefulAbilityType.MagicalHexAbility);
+                        break;
+                    case KeyEvent.VK_T:
+                        game.useAbility(UsefulAbilityType.PaddleExpansionAbility);
+                        break;
+
+                    case KeyEvent.VK_SPACE:
                         game.shootMagicalHex();
                         break;
                 }
@@ -150,7 +157,6 @@ public class RunningScreen extends JFrame{
                 for(PhysicalObjectLabel label: labelsCopy){
                     label.update();
                 }
-
                 abilities.setText(game.getAvailableAbilities().toString());
 
                 requestFocusInWindow();

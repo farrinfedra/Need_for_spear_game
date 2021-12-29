@@ -36,10 +36,18 @@ public class Player {
     }
 
     public List<UsefulAbilityType> getAbilities() {
-        return abilities;
+        return new ArrayList<>(abilities);
+    }
+
+    public void addAbility(UsefulAbilityType abilityType){
+        abilities.add(abilityType);
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public boolean removeAbility(UsefulAbilityType type) {
+        return abilities.remove(type);
     }
 }

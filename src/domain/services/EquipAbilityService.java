@@ -11,7 +11,7 @@ public class EquipAbilityService extends GameBoardService{
 
     @Override
     Object performSpecification(Object o) {
-        getGameBoard().getPlayer().getAbilities().add((UsefulAbilityType) o);
+        getGameBoard().getPlayer().addAbility((UsefulAbilityType) o);
         return null;
     }
 }

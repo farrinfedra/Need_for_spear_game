@@ -37,6 +37,10 @@ public class Game extends Thread {
     public void movePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.movePaddle(direction); }
     public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
+
+    public void useAbility(UsefulAbilityType type){
+        gameBoard.useAbility(type);
+    }
     public List<UsefulAbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
     public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
