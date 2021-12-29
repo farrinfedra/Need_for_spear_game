@@ -2,6 +2,7 @@ package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.CollisionBehavior;
+import domain.physicalobjects.behaviors.collision.GiftObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.MovementBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
@@ -16,7 +17,7 @@ public class GiftObstacle extends Obstacle{
         super(location,null,
                 40, 40,
                 new StationaryMovementBehavior(),
-                new ObstacleCollisionBehavior(), 1, services);
+                new GiftObstacleCollisionBehavior(), 1, services);
 
         setImage(new ImageIcon(this.getClass().getResource("/img/GiftObstacleImage.png")));
     }
