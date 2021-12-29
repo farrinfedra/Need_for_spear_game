@@ -11,17 +11,25 @@ import java.util.List;
 public class FirmObstacle extends Obstacle{
     public FirmObstacle(Vector location, List<Service> services) {
         super(location, null,
-                40, 40,
+                100, 100,
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(), 3, services);
 
-        setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImage.png")));
+        setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth3.png")));
     }
 
     @Override
-    void specialAttribute() {
-
+    public void specialAttribute() {
+        switch(this.getHealth()){
+            case 2:
+                this.setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth2.png")));
+                break;
+            case 1:
+                this.setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth1.png")));
+                break;
+        }
     }
+
     @Override
     public String toString(){
         return "FirmObstacle";
