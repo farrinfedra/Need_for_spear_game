@@ -50,6 +50,10 @@ public class RunningScreen extends JFrame{
             add(label);
         }
 
+        JLabel abilities = new JLabel("lol");
+        add(abilities);
+        abilities.setBounds(width-100,0, 100, 20);
+
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
             @Override
@@ -142,6 +146,8 @@ public class RunningScreen extends JFrame{
                 for(PhysicalObjectLabel label: labelsCopy){
                     label.update();
                 }
+
+                abilities.setText(game.getAvailableAbilities().toString());
 
                 requestFocusInWindow();
                 revalidate();

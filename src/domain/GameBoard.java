@@ -1,5 +1,6 @@
 package domain;
 
+import domain.abilities.AbilityType;
 import domain.physicalobjects.*;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
@@ -17,11 +18,13 @@ public class GameBoard{
     private Ball ball;
     private Paddle paddle;
     private Vector size;
+    private Player player;
 
     public GameBoard(Vector size){
         this.size = size;
         physicalObjects = new ArrayList<>();
 
+        player = new Player("anonymous");
         paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
         ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 25, 25);
 
@@ -64,5 +67,13 @@ public class GameBoard{
 
     public Ball getBall(){
         return ball;
+    }
+
+    public List<AbilityType> getAvailableAbilities() {
+       return player.getAbilities();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
