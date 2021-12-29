@@ -1,6 +1,6 @@
 package domain;
 
-import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
 import domain.physicalobjects.*;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
@@ -80,7 +80,7 @@ public class GameBoard{
         paddle.shootMagicalHex();
     }
 
-    public List<AbilityType> getAvailableAbilities() {
+    public List<UsefulAbilityType> getAvailableAbilities() {
        return player.getAbilities();
     }
 

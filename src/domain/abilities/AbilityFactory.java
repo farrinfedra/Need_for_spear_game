@@ -23,16 +23,10 @@ public class AbilityFactory {
         return instance;
     }
 
-    public Ability create(AbilityType type, PhysicalObject appliesTo) {
+    public Ability create(UsefulAbilityType type, PhysicalObject appliesTo) {
         switch (type) {
             case ChanceGivingAbility:
                 return new ChanceGivingAbility(appliesTo);
-            case DoubleAccelAbility:
-                return new DoubleAccelAbility(appliesTo);
-            case HollowPurpleAbility:
-                return new HollowPurpleAbility(appliesTo);
-            case InfiniteVoidAbility:
-                return new InfiniteVoidAbility(appliesTo);
             case MagicalHexAbility:
                 return new MagicalHexAbility(appliesTo);
             case PaddleExpansionAbility:

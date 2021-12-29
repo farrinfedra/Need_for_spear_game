@@ -52,7 +52,7 @@ public class RunningScreen extends JFrame{
 
         JLabel abilities = new JLabel("lol");
         add(abilities);
-        abilities.setBounds(width-100,0, 100, 20);
+        abilities.setBounds(100,0, 1000, 40);
 
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {

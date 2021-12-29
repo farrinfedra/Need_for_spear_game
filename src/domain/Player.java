@@ -1,6 +1,6 @@
 package domain;
 
-import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class Player {
     private String username;
     private int lives;
     private int score;
-    private List<AbilityType> abilities;
+    private List<UsefulAbilityType> abilities;
 
     public Player(String username){
         this.username = username;
@@ -35,7 +35,7 @@ public class Player {
         this.lives = lives;
     }
 
-    public List<AbilityType> getAbilities() {
+    public List<UsefulAbilityType> getAbilities() {
         return abilities;
     }
 

@@ -1,6 +1,6 @@
 package domain;
 
-import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
 import domain.loadsave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
@@ -37,7 +37,7 @@ public class Game extends Thread {
     public void movePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.movePaddle(direction); }
     public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
-    public List<AbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
+    public List<UsefulAbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
     public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
     //TODO: implement magical ability functions
