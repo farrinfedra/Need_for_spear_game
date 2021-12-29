@@ -12,12 +12,11 @@ import java.util.List;
 public class ExplosiveObstacle extends Obstacle{
 
     public ExplosiveObstacle(Vector location, List<Service> services) {
-        super(location, null,40, 40,
+        super(location,40, 40,
                 new StationaryMovementBehavior(),
                 new ExplosiveObstacleCollisionBehavior(), 1, services,
                 new SphereBoundingBox(location.add(new Vector(20,20)),20));
 
-        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/ExplosiveObstacleImage.png")));
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 public class SimpleObstacle extends Obstacle {
 
     public SimpleObstacle(Vector location, List<Service> services) {
-        super(location, null,
+        super(location,
                 40, 40,
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(),1, services);

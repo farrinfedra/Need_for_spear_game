@@ -12,8 +12,8 @@ public class Paddle extends PhysicalObject{
 
     private boolean magicalHexEnabled;
 
-    public Paddle(Vector location, ImageIcon image, double width, double height, List<Service> services){
-        super(location, image, width, height, new PaddleMovementBehavior(), new PaddleCollisionBehavior(), services);
+    public Paddle(Vector location, double width, double height, List<Service> services){
+        super(location, width, height, new PaddleMovementBehavior(), new PaddleCollisionBehavior(), services);
         magicalHexEnabled = false;
     }
 

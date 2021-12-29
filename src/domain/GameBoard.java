@@ -33,9 +33,9 @@ public class GameBoard{
         basicServices.add(new SummonService(this));
         basicServices.add(new DestroyService(this));
 
-        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20, basicServices);
+        paddle = new Paddle(new Vector(300,size.getY()-100), 200, 20, basicServices);
         player = new Player("anonymous");
-        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 25, 25);
+        ball = new Ball(new Vector(size.getX()/2,size.getY()/2), 25, 25);
 
         //TO-DO revise initial starting point
         physicalObjects.add(ball);

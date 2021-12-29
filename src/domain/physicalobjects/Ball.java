@@ -10,8 +10,8 @@ public class Ball extends PhysicalObject{
 
 	private int attackDamage;
 
-    public Ball(Vector location, ImageIcon image, double width, double height ){
-        super(location, image, width, height,
+    public Ball(Vector location, double width, double height ){
+        super(location, width, height,
 				new SphereBoundingBox(location.add(new Vector(width/2, width/2)), width/2 )
 				, new BallMovementBehavior(), new BallCollisionBehavior(), null);
 

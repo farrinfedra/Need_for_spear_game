@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GiftObstacle extends Obstacle{
     public GiftObstacle(Vector location, List<Service> services) {
-        super(location,null,
+        super(location,
                 40, 40,
                 new StationaryMovementBehavior(),
                 new GiftObstacleCollisionBehavior(), 1, services);
