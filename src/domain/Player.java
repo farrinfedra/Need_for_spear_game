@@ -1,5 +1,6 @@
 package domain;
 
+import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class Player {
         return username;
     }
 
-    public boolean removeAbility(UsefulAbilityType type) {
+    public boolean removeAbility(AbilityType type) {
         return abilities.remove(type);
     }
 }

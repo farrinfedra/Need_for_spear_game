@@ -11,6 +11,7 @@ import java.util.Objects;
 public abstract class Ability extends ServiceAttachable {
 
 	private PhysicalObject appliesTo;
+	private ArrayList<PhysicalObject> physicalObjectsList;
 
 	public Ability(PhysicalObject appliesTo){
 		this(appliesTo, null);
@@ -19,6 +20,15 @@ public abstract class Ability extends ServiceAttachable {
 	public Ability(PhysicalObject appliesTo, List<Service> services){
 		super(new ArrayList<Service>());
 		this.appliesTo = appliesTo;
+	}
+
+	public Ability(ArrayList<PhysicalObject> physicalObjects){
+		super(new ArrayList<Service>());
+		this.physicalObjectsList = physicalObjects;
+	}
+
+	public ArrayList<PhysicalObject> getPhysicalObjectsList(){
+		return physicalObjectsList;
 	}
 
 	public abstract void perform();
