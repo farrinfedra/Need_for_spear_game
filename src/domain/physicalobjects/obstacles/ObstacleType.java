@@ -4,5 +4,6 @@ public enum ObstacleType {
     SimpleObstacle,
     FirmObstacle,
     GiftObstacle,
-    ExplosiveObstacle
+    ExplosiveObstacle,
+    HollowObstacle
 }

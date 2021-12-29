@@ -1,8 +1,6 @@
 package domain;
 
-import domain.abilities.Ability;
-import domain.abilities.AbilityFactory;
-import domain.abilities.UsefulAbilityType;
+import domain.abilities.*;
 import domain.physicalobjects.*;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
@@ -93,10 +91,25 @@ public class GameBoard{
         return player;
     }
 
-    public void useAbility(UsefulAbilityType type) {
+    public void useAbility(AbilityType type) {
         if(player.removeAbility(type)){
             Ability ability = AbilityFactory.getInstance().create(type, physicalObjects);
             AbilityEngine.getInstance().activateAbility(ability);
         }
+    }
+
+    public void infiniteVoid() {
+        Ability ability = AbilityFactory.getInstance().create(AbilityType.InfiniteVoidAbility, physicalObjects);
+        AbilityEngine.getInstance().activateAbility(ability);
+    }
+
+    public void doubleAccel() {
+        Ability ability = AbilityFactory.getInstance().create(AbilityType.DoubleAccelAbility, physicalObjects);
+        AbilityEngine.getInstance().activateAbility(ability);
+    }
+
+    public void hollowPurple() {
+        Ability ability = AbilityFactory.getInstance().create(AbilityType.HollowPurpleAbility, physicalObjects);
+        AbilityEngine.getInstance().activateAbility(ability);
     }
 }

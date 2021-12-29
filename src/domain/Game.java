@@ -1,5 +1,6 @@
 package domain;
 
+import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.loadsave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
@@ -38,7 +39,7 @@ public class Game extends Thread {
     public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
 
-    public void useAbility(UsefulAbilityType type){
+    public void useAbility(AbilityType type){
         gameBoard.useAbility(type);
     }
     public List<UsefulAbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
@@ -83,6 +84,18 @@ public class Game extends Thread {
         }
     }
 
+    public void infiniteVoid() {
+        gameBoard.infiniteVoid();
+    }
+
+    public void doubleAccel() {
+        gameBoard.doubleAccel();
+    }
+
+    public void hollowPurple() {
+        gameBoard.hollowPurple();
+    }
+
     public void run(){
 
         System.out.println("MyClass running");
@@ -98,6 +111,7 @@ public class Game extends Thread {
             }
         }
     }
+
 }
 
 

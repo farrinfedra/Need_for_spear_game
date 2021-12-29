@@ -2,6 +2,8 @@ package ui;
 
 import domain.Direction;
 import domain.Game;
+import domain.Ymir;
+import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.listeners.ServiceListener;
 import domain.physicalobjects.Paddle;
@@ -131,10 +133,10 @@ public class RunningScreen extends JFrame{
                         game.movePaddle(Direction.RIGHT);
                         break;
                     case KeyEvent.VK_H:
-                        game.useAbility(UsefulAbilityType.MagicalHexAbility);
+                        game.useAbility(AbilityType.MagicalHexAbility);
                         break;
                     case KeyEvent.VK_T:
-                        game.useAbility(UsefulAbilityType.PaddleExpansionAbility);
+                        game.useAbility(AbilityType.PaddleExpansionAbility);
                         break;
 
                     case KeyEvent.VK_SPACE:
@@ -167,6 +169,8 @@ public class RunningScreen extends JFrame{
 
         timer.start();
         game.start();
+        Ymir ymir = new Ymir();
+        ymir.start();
 
         setResizable(true);
         setVisible(true);
