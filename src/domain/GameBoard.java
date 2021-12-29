@@ -1,11 +1,17 @@
 package domain;
 
+import domain.abilities.Ability;
+import domain.abilities.AbilityFactory;
+import domain.abilities.UsefulAbilityType;
 import domain.physicalobjects.*;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
+import domain.services.DestroyService;
 import domain.services.GameBoardServiceFactory;
+import domain.services.Service;
+import domain.services.SummonService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +23,18 @@ public class GameBoard{
     private Ball ball;
     private Paddle paddle;
     private Vector size;
+    private Player player;
 
     public GameBoard(Vector size){
         this.size = size;
         physicalObjects = new ArrayList<>();
 
-        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20);
+        List<Service> basicServices = new ArrayList<>();
+        basicServices.add(new SummonService(this));
+        basicServices.add(new DestroyService(this));
+
+        paddle = new Paddle(new Vector(300,size.getY()-100), null, 200, 20, basicServices);
+        player = new Player("anonymous");
         ball = new Ball(new Vector(size.getX()/2,size.getY()/2), null, 25, 25);
 
         //TO-DO revise initial starting point
@@ -67,5 +79,24 @@ public class GameBoard{
 
     public Ball getBall(){
         return ball;
+    }
+
+    public void shootMagicalHex() {
+        paddle.shootMagicalHex();
+    }
+
+    public List<UsefulAbilityType> getAvailableAbilities() {
+       return player.getAbilities();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void useAbility(UsefulAbilityType type) {
+        if(player.removeAbility(type)){
+            Ability ability = AbilityFactory.getInstance().create(type, physicalObjects);
+            AbilityEngine.getInstance().activateAbility(ability);
+        }
     }
 }

@@ -6,6 +6,7 @@ import domain.services.ServiceAttachable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Ability extends ServiceAttachable {
 
@@ -25,5 +26,18 @@ public abstract class Ability extends ServiceAttachable {
 
 	public PhysicalObject getAppliesTo() {
 		return appliesTo;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Ability ability = (Ability) o;
+		return Objects.equals(appliesTo, ability.appliesTo);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(appliesTo);
 	}
 }

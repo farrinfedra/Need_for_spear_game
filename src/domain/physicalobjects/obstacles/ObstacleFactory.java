@@ -2,6 +2,7 @@ package domain.physicalobjects.obstacles;
 
 import domain.physicalobjects.Vector;
 
+import domain.services.EquipAbilityService;
 import domain.services.GameBoardServiceFactory;
 import domain.services.ServiceType;
 import domain.services.Service;
@@ -30,6 +31,8 @@ public class ObstacleFactory {
             case FirmObstacle:
                 return new FirmObstacle(location, services);
             case GiftObstacle:
+                services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));
+                services.add(gameBoardServiceFactory.create(ServiceType.EQUIP_ABILITY));
                 return new GiftObstacle(location, services);
             case ExplosiveObstacle:
                 services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));

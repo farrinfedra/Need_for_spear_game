@@ -30,11 +30,11 @@ public class AbilityEngine {
 			Use this block to test your magical abilities.
 			This will be executed once.
 		 */
-		if(test){
+		/*if(test){
 			test= false;
-			Ability testAbility = new DoubleAccelAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Ball).findFirst().get());
+			Ability testAbility = new MagicalHexAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Paddle).findFirst().get());
 			activateAbility(testAbility);
-		}
+		}*/
 		//TEST CODE ENDS HERE
 
 		//Updates time left for each ability, and
@@ -42,19 +42,20 @@ public class AbilityEngine {
 		revertTimedOutAbilities();
     }
 
-	private void activateAbility(Ability ability){
+	public void activateAbility(Ability ability){
 		ability.perform();
 		timeLeftForAbility.put(ability, Constants.ABILITY_TIME);
 	}
 
 	private void revertTimedOutAbilities(){
 		for(Ability ability: timeLeftForAbility.keySet()){
+			if(timeLeftForAbility.get(ability) == -1)
+				break;
 			Integer updatedTime = timeLeftForAbility.get(ability)-1;
 			if(updatedTime == 0){
-				timeLeftForAbility.remove(ability);
 				ability.revert();
-			}
-			else
+				timeLeftForAbility.put(ability, -1);
+			}else
 				timeLeftForAbility.put(ability, updatedTime);
 		}
 	}
