@@ -37,6 +37,9 @@ public class ObstacleFactory {
             case ExplosiveObstacle:
                 services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));
                 return new ExplosiveObstacle(location, services);
+            case HollowObstacle:
+                services.add(gameBoardServiceFactory.create(ServiceType.SUMMON));
+                return new HollowObstacle(location, services);
             default:
                 return new SimpleObstacle(location, services);
         }

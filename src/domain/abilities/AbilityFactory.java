@@ -25,7 +25,7 @@ public class AbilityFactory {
         return instance;
     }
 
-    public Ability create(UsefulAbilityType type, List<PhysicalObject> physicalObjects) {
+    public Ability create(AbilityType type, ArrayList<PhysicalObject> physicalObjects) {
         switch (type) {
             case ChanceGivingAbility:
                 return new ChanceGivingAbility(null);
@@ -35,6 +35,12 @@ public class AbilityFactory {
                 return new PaddleExpansionAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Paddle).findFirst().get());
             case UnstoppableBallAbility:
                 return new UnstoppableBallAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Ball).findFirst().get());
+            case InfiniteVoidAbility:
+                return new InfiniteVoidAbility(physicalObjects);
+            case DoubleAccelAbility:
+                return new DoubleAccelAbility(physicalObjects.stream().filter(physicalObject -> physicalObject instanceof Ball).findFirst().get());
+            case HollowPurpleAbility:
+                return new HollowPurpleAbility(physicalObjects);
         }
         return null;
     }
