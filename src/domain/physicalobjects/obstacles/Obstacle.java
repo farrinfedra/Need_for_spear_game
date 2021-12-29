@@ -39,12 +39,12 @@ public abstract class Obstacle extends PhysicalObject {
             //Do nothing
         }
         else if (this.health <= damage){
-            this.specialAttribute();
 
             this.health = 0;
         }
         else if(this.health != 0){
             this.health -= damage;
+            this.specialAttribute();
         }
     }
 
