@@ -4,6 +4,7 @@ import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.CollisionBehavior;
 import domain.physicalobjects.behaviors.movement.MovementBehavior;
+import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.services.GameBoardService;
 import domain.services.Service;
 
@@ -25,7 +26,12 @@ public abstract class Obstacle extends PhysicalObject {
         super(location, image, width, height, movementBehavior, collisionBehavior, services);
         this.health = health;
         this.invincible = false;
+    }
 
+    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<Service> services, BoundingBox boundingBox) {
+        super(location, image, width, height, boundingBox, movementBehavior, collisionBehavior, services);
+        this.health = health;
+        this.invincible = false;
     }
 
     public void decreaseHealth(int damage){
@@ -33,12 +39,12 @@ public abstract class Obstacle extends PhysicalObject {
             //Do nothing
         }
         else if (this.health <= damage){
-            this.specialAttribute();
 
             this.health = 0;
         }
         else if(this.health != 0){
             this.health -= damage;
+            this.specialAttribute();
         }
     }
 

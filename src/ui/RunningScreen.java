@@ -2,6 +2,9 @@ package ui;
 
 import domain.Direction;
 import domain.Game;
+import domain.Ymir;
+import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
 import domain.listeners.ServiceListener;
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
@@ -49,6 +52,10 @@ public class RunningScreen extends JFrame{
             labels.add(label);
             add(label);
         }
+
+        JLabel abilities = new JLabel("lol");
+        add(abilities);
+        abilities.setBounds(100,0, 1000, 40);
 
         JButton pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
@@ -125,6 +132,16 @@ public class RunningScreen extends JFrame{
                     case KeyEvent.VK_RIGHT:
                         game.movePaddle(Direction.RIGHT);
                         break;
+                    case KeyEvent.VK_H:
+                        game.useAbility(AbilityType.MagicalHexAbility);
+                        break;
+                    case KeyEvent.VK_T:
+                        game.useAbility(AbilityType.PaddleExpansionAbility);
+                        break;
+
+                    case KeyEvent.VK_SPACE:
+                        game.shootMagicalHex();
+                        break;
                 }
             }
             @Override
@@ -142,6 +159,7 @@ public class RunningScreen extends JFrame{
                 for(PhysicalObjectLabel label: labelsCopy){
                     label.update();
                 }
+                abilities.setText(game.getAvailableAbilities().toString());
 
                 requestFocusInWindow();
                 revalidate();
@@ -151,6 +169,8 @@ public class RunningScreen extends JFrame{
 
         timer.start();
         game.start();
+        Ymir ymir = new Ymir();
+        ymir.start();
 
         setResizable(true);
         setVisible(true);

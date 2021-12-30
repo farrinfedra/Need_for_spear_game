@@ -30,12 +30,12 @@ public class PhysicalObject extends ServiceAttachable {
     private boolean isDestroyed;
 
     public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<Service> services){
-        this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
+        this(location, image, width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
                 movementBehavior, collisionBehavior, services);
     }
 
     public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
-        this(location, image, width, height, new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height))),
+        this(location, image, width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
                 movementBehavior, collisionBehavior, new ArrayList<>());
     }
 
@@ -88,6 +88,14 @@ public class PhysicalObject extends ServiceAttachable {
     public void setMovementBehavior(MovementBehavior movementBehavior){ this.movementBehavior = movementBehavior;}
     public CollisionBehavior getCollisionBehavior() {return collisionBehavior;}
     public void setCollisionBehavior(CollisionBehavior collisionBehavior) {this.collisionBehavior = collisionBehavior;}
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
 
     public UUID getId(){
         return this.id;

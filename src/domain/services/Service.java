@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Service {
-    private static List<ServiceListener> serviceListeners;
+    private static List<ServiceListener> serviceListeners = new ArrayList<>();
     private final ServiceType type;
 
     public Service(ServiceType type){
@@ -14,8 +14,6 @@ public abstract class Service {
     }
 
     public static void addServiceListener(ServiceListener listener){
-        if(serviceListeners == null)
-            serviceListeners = new ArrayList<>();
         serviceListeners.add(listener);
     }
 

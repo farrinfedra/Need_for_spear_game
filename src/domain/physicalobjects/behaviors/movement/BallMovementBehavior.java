@@ -1,11 +1,12 @@
 package domain.physicalobjects.behaviors.movement;
+import domain.Constants;
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.Vector;
 
 public class BallMovementBehavior extends MovementBehavior{
 
     public BallMovementBehavior(){
-        super(new Vector(2,2));
+        super(Constants.BALL_SPEED);
     }
 
 	@Override

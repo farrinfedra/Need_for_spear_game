@@ -27,6 +27,8 @@ public class GameBoardServiceFactory {
                 return new SummonService(gameBoard);
             case DESTROY:
                 return new DestroyService(gameBoard);
+            case EQUIP_ABILITY:
+                return new EquipAbilityService(gameBoard);
         }
         return null;
     }

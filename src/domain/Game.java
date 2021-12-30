@@ -1,5 +1,7 @@
 package domain;
 
+import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
 import domain.loadsave.LoadGame;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
@@ -7,6 +9,7 @@ import domain.loadsave.SaveGame;
 import domain.physicalobjects.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends Thread {
     private static Game instance = null;
@@ -35,6 +38,12 @@ public class Game extends Thread {
     public void movePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.movePaddle(direction); }
     public void rotatePaddle(Direction direction){ if(status == GameStatus.RESUMED) gameBoard.rotatePaddle(direction); }
     public void addObstacle(ObstacleType type, Vector location) {gameBoard.addObstacle(type, location); }
+
+    public void useAbility(AbilityType type){
+        gameBoard.useAbility(type);
+    }
+    public List<UsefulAbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
+    public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
     //TODO: implement magical ability functions
 
@@ -75,6 +84,18 @@ public class Game extends Thread {
         }
     }
 
+    public void infiniteVoid() {
+        gameBoard.infiniteVoid();
+    }
+
+    public void doubleAccel() {
+        gameBoard.doubleAccel();
+    }
+
+    public void hollowPurple() {
+        gameBoard.hollowPurple();
+    }
+
     public void run(){
 
         System.out.println("MyClass running");
@@ -90,6 +111,7 @@ public class Game extends Thread {
             }
         }
     }
+
 }
 
 

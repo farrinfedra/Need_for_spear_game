@@ -1,5 +1,6 @@
 package domain.physicalobjects.boundingbox;
 
+import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.Collision;
 
@@ -33,6 +34,10 @@ public class PolygonBoundingBox extends BoundingBox{
         edges[numEdges-1] = points[0].subtract(points[numEdges-1]);
     }
 
+    public static BoundingBox createRectangleBoundingBox(Vector location, double width, double height) {
+        return new PolygonBoundingBox(location, location.add(new Vector(width, 0)), location.add(new Vector(width, height)), location.add(new Vector(0, height)));
+    }
+
     public Collision getPointCollision(Vector v){
         double smallestDist = Double.MAX_VALUE;
         Vector closestEdge = null;
@@ -53,15 +58,37 @@ public class PolygonBoundingBox extends BoundingBox{
 
     @Override
     public Collision getCollisionWith(BoundingBox b) {
+        //List<Collision> collisions = new ArrayList<>();
         for(int i =0; i<numEdges; i++){
             for(double j=1; j<fragmentation+1; j++){
                 Vector p = points[i].add(edges[i].scale(j/fragmentation));
                 Collision col = b.getPointCollision(p);
-                if(col != null)
+                if(col != null){
                     return col;
+                    //collisions.add(col);
+                }
             }
         }
+
         return null;
+/*
+        PhysicalObject o1 = collisions.get(0).getO1();
+        PhysicalObject o2 = collisions.get(0).getO2();
+        Vector location = new Vector(0,0);
+        Vector normal = new Vector(0,0);
+
+        for(Collision col: collisions){
+            location = location.add(col.getLocation());
+            normal = normal.add(col.getNormal());
+        }
+        location = location.scale(1.0/ collisions.size());
+        normal = normal.norm();
+
+        Collision result = new Collision(location, normal);
+        result.setO1(o1);
+        result.setO2(o2);
+        return result;
+        */
     }
 
     @Override

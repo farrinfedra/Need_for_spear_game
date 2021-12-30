@@ -8,24 +8,18 @@ import domain.services.Service;
 import javax.swing.*;
 import java.util.List;
 
-public class SimpleObstacle extends Obstacle {
-
-    public SimpleObstacle(Vector location, List<Service> services) {
+public class HollowObstacle extends Obstacle{
+    public HollowObstacle(Vector location, List<Service> services) {
         super(location, null,
-                40, 40,
+                100, 100,
                 new StationaryMovementBehavior(),
-                new ObstacleCollisionBehavior(),1, services);
+                new ObstacleCollisionBehavior(), 1, services);
 
-        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/SimpleObstacleImage.png")));
-    }
-    @Override
-    public String toString(){
-        return "SimpleObstacle";
+        setImage(new ImageIcon(super.getClass().getResource("/ui/assets/giftObstacleImage.png")));
     }
 
     @Override
     void specialAttribute() {
-        //do nothing
-    }
 
+    }
 }

@@ -5,8 +5,17 @@ import java.util.ArrayList;
 import domain.physicalobjects.PhysicalObject;
 
 public class ChanceGivingAbility extends Ability {
-	public void perform(Object o) {
+	public ChanceGivingAbility(PhysicalObject appliesTo) {
+		super(appliesTo);
+	}
+
+	public void perform() {
 		
+	}
+
+	@Override
+	public void revert() {
+
 	}
 	
 	/*private boolean isActive;
