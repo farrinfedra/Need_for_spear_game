@@ -16,8 +16,6 @@ public class ObstacleCollisionBehavior extends CollisionBehavior{
         if (o2 instanceof Ball){
             Ball ball = (Ball) o2;
             obstacle.decreaseHealth(ball.getAttackDamage());
-
-
         }else if(o2 instanceof MagicalHexAmmo){
             MagicalHexAmmo ammo = (MagicalHexAmmo) o2;
             obstacle.decreaseHealth(ammo.getAttackDamage());

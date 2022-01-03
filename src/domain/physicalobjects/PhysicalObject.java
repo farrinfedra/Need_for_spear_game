@@ -19,7 +19,6 @@ public class PhysicalObject extends ServiceAttachable {
     private UUID id;
 
     private Vector location;
-    private ImageIcon image;
 
     private BoundingBox boundingBox;
     private double width;
@@ -27,34 +26,29 @@ public class PhysicalObject extends ServiceAttachable {
     private MovementBehavior movementBehavior;
     private CollisionBehavior collisionBehavior;
 
-    private boolean isDestroyed;
-
-    public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<Service> services){
-        this(location, image, width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
+    public PhysicalObject(Vector location, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<Service> services){
+        this(location,  width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
                 movementBehavior, collisionBehavior, services);
     }
 
-    public PhysicalObject(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
-        this(location, image, width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
+    public PhysicalObject(Vector location,  double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior){
+        this(location, width, height, PolygonBoundingBox.createRectangleBoundingBox(location, width, height),
                 movementBehavior, collisionBehavior, new ArrayList<>());
     }
 
-    public PhysicalObject(Vector location, ImageIcon image, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<Service> services){
+    public PhysicalObject(Vector location, double width, double height, BoundingBox boundingBox, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, List<Service> services){
         super(services);
 
         this.id = UUID.randomUUID();
 
         this.location = location;
-        this.image = image;
+
         this.width = width;
         this.height = height;
 
         this.boundingBox = boundingBox;
         this.movementBehavior = movementBehavior;
         this.collisionBehavior = collisionBehavior;
-
-
-        this.isDestroyed = false;
     }
 
     public Vector getLocation() {
@@ -62,13 +56,6 @@ public class PhysicalObject extends ServiceAttachable {
     }
     public void setLocation(Vector location) {
         this.location = location;
-    }
-
-    public ImageIcon getImage() {
-        return image;
-    }
-    public void setImage(ImageIcon image) {
-        this.image = image;
     }
 
     public double getWidth() {

@@ -3,12 +3,15 @@ import java.util.*;
 
 import domain.Constants;
 import domain.abilities.*;
+import domain.listeners.AbilityEvent;
+import domain.listeners.EventListener;
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 public class AbilityEngine {
     private static AbilityEngine instance = null;
 	private HashMap<Ability, Integer> timeLeftForAbility;
+	private static final List<EventListener> listeners = new ArrayList<>();
 
 	private boolean test = true;
 
@@ -45,6 +48,9 @@ public class AbilityEngine {
 	public void activateAbility(Ability ability){
 		ability.perform();
 		timeLeftForAbility.put(ability, Constants.ABILITY_TIME);
+
+		for(EventListener listener: listeners)
+			listener.onEventOccured(new AbilityEvent(ability, true));
 	}
 
 	private void revertTimedOutAbilities(){
@@ -55,8 +61,14 @@ public class AbilityEngine {
 			if(updatedTime == 0){
 				ability.revert();
 				timeLeftForAbility.put(ability, -1);
+
+				for(EventListener listener: listeners)
+					listener.onEventOccured(new AbilityEvent(ability, false));
 			}else
 				timeLeftForAbility.put(ability, updatedTime);
 		}
+	}
+	public void addEventListener(EventListener listener){
+		listeners.add(listener);
 	}
 }

@@ -1,5 +1,6 @@
 package domain.physicalobjects.obstacles;
 
+import domain.Constants;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
@@ -10,25 +11,13 @@ import java.util.List;
 
 public class FirmObstacle extends Obstacle{
     public FirmObstacle(Vector location, List<Service> services) {
-        super(location, null,
-                100, 100,
+        super(location,
+                Constants.OBSTACLE_WIDTH, Constants.OBSTACLE_HEIGHT,
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(), 3, services);
 
-        setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth3.png")));
     }
 
-    @Override
-    public void specialAttribute() {
-        switch(this.getHealth()){
-            case 2:
-                this.setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth2.png")));
-                break;
-            case 1:
-                this.setImage(new ImageIcon(super.getClass().getResource("/ui/assets/FirmObstacleImageHealth1.png")));
-                break;
-        }
-    }
 
     @Override
     public String toString(){

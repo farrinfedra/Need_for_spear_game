@@ -47,7 +47,7 @@ public class CollisionEngine {
         }
     }
 
-    public static void addEventListener(EventListener listener){
+    public void addEventListener(EventListener listener){
         listeners.add(listener);
     }
 }

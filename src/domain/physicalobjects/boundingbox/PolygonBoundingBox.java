@@ -115,4 +115,8 @@ public class PolygonBoundingBox extends BoundingBox{
 
         return fragmentationList;
     }
+
+    public Vector[] getPoints() {
+        return points;
+    }
 }

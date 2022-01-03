@@ -1,31 +1,25 @@
 package domain.physicalobjects.obstacles;
 
+import domain.Constants;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class SimpleObstacle extends Obstacle {
 
     public SimpleObstacle(Vector location, List<Service> services) {
-        super(location, null,
-                40, 40,
+        super(location,
+                Constants.OBSTACLE_WIDTH, Constants.OBSTACLE_HEIGHT,
                 new StationaryMovementBehavior(),
                 new ObstacleCollisionBehavior(),1, services);
 
-        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/SimpleObstacleImage.png")));
     }
     @Override
     public String toString(){
         return "SimpleObstacle";
-    }
-
-    @Override
-    void specialAttribute() {
-        //do nothing
     }
 
 }

@@ -1,7 +1,9 @@
 package domain.abilities;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import domain.Constants;
 import domain.Game;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
@@ -11,7 +13,6 @@ import domain.physicalobjects.obstacles.ObstacleType;
 import domain.services.GameBoardServiceFactory;
 
 public class HollowPurpleAbility extends Ability {
-	int HOLLOW_OBSTACLE_NUMBER_CONSTANT = 8;
 
 	public HollowPurpleAbility(ArrayList<PhysicalObject> physicalObjectsList) {
 		super(physicalObjectsList);
@@ -20,9 +21,12 @@ public class HollowPurpleAbility extends Ability {
 	@Override
 	public void perform() {
 		Vector location = new Vector(30, 50);
-		for (int i=0; i<HOLLOW_OBSTACLE_NUMBER_CONSTANT; i++){
+		for (int i = 0; i< Constants.HOLLOW_OBSTACLE_NUMBER; i++){
 			Obstacle obstacle = Game.getInstance().getGameBoard().addObstacle(ObstacleType.HollowObstacle, location);
-			location = new Vector(40 + i*50, 100);
+
+			Random rand = new Random();
+			Vector size = Game.getInstance().getGameBoard().getSize();
+			location = new Vector(rand.nextInt((int) size.getX()), rand.nextInt((int)size.getY()));
 			obstacle.getService(1).perform(obstacle);
 		}
 
