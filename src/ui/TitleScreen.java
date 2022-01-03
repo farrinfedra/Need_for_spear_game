@@ -32,7 +32,7 @@ public class TitleScreen extends JFrame {
 		JButton playButton = new JButton("Play");
 		JButton buildModeButton = new JButton("Build Mode");
 		JButton loadGameButton = new JButton("Load Game");
-
+		JButton helpButton = new JButton("Help");
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -60,6 +60,10 @@ public class TitleScreen extends JFrame {
 		loadGameButton.setSize(100,30);
 		loadGameButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*2, playButton.getWidth(), playButton.getHeight());
 		add(loadGameButton);
+		helpButton.setSize(100,30);
+		helpButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*3, playButton.getWidth(), playButton.getHeight());
+		add(helpButton);
+
 	}
 
 }
