@@ -102,38 +102,11 @@ public class SaveGame {
             }
 
         }
-        System.out.println(chance);
-        System.out.println(magical);
-        System.out.println(paddle);
-        System.out.println(ball);
 
-
-        if (chance != 0){
-            obj2 = new JSONArray();
-            obj2.add(3);
-            obj2.add(chance);
-            abilitiesList.add(obj2);
-        }
-        if (magical != 0){
-            obj2 = new JSONArray();
-            obj2.add(4);
-            obj2.add(magical);
-            abilitiesList.add(obj2);
-        }
-        if (paddle != 0){
-            obj2 = new JSONArray();
-            obj2.add(5);
-            obj2.add(paddle);
-            abilitiesList.add(obj2);
-        }
-        if (ball != 0){
-            obj2 = new JSONArray();
-            obj2.add(6);
-            obj2.add(ball);
-            abilitiesList.add(obj2);
-        }
-
-        //obj2.add(j); //id
+        abilitiesList.add(chance);
+        abilitiesList.add(magical);
+        abilitiesList.add(paddle);
+        abilitiesList.add(ball);
 
         savedGame.put("abilities", abilitiesList);
 
@@ -166,14 +139,8 @@ Format of json file
         [i, health, x, y]
     ]
   },
-  "abilities": [
+  "abilities": [1, 1, 0, 0] //eg
 
-       [type, count],
-       [type, count],
-       [type, count],
-       [type, count],
-
-  ]
 }
  */
 
