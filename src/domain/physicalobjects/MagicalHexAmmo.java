@@ -18,7 +18,7 @@ public class MagicalHexAmmo extends PhysicalObject{
 
 
     public MagicalHexAmmo(Vector location, List<Service> services) {
-        super(location, null, 20, 20, PolygonBoundingBox.createRectangleBoundingBox(location, 20, 20), new MagicalHexAmmoMovementBehavior(), new MagicalHexAmmoCollisionBehavior(), services);
+        super(location, 20, 20, PolygonBoundingBox.createRectangleBoundingBox(location, 20, 20), new MagicalHexAmmoMovementBehavior(), new MagicalHexAmmoCollisionBehavior(), services);
         attackDamage = Constants.MAGICAL_HEX_ATTACK_DAMAGE;
     }
 

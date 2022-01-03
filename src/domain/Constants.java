@@ -5,6 +5,9 @@ import domain.physicalobjects.Vector;
 public class Constants {
     public static final Vector GIFT_FRAGMENT_SPEED = new Vector(0,4);
 
+    public static int OBSTACLE_WIDTH = 40;
+    public static int OBSTACLE_HEIGHT = 40;
+    public static int HOLLOW_OBSTACLE_NUMBER = 8;
     public static int PADDLE_LENGTH = 250;
     public static int ABILITY_TIME = 1000;
 

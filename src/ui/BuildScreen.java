@@ -81,7 +81,7 @@ public class BuildScreen extends JFrame{
 	}
 
 	private void addPhysicalObjectLabel(PhysicalObject object){
-		JLabel objectLabel = new JLabel(object.getImage());
+		JLabel objectLabel = new JLabel("");
 		objectLabel.setBackground(Color.CYAN);
 		objectLabel.setOpaque(true);
 		add(objectLabel);

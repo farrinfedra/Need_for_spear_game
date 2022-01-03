@@ -8,28 +8,26 @@ import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.services.GameBoardService;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public abstract class Obstacle extends PhysicalObject {
     private boolean invincible;
     private int health;
-    abstract void specialAttribute();
 
-    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health) {
-        super(location, image, width, height, movementBehavior, collisionBehavior);
+    public Obstacle(Vector location, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health) {
+        super(location, width, height, movementBehavior, collisionBehavior);
         this.health = health;
         this.invincible = false;
     }
 
-    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<Service> services) {
-        super(location, image, width, height, movementBehavior, collisionBehavior, services);
+    public Obstacle(Vector location, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<Service> services) {
+        super(location, width, height, movementBehavior, collisionBehavior, services);
         this.health = health;
         this.invincible = false;
     }
 
-    public Obstacle(Vector location, ImageIcon image, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<Service> services, BoundingBox boundingBox) {
-        super(location, image, width, height, boundingBox, movementBehavior, collisionBehavior, services);
+    public Obstacle(Vector location, double width, double height, MovementBehavior movementBehavior, CollisionBehavior collisionBehavior, int health, List<Service> services, BoundingBox boundingBox) {
+        super(location, width, height, boundingBox, movementBehavior, collisionBehavior, services);
         this.health = health;
         this.invincible = false;
     }
@@ -44,7 +42,6 @@ public abstract class Obstacle extends PhysicalObject {
         }
         else if(this.health != 0){
             this.health -= damage;
-            this.specialAttribute();
         }
     }
 

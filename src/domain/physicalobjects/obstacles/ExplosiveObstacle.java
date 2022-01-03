@@ -1,5 +1,6 @@
 package domain.physicalobjects.obstacles;
 
+import domain.Constants;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.ExplosiveObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
@@ -12,18 +13,12 @@ import java.util.List;
 public class ExplosiveObstacle extends Obstacle{
 
     public ExplosiveObstacle(Vector location, List<Service> services) {
-        super(location, null,100, 100,
+        super(location,   Constants.OBSTACLE_WIDTH, Constants.OBSTACLE_HEIGHT,
                 new StationaryMovementBehavior(),
                 new ExplosiveObstacleCollisionBehavior(), 1, services,
-                new SphereBoundingBox(location.add(new Vector(50,50)),50));
-
-        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/ExplosiveObstacleImage.png")));
+                new SphereBoundingBox(location.add(new Vector(20,20)),20));
     }
 
-    @Override
-    void specialAttribute() {
-
-    }
 
     @Override
     public String toString(){

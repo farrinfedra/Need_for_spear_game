@@ -1,5 +1,6 @@
 package domain.physicalobjects.obstacles;
 
+import domain.Constants;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.behaviors.collision.CollisionBehavior;
 import domain.physicalobjects.behaviors.collision.GiftObstacleCollisionBehavior;
@@ -14,18 +15,13 @@ import java.util.List;
 
 public class GiftObstacle extends Obstacle{
     public GiftObstacle(Vector location, List<Service> services) {
-        super(location,null,
-                40, 40,
+        super(location,
+                Constants.OBSTACLE_WIDTH, Constants.OBSTACLE_HEIGHT,
                 new StationaryMovementBehavior(),
                 new GiftObstacleCollisionBehavior(), 1, services);
-
-        setImage(new ImageIcon(this.getClass().getResource("/ui/assets/GiftObstacleImage.png")));
     }
 
-    @Override
-    void specialAttribute() {
 
-    }
 
     @Override
     public String toString(){

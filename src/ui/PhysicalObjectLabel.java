@@ -1,48 +1,82 @@
 package ui;
 
-import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.Vector;
-import domain.physicalobjects.boundingbox.PolygonBoundingBox;
-import org.w3c.dom.css.RGBColor;
+import domain.physicalobjects.*;
+import domain.physicalobjects.obstacles.ExplosiveObstacle;
+import domain.physicalobjects.obstacles.FirmObstacle;
+import domain.physicalobjects.obstacles.GiftObstacle;
+import domain.physicalobjects.obstacles.SimpleObstacle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+
 import java.util.Objects;
 
-public class PhysicalObjectLabel extends JLabel{
+public class PhysicalObjectLabel{
     private PhysicalObject physicalObject;
-    private Color color;
+    private ImageIcon imageIcon;
 
     public PhysicalObjectLabel(PhysicalObject physicalObject){
-        super(physicalObject.getImage());
         this.physicalObject = physicalObject;
 
-        this.color = new Color(0, 156,0);
+        String resource;
+        if(physicalObject instanceof SimpleObstacle)
+            resource = Constants.SIMPLE_OBSTACLE_IMG_PATH;
+        else if(physicalObject instanceof FirmObstacle)
+            resource = Constants.FIRM_OBSTACLE_3_IMG_PATH;
+        else if(physicalObject instanceof GiftObstacle)
+            resource = Constants.GIFT_OBSTACLE_IMG_PATH;
+        else if(physicalObject instanceof ExplosiveObstacle)
+            resource = Constants.EXPLOSIVE_OBSTACLE_IMG_PATH;
+        else if(physicalObject instanceof Ball)
+            resource = Constants.BALL_IMG_PATH;
+        else if(physicalObject instanceof Paddle)
+            resource = Constants.PADDLE_IMG_PATH;
+        else if(physicalObject instanceof ExplosiveFragment)
+            resource = Constants.EXPLOSIVE_FRAGMENT_IMG_PATH;
+        else
+            resource = Constants.BALL_IMG_PATH;
 
-        Vector location = physicalObject.getLocation();
-        this.setBounds((int) location.getX(),(int) location.getY(), (int)physicalObject.getWidth(), (int)physicalObject.getHeight());
-        this.setOpaque(true);
-    }
-
-    public void update(){
-        Vector location = physicalObject.getLocation();
-        this.setBounds((int) location.getX(),(int) location.getY(), (int)physicalObject.getWidth(), (int)physicalObject.getHeight());
-    }
-
-    //Probably gonna change name
-    public void flash(){
-        color = this.color.brighter();
-        this.repaint();
-    }
-
-    public void unflash(){
-        color = new Color(0, 156,0);
-        this.repaint();
+        imageIcon = new ImageIcon(this.getClass().getResource(resource));
     }
 
     public PhysicalObject getPhysicalObject() {
         return physicalObject;
+    }
+
+    public void paint(Graphics g) {
+        //Very bad practice, but we didn't have any time
+        if(physicalObject instanceof FirmObstacle){
+            int health = ((FirmObstacle) physicalObject).getHealth();
+            String resource = "";
+            switch (health){
+                case 3:
+                    resource = Constants.FIRM_OBSTACLE_3_IMG_PATH;
+                    break;
+                case 2:
+                    resource = Constants.FIRM_OBSTACLE_2_IMG_PATH;
+                    break;
+                case 1:
+                    resource = Constants.FIRM_OBSTACLE_1_IMG_PATH;
+                    break;
+                default:
+                    resource = Constants.FIRM_OBSTACLE_1_IMG_PATH;
+                    break;
+            }
+            imageIcon = new ImageIcon(this.getClass().getResource(resource));
+        }
+
+        Vector location = physicalObject.getLocation();
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+
+        g.drawImage(imageIcon.getImage()
+                ,x, y, (int) physicalObject.getWidth(), (int) physicalObject.getHeight(), new ImageObserver() {
+                    @Override
+                    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+                        return false;
+                    }
+        });
     }
 
     @Override
@@ -51,28 +85,6 @@ public class PhysicalObjectLabel extends JLabel{
         if (o == null || getClass() != o.getClass()) return false;
         PhysicalObjectLabel that = (PhysicalObjectLabel) o;
         return Objects.equals(physicalObject, that.physicalObject);
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        if(physicalObject.getImage() != null)
-            g.drawImage(physicalObject.getImage().getImage(), 0, 0, new ImageObserver() {
-                @Override
-                public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-                    return false;
-                }
-            });
-        else{
-            g.setColor(this.color);
-            if(physicalObject.getBoundingBox() instanceof PolygonBoundingBox)
-                g.fill3DRect(0,0,(int) physicalObject.getWidth(),(int) physicalObject.getHeight(), true);
-            else
-                g.fillOval(0,0,(int) physicalObject.getWidth(),(int) physicalObject.getHeight());
-        }
-
-
-
     }
 
     @Override

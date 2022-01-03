@@ -19,10 +19,13 @@ public class Ymir {
     }
 
     private void action() {
+        System.out.println("Activated");
         int coinFlip = random.nextInt(2);
 
         if (coinFlip == 0) {
             int ability = random.nextInt(3);
+            System.out.println(ability);
+
             switch (ability) {
                 case 2: //Infinite void
                     Game.getInstance().infiniteVoid();

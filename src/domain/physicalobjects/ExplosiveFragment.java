@@ -11,6 +11,6 @@ import java.util.List;
 
 public class ExplosiveFragment extends PhysicalObject{
     public ExplosiveFragment(Vector location, List<Service> services) {
-        super(location, null, 30, 30, new ExplosiveFragmentMovementBehavior(), new ExplosiveFragmentCollisionBehavior(), services);
+        super(location, 30, 30, new ExplosiveFragmentMovementBehavior(), new ExplosiveFragmentCollisionBehavior(), services);
     }
 }

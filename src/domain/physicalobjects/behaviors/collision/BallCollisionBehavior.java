@@ -18,7 +18,7 @@ public class BallCollisionBehavior extends CollisionBehavior {
 		if(		o2 instanceof Wall ||
 				o2 instanceof Obstacle ||
 				o2 instanceof Paddle){
-
+			System.out.println(o2);
 			Vector newSpeed = ballSpeed.subtract(normal.scale(normal.dot(ballSpeed)*2));
 			ball.setSpeed(newSpeed);
 		}

@@ -13,6 +13,6 @@ import java.util.List;
 
 public class GiftFragment extends PhysicalObject{
     public GiftFragment(Vector location, List<Service> services) {
-        super(location, null, 30, 30, new GiftFragmentMovementBehavior(), new GiftFragmentCollisionBehavior(), services);
+        super(location, 30, 30, new GiftFragmentMovementBehavior(), new GiftFragmentCollisionBehavior(), services);
     }
 }
