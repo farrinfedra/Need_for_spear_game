@@ -81,25 +81,60 @@ public class SaveGame {
         }
 
         savedGame.put("obstacles", obstaclesList);
-        int j = 0;
+        int chance = 0;
+        int magical = 0;
+        int paddle = 0;
+        int ball = 0;
+
         for (UsefulAbilityType a : abilities){
             if(a.toString().equals("ChanceGivingAbility")) {
-                j = 0;
+                chance++;
             }
             else if(a.toString().equals("MagicalHexAbility")) {
-                j = 1;
+                magical++;
             }
             else if(a.toString().equals("PaddleExpansionAbility")) {
-                j = 2;
+                paddle++;
             }
 
             else if(a.toString().equals("UnstoppableBallAbility")) {
-                j = 3;
+                ball++;
             }
+
+        }
+        System.out.println(chance);
+        System.out.println(magical);
+        System.out.println(paddle);
+        System.out.println(ball);
+
+
+        if (chance != 0){
             obj2 = new JSONArray();
-            obj2.add(j);
+            obj2.add(3);
+            obj2.add(chance);
             abilitiesList.add(obj2);
         }
+        if (magical != 0){
+            obj2 = new JSONArray();
+            obj2.add(4);
+            obj2.add(magical);
+            abilitiesList.add(obj2);
+        }
+        if (paddle != 0){
+            obj2 = new JSONArray();
+            obj2.add(5);
+            obj2.add(paddle);
+            abilitiesList.add(obj2);
+        }
+        if (ball != 0){
+            obj2 = new JSONArray();
+            obj2.add(6);
+            obj2.add(ball);
+            abilitiesList.add(obj2);
+        }
+
+        //obj2.add(j); //id
+
         savedGame.put("abilities", abilitiesList);
 
 
@@ -133,10 +168,10 @@ Format of json file
   },
   "abilities": [
 
-       [type],
-       [type],
-       [type],
-       [type],
+       [type, count],
+       [type, count],
+       [type, count],
+       [type, count],
 
   ]
 }
