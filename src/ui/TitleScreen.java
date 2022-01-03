@@ -60,6 +60,14 @@ public class TitleScreen extends JFrame {
 		loadGameButton.setSize(100,30);
 		loadGameButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*2, playButton.getWidth(), playButton.getHeight());
 		add(loadGameButton);
+		helpButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new HelpScreen();
+			}
+		});
+
 		helpButton.setSize(100,30);
 		helpButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*3, playButton.getWidth(), playButton.getHeight());
 		add(helpButton);
