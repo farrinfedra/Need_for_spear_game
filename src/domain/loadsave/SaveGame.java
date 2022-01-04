@@ -136,7 +136,7 @@ Format of json file
         [i, health, x, y]
     ]
   },
-  "abilities": [1, 1, 0, 0] //eg
+  "abilities": [1, 1, 0, 0] //example
 
 }
  */
