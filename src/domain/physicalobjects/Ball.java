@@ -49,6 +49,14 @@ public class Ball extends PhysicalObject{
 	public Boolean getStickToPaddle() {
 		return this.stickToPaddle;
 	}
+
+	public void shoot(){
+		this.setMovementBehavior(new BallMovementBehavior());
+		this.setCollisionBehavior(new BallCollisionBehavior());
+		this.setSpeed(Constants.BALL_SPEED);
+		this.setStickToPaddle(false);
+	}
+
 	public void setStickToPaddle(Boolean value) {
 		this.stickToPaddle = value;
 	}

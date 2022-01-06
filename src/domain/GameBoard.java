@@ -112,7 +112,32 @@ public class GameBoard{
         AbilityEngine.getInstance().activateAbility(ability);
     }
 
+    public void setStickToPaddle(Boolean value) {
+        ball.setStickToPaddle(value);
+    }
+
+    public void shootBall() {
+        if (isBallStickToPaddle()) {
+            ball.shoot();
+            setStickToPaddle(false);
+        }
+    }
+
     public Boolean isBallStickToPaddle() {
         return ball.getStickToPaddle();
+    }
+
+    public void loseChance() {
+        int chance = player.getLives();
+        player.setLives(--chance);
+        if (chance <= 0) {
+            System.out.println("YOU LOST");
+        } else {
+            paddle.setLocation(new Vector(size.getX()/2 - 100,size.getY()-100));
+            ball.setLocation(new Vector(size.getX()/2 - 12.5,size.getY()-126));
+            ball.setMovementBehavior(paddle.getMovementBehavior());
+            ball.setCollisionBehavior(paddle.getCollisionBehavior());
+            ball.setStickToPaddle(true);
+        }
     }
 }
