@@ -35,10 +35,6 @@ public class TitleScreen extends JFrame {
 		JPanel headerPanel = new JPanel();
 		headerPanel(mainPanel, headerPanel);
 
-		JLabel NFS = new JLabel("NEED FOR SPEAR");
-		NFS.setFont(new Font("Helvetica", Font.BOLD, 14));
-		NFS.setBounds(getWidth()/3, getHeight()/5, 150, 20);
-		add(NFS);
 
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
