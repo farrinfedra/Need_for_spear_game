@@ -1,6 +1,7 @@
 package domain.physicalobjects.behaviors.movement;
 
 import domain.physicalobjects.Paddle;
+import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
 
 public class PaddleMovementBehavior extends MovementBehavior{
@@ -19,12 +20,12 @@ public class PaddleMovementBehavior extends MovementBehavior{
 
     @Override
     public void move(Object o){
-        Paddle paddle = (Paddle) o;
+        PhysicalObject object = (PhysicalObject) o;
 
-        Vector newLocation = paddle.getLocation().add(getSpeed());
+        Vector newLocation = object.getLocation().add(getSpeed());
 
-        paddle.setLocation(newLocation);
-        paddle.getBoundingBox().shift(getSpeed());
+        object.setLocation(newLocation);
+        object.getBoundingBox().shift(getSpeed());
 
         setSpeed(new Vector(95*getSpeed().getX()/100, 0));
     }
