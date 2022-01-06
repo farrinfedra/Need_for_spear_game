@@ -37,19 +37,43 @@ public class SaveGame {
         JSONObject savedGame = new JSONObject();
         JSONArray obstaclesList = new JSONArray();
         JSONArray abilitiesList = new JSONArray();
-        JSONObject playerInfo = new JSONObject();
         JSONArray obj;
-        JSONArray obj2;
 
         List<PhysicalObject> obstacles = gameBoard.getPhysicalObjects();
         List<UsefulAbilityType> abilities = gameBoard.getAvailableAbilities();
 
         //adding player info.
-        playerInfo.put("username", player.getUsername());
-        playerInfo.put("lives", player.getLives());
-        playerInfo.put("score", player.getScore());
-        playerInfo.put("date", date.toString());
-        savedGame.put("playerInfo", playerInfo);
+        savedGame.put("username", player.getUsername());
+        savedGame.put("lives", player.getLives());
+        savedGame.put("score", player.getScore());
+        savedGame.put("date", date.toString());
+
+
+        int i = 0;
+        int health = 0;
+        for(PhysicalObject o : obstacles) {
+            if (o.getClass().getSuperclass().getSimpleName().equals("Obstacle") ){
+//                o = (Obstacle) o;
+                if(o.toString().equals("FirmObstacle")) {
+                    i = 0;
+                }
+                else if(o.toString().equals("SimpleObstacle")) {
+                    i = 1;
+                }
+                else if(o.toString().equals("ExplosiveObstacle")) {
+                    i = 2;
+                }
+                else if(o.toString().equals("GiftObstacle")) {
+                    i = 3;
+                }
+                obj = new JSONArray();
+                health = ((Obstacle) o).getHealth();
+                obj.add(i);
+                obj.add(health);
+                obj.add(o.getLocation().getX());
+                obj.add(o.getLocation().getY());
+                obstaclesList.add(obj);
+            }
 
         }
 
@@ -116,5 +140,6 @@ Format of json file
 
 }
  */
+
 
 
