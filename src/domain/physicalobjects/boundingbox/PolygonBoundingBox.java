@@ -13,6 +13,7 @@ public class PolygonBoundingBox extends BoundingBox{
     private Vector[] points;
     private Vector[] edges;
     private int numEdges;
+    private Vector center;
 
     private final int fragmentation = 30;
 
@@ -32,6 +33,12 @@ public class PolygonBoundingBox extends BoundingBox{
             edges[i] = points[i+1].subtract(points[i]);
 
         edges[numEdges-1] = points[0].subtract(points[numEdges-1]);
+
+        center = new Vector(0,0);
+        for(Vector point: points){
+            center = center.add(point);
+        }
+        center = center.scale(1.0/points.length);
     }
 
     public static BoundingBox createRectangleBoundingBox(Vector location, double width, double height) {
@@ -96,8 +103,10 @@ public class PolygonBoundingBox extends BoundingBox{
         for(int i =0; i<numEdges; i++){
             points[i] = points[i].add(v);
         }
+       center = center.add(v);
         return this;
     }
+
     @Override
     public PolygonBoundingBox deepCopy(){
         return new PolygonBoundingBox(this.points);
@@ -114,6 +123,21 @@ public class PolygonBoundingBox extends BoundingBox{
         }
 
         return fragmentationList;
+    }
+
+    @Override
+    public void rotate(double rad) {
+
+
+        for(int i=0; i<points.length; i++){
+            points[i] = points[i].rotate(rad, center);
+        }
+
+        for(int i=0; i<numEdges-1; i++)
+            edges[i] = points[i+1].subtract(points[i]);
+
+        edges[numEdges-1] = points[0].subtract(points[numEdges-1]);
+
     }
 
     public Vector[] getPoints() {

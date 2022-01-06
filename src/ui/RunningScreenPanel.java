@@ -8,20 +8,20 @@ import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.listeners.AbilityEvent;
 import domain.physicalobjects.Ball;
+import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.obstacles.Obstacle;
 import domain.services.Service;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,9 +66,6 @@ public class RunningScreenPanel extends JPanel {
                 JLabel label = new JLabel(event.getAbility().toString());
                 activeAbilities.add(label);
                 abilityLabels.put(event.getAbility(), label);
-
-                System.out.println(event.getAbility().getClass().getSuperclass().getSimpleName());
-
             }
             else{
                 activeAbilities.remove(abilityLabels.remove(event.getAbility()));
@@ -83,36 +80,55 @@ public class RunningScreenPanel extends JPanel {
         }
 
         for(PhysicalObject object: game.getGameBoard().getPhysicalObjects()){
+            if(object instanceof Paddle)
+                labels.add(new PaddleLabel((Paddle) object));
+            else
                 labels.add(new PhysicalObjectLabel(object));
         }
 
         addKeyListener(new KeyListener() {
+
+            private Set<Integer> unreleasedKeys = new HashSet<>();
+
             @Override
             public void keyTyped(KeyEvent e) {
 
             }
             @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()){
-                    case KeyEvent.VK_LEFT :
-                        game.movePaddle(Direction.LEFT);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        game.movePaddle(Direction.RIGHT);
-                        break;
-                    case KeyEvent.VK_H:
-                        game.useAbility(AbilityType.MagicalHexAbility);
-                        break;
-                    case KeyEvent.VK_T:
-                        game.useAbility(AbilityType.PaddleExpansionAbility);
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        game.shootMagicalHex();
-                        break;
+            public void keyPressed(KeyEvent event) {
+                unreleasedKeys.add(event.getKeyCode());
+
+                for(Integer keyCode: unreleasedKeys){
+                    switch (keyCode){
+                        case KeyEvent.VK_LEFT :
+                            game.movePaddle(Direction.LEFT);
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            game.movePaddle(Direction.RIGHT);
+                            break;
+                        case KeyEvent.VK_H:
+                            game.useAbility(AbilityType.MagicalHexAbility);
+                            break;
+                        case KeyEvent.VK_T:
+                            game.useAbility(AbilityType.PaddleExpansionAbility);
+                            break;
+                        case KeyEvent.VK_SPACE:
+                            game.shootMagicalHex();
+                            break;
+                        case KeyEvent.VK_A:
+                            game.rotatePaddle(Direction.LEFT);
+                            break;
+                        case KeyEvent.VK_D:
+                            game.rotatePaddle(Direction.RIGHT);
+                            break;
+                    }
                 }
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
+                System.out.println(KeyEvent.getKeyText(e.getKeyCode()));
+                unreleasedKeys.remove(e.getKeyCode());
             }
         });
 

@@ -1,8 +1,13 @@
 package ui;
 
 import domain.Game;
+import domain.physicalobjects.Vector;
+import domain.physicalobjects.boundingbox.PolygonBoundingBox;
+import domain.physicalobjects.obstacles.FirmObstacle;
+import domain.physicalobjects.obstacles.Obstacle;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Main{
 
@@ -14,5 +19,4 @@ public class Main{
 
         Game game = Game.getInstance();
     }
-
 }

@@ -18,6 +18,7 @@ public class Constants {
     public static final int MAGICAL_HEX_ATTACK_DAMAGE = 1;
 
     public static int PLAYER_INITIAL_LIVES = 3;
+    public static double PADDLE_ROTATION_SPEED = 0.02;
 }
 
 
