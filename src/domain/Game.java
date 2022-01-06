@@ -48,12 +48,15 @@ public class Game extends Thread {
     //TODO: implement magical ability functions
 
     public void loadGame(int slot){
-        //TODO: implement loadGame
         //TODO: get username from user;
 
         loadGame = new LoadGame("player1");
         loadGame.loadGame();
-        ArrayList<ArrayList<Integer>> a = loadGame.getObstacles();
+        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
+        ArrayList<Integer> abilities = loadGame.getAbilities();
+        String username = loadGame.getUsername();
+        double score = loadGame.getScore();
+        int lives = loadGame.getlives();
     }
 
     public void saveGame(int slot){
