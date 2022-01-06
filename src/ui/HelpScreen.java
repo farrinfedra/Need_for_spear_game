@@ -23,7 +23,7 @@ public class HelpScreen extends JFrame {
                 "\n" +
                 "    <h2>How to Play</h2>\n" +
                 "    <h4>The noble phantasm</h4>\n" +
-                "    <p>To control the movement of the noble phantasm, the player needs to use arrow-left and arrow-right buttons. The noble phantasm ( can also be rotated temporarily by up to 45- or 135-degrees using A and D keys respectively.</p>\n" +
+                "    <p>To control the movement of the noble phantasm, the player needs to use arrow-left and arrow-right buttons. The noble phantasm ( can also be rotated temporarily by up to 45- or 135-degrees using A and D keys respectively.)</p>\n" +
                 "    <h4>Obstacles</h4>\n" +
                 "    <p>There are 4 different obstacles </p>\n" +
                 "    <ul>\n" +
