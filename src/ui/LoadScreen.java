@@ -1,49 +1,54 @@
 package ui;
-
 import domain.Game;
-import domain.physicalobjects.PhysicalObject;
-import domain.physicalobjects.obstacles.ObstacleType;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
 
 public class LoadScreen extends JFrame {
-    private Game game;
-    private ObstacleType currentObstacle = ObstacleType.SimpleObstacle;
+    Color BACKGROUND_COLOR = new Color(240,230,140);
     private int width;
     private int height;
-    private static HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
+    GridBagConstraints gbc;
 
-    public LoadScreen (int width, int height){
-        super("LoadScreen");
-        this.width = width;
-        this.height = height;
-        setBounds(0,0,width,height);
-        setResizable(false);
+    public LoadScreen (String username){
+        super("Help Screen");
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        width = (int) dim.getWidth();
+        height = (int) dim.getHeight();
+
+        setVisible(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//        game = Game.getInstance();
-//        game.createGameBoard(width, height);
+        gbc = new GridBagConstraints();
+        JPanel mainPanel = new JPanel();
+        mainPanel(mainPanel);
 
-        JLabel userLabel = new JLabel("Enter Label");
-        JTextField usernameField = new JTextField();
-        JButton enterButton = new JButton("Enter");
+        //get file names from game.
+        Game.getInstance().getSavedGames();
 
-        enterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                new LoadScreen(width, height);
-            }
-        });
+        JPanel loadGamePanel = new JPanel();
+        gameList(mainPanel, loadGamePanel);
+        setVisible(true);
 
-        add(userLabel);
-        add(usernameField);
-        add(enterButton);
+
+    }
+
+    private void mainPanel(JPanel mainPanel) {
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        add(mainPanel);
+    }
+
+    public void gameList (JPanel mainPanel, JPanel loadGamePanel){
+        loadGamePanel.setBorder(new EmptyBorder(new Insets(100, 150, 100, 150)));
+        JLabel usernameLabel = new JLabel("Choose a game you would like to load");
+        usernameLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
+        usernameLabel.setForeground(Color.decode("#8b0000"));
+        loadGamePanel.setBackground(BACKGROUND_COLOR);
+        loadGamePanel.add(usernameLabel);
+        mainPanel.add(loadGamePanel);
 
 
     }

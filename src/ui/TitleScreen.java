@@ -1,5 +1,7 @@
 package ui;
 
+import domain.Game;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -7,23 +9,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class TitleScreen extends JFrame {
 
 	Color BACKGROUND_COLOR = new Color(240,230,140);
 	Color TEXT_COLOR = new Color(128,128,0);
 	GridBagConstraints gbc;
+	String username;
+	JButton loadGameButton;
+	JButton playButton;
+	JButton buildModeButton;
+	JButton helpButton;
 	public TitleScreen(int width, int height) {
 		super("TitleScreen");
 		setBounds(0, 0, width, height);
@@ -35,11 +33,16 @@ public class TitleScreen extends JFrame {
 		JPanel headerPanel = new JPanel();
 		headerPanel(mainPanel, headerPanel);
 
+		JPanel usernamePanel = new JPanel();
+		usernamePanel(mainPanel, usernamePanel, width, height);
+
 
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
 
+
 		setVisible(true);
+
 	}
 
 	private void mainPanel(JPanel mainPanel) {
@@ -51,14 +54,45 @@ public class TitleScreen extends JFrame {
 		headerPanel.setLayout(new GridBagLayout());
 		ImageIcon iconLogo =new ImageIcon("src/ui/assets/logo.png");
 		JLabel NFS = new JLabel(iconLogo);
-		NFS.setSize(5000, 50000);
+		NFS.setSize(5000, 5000);
 	    NFS.setFont(new Font("Helvetica", Font.BOLD, 20));
 	    NFS.setForeground(TEXT_COLOR);
 		headerPanel.add(NFS);
 		headerPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(headerPanel);
 	}
+	private void usernamePanel(JPanel mainPanel, JPanel usernamePanel, int width, int height) {
+		JLabel usernameLabel = new JLabel("Please enter your name");
+		usernameLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
+		usernameLabel.setBounds(width,height - 500, width,600);
+		usernameLabel.setForeground(Color.decode("#8b0000"));
+		usernamePanel.setBackground(BACKGROUND_COLOR);
+		JTextField usernameTextField = new JTextField(20);
+		JButton enterButton = new JButton("Enter");
+		enterButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				username = usernameTextField.getText();
+				enterButton.setVisible(false);
+				usernameTextField.setVisible(false);
+				setButtonsVisible();
+				usernameLabel.setText("Welcome %s".formatted(username));
 
+			}
+		});
+
+		usernamePanel.add(usernameLabel);
+		usernamePanel.add(usernameTextField);
+		usernamePanel.add(enterButton);
+		mainPanel.add(usernamePanel);
+	}
+
+	private void setButtonsVisible() {
+		playButton.setVisible(true);
+		buildModeButton.setVisible(true);
+		loadGameButton.setVisible(true);
+		helpButton.setVisible(true);
+	}
 
 
 	private void buttonsPanel(JPanel mainPanel, JPanel buttonsPanel, int width, int height) {
@@ -67,7 +101,7 @@ public class TitleScreen extends JFrame {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
-		JButton playButton = new JButton("Play");
+		 playButton = new JButton("Play");
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -75,16 +109,16 @@ public class TitleScreen extends JFrame {
 				new RunningScreen();
 			}
 		});
-		JButton buildModeButton = new JButton("Build Mode");
+		 buildModeButton = new JButton("Build Mode");
 		buildModeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new BuildScreen(width, height);
+				new BuildScreen(width, height, username);
 			}
 		});
 
-		JButton helpButton = new JButton("Help");
+		 helpButton = new JButton("Help");
 		helpButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -93,19 +127,32 @@ public class TitleScreen extends JFrame {
 			}
 		});
 
-		JButton loadGameButton = new JButton("Load Game");
+		 loadGameButton = new JButton("Load Game");
+		loadGameButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new LoadScreen(username);
+			}
+		});
+
 		gbc.gridx=0;
 		gbc.gridy=0;
 		buttonsPanel.add(playButton);
+		playButton.setVisible(false);
 		gbc.gridx=1;
 		gbc.gridy=0;
 		buttonsPanel.add(buildModeButton);
+		buildModeButton.setVisible(false);
 		gbc.gridx=2;
 		gbc.gridy=0;
 		buttonsPanel.add(loadGameButton);
+		loadGameButton.setVisible(false);
 		gbc.gridx=3;
 		gbc.gridy=0;
 		buttonsPanel.add(helpButton);
+		helpButton.setVisible(false);
+
 		buttonsPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(buttonsPanel);
 
