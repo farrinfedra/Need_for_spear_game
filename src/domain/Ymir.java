@@ -15,28 +15,31 @@ public class Ymir {
     }
 
     public void start() {
-        executorService.scheduleAtFixedRate(() -> this.action(), 2, 8, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::action, 2, 8, TimeUnit.SECONDS);
     }
 
     private void action() {
         System.out.println("Activated");
-        int coinFlip = random.nextInt(2);
+        if (!Game.getInstance().isBallStickToPaddle()){
+            int coinFlip = random.nextInt(2);
 
-        if (coinFlip == 0) {
-            int ability = random.nextInt(3);
-            System.out.println(ability);
+            if (coinFlip == 0) {
+                int ability = random.nextInt(3);
+                System.out.println(ability);
 
-            switch (ability) {
-                case 2: //Infinite void
-                    Game.getInstance().infiniteVoid();
-                    break;
-                case 1: //Double accel
-                    Game.getInstance().doubleAccel();
-                    break;
-                case 0: //Hollow purple
-                    Game.getInstance().hollowPurple();
-                    break;
-        }
+                switch (ability) {
+                    case 2: //Infinite void
+                        Game.getInstance().infiniteVoid();
+                        break;
+                    case 1: //Double accel
+                        Game.getInstance().doubleAccel();
+                        break;
+                    case 0: //Hollow purple
+                        Game.getInstance().hollowPurple();
+                        break;
+                }
+            }
+
         }
 
     }

@@ -115,6 +115,9 @@ public class Game extends Thread {
         }
     }
 
+    public boolean isBallStickToPaddle() {
+        return gameBoard.isBallStickToPaddle();
+    }
 }
 
 
