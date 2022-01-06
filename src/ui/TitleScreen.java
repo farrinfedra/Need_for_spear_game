@@ -132,7 +132,7 @@ public class TitleScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new LoadScreen(width, height, username);
+				new LoadScreen(username);
 			}
 		});
 

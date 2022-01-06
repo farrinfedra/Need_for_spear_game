@@ -108,7 +108,7 @@ public class SaveGame {
         savedGame.put("abilities", abilitiesList);
 
 
-        try(FileWriter file = new FileWriter(String.format("%s.json", player.getUsername()))){
+        try(FileWriter file = new FileWriter(String.format("./savedGames/%s.json", player.getUsername()))){
             file.write(savedGame.toJSONString());
             file.flush();
         }

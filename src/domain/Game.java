@@ -118,6 +118,10 @@ public class Game extends Thread {
     public void setPlayerName(String username) {
         gameBoard.getPlayer().setUsername(username);
     }
+
+    public void getSavedGames() {
+
+    }
 }
 
 
