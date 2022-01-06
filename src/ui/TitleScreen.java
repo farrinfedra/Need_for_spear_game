@@ -39,7 +39,7 @@ public class TitleScreen extends JFrame {
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
 
-		setVisible(true);	
+		setVisible(true);
 	}
 
 	private void mainPanel(JPanel mainPanel) {
@@ -66,7 +66,7 @@ public class TitleScreen extends JFrame {
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		
+
 		JButton playButton = new JButton("Play");
 		playButton.addActionListener(new ActionListener() {
 			@Override
@@ -83,6 +83,16 @@ public class TitleScreen extends JFrame {
 				new BuildScreen(width, height);
 			}
 		});
+
+		JButton helpButton = new JButton("Help");
+		helpButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new HelpScreen();
+			}
+		});
+
 		JButton loadGameButton = new JButton("Load Game");
 		gbc.gridx=0;
 		gbc.gridy=0;
@@ -93,9 +103,13 @@ public class TitleScreen extends JFrame {
 		gbc.gridx=2;
 		gbc.gridy=0;
 		buttonsPanel.add(loadGameButton);
+		gbc.gridx=3;
+		gbc.gridy=0;
+		buttonsPanel.add(helpButton);
 		buttonsPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(buttonsPanel);
 
-		
+
 	}
+
 }

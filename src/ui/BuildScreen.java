@@ -82,7 +82,7 @@ public class BuildScreen extends JFrame{
 		double y = removePoint.getY();
 		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
 			double obsX = obstacle.getLocation().getX()+20;
-			
+
 			double upperX = obsX + obstacle.getWidth();
 			double lowerX = obsX;
 			double obsY = obstacle.getLocation().getY()+20;
@@ -98,7 +98,7 @@ public class BuildScreen extends JFrame{
 				break;
 			}
 		}
-			
+
 	}
 	private void removePhysicalObjectLabel(PhysicalObject object) {
 		JLabel objectLabel = objectToLabelMap.get(object);
@@ -111,7 +111,7 @@ public class BuildScreen extends JFrame{
 		boolean isFound = false;
 		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
 			double obsX = obstacle.getLocation().getX()+20;
-			
+
 			double upperX = obsX + obstacle.getWidth();
 			double lowerX = obsX;
 			double obsY = obstacle.getLocation().getY()+20;
@@ -161,7 +161,7 @@ public class BuildScreen extends JFrame{
 				deleteButton.setText("Delete Mode is on");
 			}
 			else {
-				isDeletingMode = false;	
+				isDeletingMode = false;
 				deleteButton.setText("Delete Obstacle");
 			}
 		}
@@ -169,7 +169,7 @@ public class BuildScreen extends JFrame{
 		deletePanel.add(deleteButton);
 		return deletePanel;
 	}
-	
+
 	private JPanel startPanel() {
 		JPanel startPanel = new JPanel(new GridLayout(1,1));
 		JButton startGameButton = new JButton("Start Game");
@@ -187,7 +187,7 @@ public class BuildScreen extends JFrame{
 	}
 	private JPanel obstaclesPanel(){
 	JPanel obstaclesPanel = new JPanel(new GridLayout(1,4));
-	
+
 
 	//TODO : add figures of obstacles instead of texts
 	JButton simpleObstacleButton = new JButton("Simple Obstacle");
@@ -229,10 +229,15 @@ public class BuildScreen extends JFrame{
 			currentObstacle = ObstacleType.GiftObstacle;
         }
     });
-	obstaclesPanel.add(simpleObstacleButton);
+
+JTextField usernameField = new JTextField("username",10);
+
+		obstaclesPanel.add(simpleObstacleButton);
 	obstaclesPanel.add(firmObstacleButton);
 	obstaclesPanel.add(explosiveObstacleButton);
 	obstaclesPanel.add(giftObstacleButton);
+	obstaclesPanel.add(usernameField);
+	//obstaclesPanel.add(user);
 	return obstaclesPanel;
 	}
 
@@ -261,15 +266,25 @@ public class BuildScreen extends JFrame{
 		totalShowPanel.add(giftObstacleLabel);
 		totalShowPanel.add(giftObstacleLabelNumber);
 		return totalShowPanel;
-	}*/
-	/* 	//for increasing number of obstacles placed 
+	}
+	/* 	//for increasing number of obstacles placed
 	//can be called when new obstacle is placed
 	private JLabel increseNumberOfLabel(JLabel numberLabel) {
 		int previousNumber = Integer.parseInt(numberLabel.getText());
 		numberLabel.setText(Integer.valueOf(previousNumber + 1).toString());
 		return numberLabel;
 	}*/
-	
-	
+
+	private JPanel userNamePanel() {
+		JPanel userNamePanel = new JPanel(new GridLayout(1,2));
+		JLabel user = new JLabel("User name");
+		JTextField userName = new JTextField(10);
+		userNamePanel.add(user);
+		userNamePanel.add(userName);
+		return userNamePanel;
+
+	}
+
+
 }
 

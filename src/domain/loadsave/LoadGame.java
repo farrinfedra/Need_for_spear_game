@@ -40,7 +40,7 @@ public class LoadGame {
         }
     }
 
-    //public ArrayList<Objects>
+
 
 public ArrayList<ArrayList<Integer>> getObstacles(){
         JSONArray obstacleArray = new JSONArray();

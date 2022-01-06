@@ -19,7 +19,6 @@ import org.json.simple.JSONObject;
 public class SaveGame {
     private GameBoard gameBoard; //TODO: is it wrong to do this?
     private Date date;
-    HashMap<String, Integer[]> loadedGame;
 
 
 
