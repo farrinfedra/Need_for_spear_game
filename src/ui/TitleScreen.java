@@ -32,6 +32,7 @@ public class TitleScreen extends JFrame {
 		JButton playButton = new JButton("Play");
 		JButton buildModeButton = new JButton("Build Mode");
 		JButton loadGameButton = new JButton("Load Game");
+		JTextField usernameTextField = new JTextField("Enter Username");
 
 		playButton.addActionListener(new ActionListener() {
 			@Override
@@ -56,6 +57,14 @@ public class TitleScreen extends JFrame {
 		buildModeButton.setSize(100,30);
 		buildModeButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight(), playButton.getWidth(), playButton.getHeight());
 		add(buildModeButton);
+
+		loadGameButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new LoadScreen(width, height);
+			}
+		});
 
 		loadGameButton.setSize(100,30);
 		loadGameButton.setBounds(getBounds().width/2-playButton.getWidth()/2, getBounds().height/2+playButton.getHeight()*2, playButton.getWidth(), playButton.getHeight());
