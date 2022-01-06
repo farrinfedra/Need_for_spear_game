@@ -37,19 +37,16 @@ public class SaveGame {
         JSONObject savedGame = new JSONObject();
         JSONArray obstaclesList = new JSONArray();
         JSONArray abilitiesList = new JSONArray();
-        JSONObject playerInfo = new JSONObject();
         JSONArray obj;
-        JSONArray obj2;
 
         List<PhysicalObject> obstacles = gameBoard.getPhysicalObjects();
         List<UsefulAbilityType> abilities = gameBoard.getAvailableAbilities();
 
         //adding player info.
-        playerInfo.put("username", player.getUsername());
-        playerInfo.put("lives", player.getLives());
-        playerInfo.put("score", player.getScore());
-        playerInfo.put("date", date.toString());
-        savedGame.put("playerInfo", playerInfo);
+        savedGame.put("username", player.getUsername());
+        savedGame.put("lives", player.getLives());
+        savedGame.put("score", player.getScore());
+        savedGame.put("date", date.toString());
 
 
         int i = 0;
@@ -81,25 +78,33 @@ public class SaveGame {
         }
 
         savedGame.put("obstacles", obstaclesList);
-        int j = 0;
+        int chance = 0;
+        int magical = 0;
+        int paddle = 0;
+        int ball = 0;
+
         for (UsefulAbilityType a : abilities){
             if(a.toString().equals("ChanceGivingAbility")) {
-                j = 0;
+                chance++;
             }
             else if(a.toString().equals("MagicalHexAbility")) {
-                j = 1;
+                magical++;
             }
             else if(a.toString().equals("PaddleExpansionAbility")) {
-                j = 2;
+                paddle++;
             }
 
             else if(a.toString().equals("UnstoppableBallAbility")) {
-                j = 3;
+                ball++;
             }
-            obj2 = new JSONArray();
-            obj2.add(j);
-            abilitiesList.add(obj2);
+
         }
+
+        abilitiesList.add(chance);
+        abilitiesList.add(magical);
+        abilitiesList.add(paddle);
+        abilitiesList.add(ball);
+
         savedGame.put("abilities", abilitiesList);
 
 
@@ -131,15 +136,10 @@ Format of json file
         [i, health, x, y]
     ]
   },
-  "abilities": [
+  "abilities": [1, 1, 0, 0] //example
 
-       [type],
-       [type],
-       [type],
-       [type],
-
-  ]
 }
  */
+
 
 
