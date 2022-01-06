@@ -2,6 +2,7 @@ package domain.loadsave;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 public class LoadGame {
 
     private String username;
-    private ArrayList<ArrayList<Integer>> obstacles;
 
     public LoadGame(String username) {this.username = username;}
     private JSONObject obs;
@@ -42,34 +42,60 @@ public class LoadGame {
 
 
 
-public ArrayList<ArrayList<Integer>> getObstacles(){
+    public ArrayList<ArrayList<Double>> getObstacles(){
         JSONArray obstacleArray = new JSONArray();
-        obstacleArray = (JSONArray) obs.get("Obstacles");
+        obstacleArray = (JSONArray) obs.get("obstacles");
 
-        obstacles = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Double>> obstacles = new ArrayList<>();
 
-    int id = 0;
-    int health = 0;
-    int x = 0;
-    int y = 0;
-    for (int i = 0 ; i<obstacleArray.size(); i++){
-        JSONArray temp = new JSONArray();
-        temp = (JSONArray) obstacleArray.get(i);
-        id = Integer.valueOf(temp.get(0).toString());
-        health = Integer.valueOf(temp.get(1).toString());
-        x = Integer.valueOf(temp.get(2).toString());
-        y = Integer.valueOf(temp.get(3).toString());
-       ArrayList<Integer> temps = new ArrayList<Integer>();
-       temps.add(id);
-        temps.add(health);
-        temps.add(x);
-        temps.add(y);
-        obstacles.add(temps);
+        double id = 0;
+        double health = 0;
+        double x = 0;
+        double y = 0;
+        for (int i = 0 ; i<obstacleArray.size(); i++){
+            JSONArray temp = new JSONArray();
+            temp = (JSONArray) obstacleArray.get(i);
+            id = Double.valueOf(temp.get(0).toString());
+            health = Double.valueOf(temp.get(1).toString());
+            x = Double.valueOf(temp.get(2).toString());
+            y = Double.valueOf(temp.get(3).toString());
+            ArrayList<Double> temps = new ArrayList<Double>();
+            temps.add(id);
+            temps.add(health);
+            temps.add(x);
+            temps.add(y);
+            obstacles.add(temps);
 
-    }
+        }
 
         return obstacles;
-}
+    }
+    public ArrayList<Integer> getAbilities(){
+        ArrayList<Integer> abilities = new ArrayList<>();
+        int count = 0;
 
+        JSONArray abilitiesArray = new JSONArray();
+        abilitiesArray = (JSONArray) obs.get("abilities");
+
+        for (int i = 0; i < 4; i ++){
+            count = Integer.valueOf(abilitiesArray.get(i).toString());
+            abilities.add(count);
+        }
+
+        return abilities;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public double getScore(){
+        double score = Double.valueOf(obs.get("score").toString());
+        return score;
+    }
+    public int getlives(){
+        int lives = Integer.valueOf(obs.get("lives").toString());
+        return lives;
+    }
 
 }
