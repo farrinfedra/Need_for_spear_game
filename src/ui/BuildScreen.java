@@ -23,7 +23,7 @@ public class BuildScreen extends JFrame{
 	private boolean isDeletingMode = false;
 	private Point drawPoint;
 
-	public BuildScreen(int width, int height) {
+	public BuildScreen(int width, int height, String username) {
 		super("BuildGameScreen");
 		this.width = width;
 		this.height = height;
@@ -35,7 +35,7 @@ public class BuildScreen extends JFrame{
 
 		game = Game.getInstance();
 		game.createGameBoard(width, height);
-
+		game.setPlayerName(username);
 
 		JPanel obstaclePanel = obstaclesPanel();
 		add(obstaclePanel, BorderLayout.PAGE_START);

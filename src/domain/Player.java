@@ -13,8 +13,7 @@ public class Player {
     private int score;
     private List<UsefulAbilityType> abilities;
 
-    public Player(String username){
-        this.username = username;
+    public Player(){
         this.abilities = new ArrayList<>();
         this.score = 0;
         this.lives = Constants.PLAYER_INITIAL_LIVES;
@@ -47,6 +46,7 @@ public class Player {
     public String getUsername() {
         return username;
     }
+    public void setUsername(String username) { this.username = username; }
 
     public boolean removeAbility(AbilityType type) {
         return abilities.remove(type);
