@@ -2,11 +2,11 @@ package domain.loadsave;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,9 +19,21 @@ public class LoadGame {
 
     public LoadGame(String username) {this.username = username;}
     private JSONObject obs;
-    public void loadGame() {
-        JSONParser jsonParser = new JSONParser();
 
+
+    public ArrayList<String> getSavedGameList() {
+        ArrayList<String> files = new ArrayList<>();
+        File dir = new File("./savedGames");
+        File[] dir_contents = dir.listFiles();
+        for(File file : dir_contents){
+            if(file.getName().contains(username)) {
+                files.add(file.getName());
+            }
+        }
+        return files;
+    }
+    public void getLoadedGame(String fileName){
+        JSONParser jsonParser = new JSONParser();
 
         //read file
         try (FileReader reader = new FileReader(String.format("%s.json", username)))

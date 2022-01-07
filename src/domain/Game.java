@@ -3,7 +3,6 @@ package domain;
 import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.loadsave.LoadGame;
-import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
 import domain.loadsave.SaveGame;
 import domain.physicalobjects.Vector;
@@ -50,13 +49,13 @@ public class Game extends Thread {
     public void loadGame(int slot){
         //TODO: get username from user;
 
-        loadGame = new LoadGame("player1");
-        loadGame.loadGame();
-        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
-        ArrayList<Integer> abilities = loadGame.getAbilities();
-        String username = loadGame.getUsername();
-        double score = loadGame.getScore();
-        int lives = loadGame.getlives();
+//        loadGame = new LoadGame("player1");
+//        loadGame.loadGame();
+//        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
+//        ArrayList<Integer> abilities = loadGame.getAbilities();
+//        String username = loadGame.getUsername();
+//        double score = loadGame.getScore();
+//        int lives = loadGame.getlives();
     }
 
     public void saveGame(int slot){
@@ -119,8 +118,10 @@ public class Game extends Thread {
         gameBoard.getPlayer().setUsername(username);
     }
 
-    public void getSavedGames() {
-
+    public ArrayList<String> getSavedGames(String username) {
+        loadGame = new LoadGame(username);
+        ArrayList<String> list = loadGame.getSavedGameList();
+        return list;
     }
 }
 
