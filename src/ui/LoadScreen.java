@@ -24,10 +24,12 @@ public class LoadScreen extends JFrame {
         game = Game.getInstance();
         list = game.getSavedGames(username);
 
+
         if (list.size() == 1) {
             dispose();
-            // new load screen
-            //load the game immediately
+            game.createGameBoard(width, height);
+            game.loadGame(list.get(0));
+            new RunningScreen();
         } else {
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             width = (int) dim.getWidth();

@@ -93,7 +93,7 @@ public class GameBoard{
     public List<Obstacle> getObstacles() {
         List<Obstacle> obstacles = new ArrayList<>();
         for (PhysicalObject object : physicalObjects) {
-            if (object.getClass().equals("Obstacle")){
+            if (object.getClass().getSuperclass().getSimpleName().equals("Obstacle")){
                 obstacles.add((Obstacle) object);
             }
         }

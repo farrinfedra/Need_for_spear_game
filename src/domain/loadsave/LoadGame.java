@@ -112,7 +112,7 @@ public class LoadGame {
 
     }
     public void readAbilities(){
-        ArrayList<Integer> abilities = new ArrayList<>();
+        abilities = new ArrayList<>();
         int count;
 
         JSONArray abilitiesArray = new JSONArray();
@@ -176,8 +176,8 @@ public class LoadGame {
             double y = a.get(3);
 
             gameBoard.addObstacle((ObstacleType) Arrays.stream(ObstacleType.values()).toArray()[id], new Vector(x, y));
-            Obstacle o = (Obstacle) gameBoard.getPhysicalObjects().get(i);
-            o.setHealth(health);
+            System.out.println(gameBoard.getObstacles());
+            gameBoard.getObstacles().get(i).setHealth(health);
             i++;
         }
 
