@@ -11,6 +11,7 @@ import domain.GameBoard;
 //import domain.physicalobjects.Obstacle;
 //external java-simple module for json
 import domain.Player;
+import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.obstacles.Obstacle;
@@ -42,7 +43,7 @@ public class SaveGame {
         JSONArray obj2;
 
         List<PhysicalObject> obstacles = gameBoard.getPhysicalObjects();
-        List<UsefulAbilityType> abilities = gameBoard.getAvailableAbilities();
+        List<AbilityType> abilities = gameBoard.getAvailableAbilities();
 
         //adding player info.
         playerInfo.put("username", player.getUsername());
@@ -82,7 +83,7 @@ public class SaveGame {
 
         savedGame.put("obstacles", obstaclesList);
         int j = 0;
-        for (UsefulAbilityType a : abilities){
+        for (AbilityType a : abilities){
             if(a.toString().equals("ChanceGivingAbility")) {
                 j = 0;
             }

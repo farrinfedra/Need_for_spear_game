@@ -2,6 +2,7 @@ package domain;
 
 import domain.abilities.*;
 import domain.physicalobjects.*;
+import domain.physicalobjects.behaviors.collision.BallCollisionBehavior;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
@@ -32,7 +33,7 @@ public class GameBoard{
         basicServices.add(new DestroyService(this));
 
         paddle = new Paddle(new Vector(size.getX()/2 - 100,size.getY()-100), 200, 20, basicServices);
-        ball = new Ball(new Vector(size.getX()/2 - 12.5,size.getY()-126), 25, 25, paddle.getMovementBehavior(), paddle.getCollisionBehavior());
+        ball = new Ball(new Vector(size.getX()/2 - 12.5,size.getY()-126), 25, 25, paddle.getMovementBehavior(), new BallCollisionBehavior());
         ball.setSpeed(new Vector(0,0));
         player = new Player("anonymous");
         physicalObjects.add(ball);
@@ -82,7 +83,7 @@ public class GameBoard{
         paddle.shootMagicalHex();
     }
 
-    public List<UsefulAbilityType> getAvailableAbilities() {
+    public List<AbilityType> getAvailableAbilities() {
        return player.getAbilities();
     }
 
@@ -136,7 +137,6 @@ public class GameBoard{
             paddle.setLocation(new Vector(size.getX()/2 - 100,size.getY()-100));
             ball.setLocation(new Vector(size.getX()/2 - 12.5,size.getY()-126));
             ball.setMovementBehavior(paddle.getMovementBehavior());
-            ball.setCollisionBehavior(paddle.getCollisionBehavior());
             ball.setStickToPaddle(true);
         }
     }

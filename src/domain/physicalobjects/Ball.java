@@ -33,7 +33,7 @@ public class Ball extends PhysicalObject{
 	}
 
 	public Vector getSpeed() {
-		return  ((BallMovementBehavior) getMovementBehavior()).getSpeed();
+		return  getMovementBehavior().getSpeed();
 	}
 	public void setSpeed(Vector speed) {
 		getMovementBehavior().setSpeed(speed);

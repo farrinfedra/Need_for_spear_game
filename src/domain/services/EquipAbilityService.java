@@ -2,6 +2,7 @@ package domain.services;
 
 import domain.GameBoard;
 import domain.abilities.Ability;
+import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 
 public class EquipAbilityService extends GameBoardService{
@@ -10,8 +11,8 @@ public class EquipAbilityService extends GameBoardService{
     }
 
     @Override
-    Object performSpecification(Object o) {
-        getGameBoard().getPlayer().addAbility((UsefulAbilityType) o);
+    public Object performSpecification(Object o) {
+        getGameBoard().getPlayer().addAbility((AbilityType) o);
         return null;
     }
 }
