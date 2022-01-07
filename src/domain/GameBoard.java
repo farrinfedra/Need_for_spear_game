@@ -23,6 +23,7 @@ public class GameBoard{
     private Paddle paddle;
     private Vector size;
     private Player player;
+    private int time;
 
     public GameBoard(Vector size){
         this.size = size;
@@ -42,6 +43,8 @@ public class GameBoard{
         physicalObjects.add(new Wall(new Vector(-21,20), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));
+
+        time = 0;
     }
 
     public void addPhysicalObject(PhysicalObject physicalObject){
@@ -65,7 +68,7 @@ public class GameBoard{
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
     public void doTickActions(){
-        //TODO: implement doTickActions
+        time++;
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
         AbilityEngine.getInstance().calculate(physicalObjects);
@@ -89,6 +92,10 @@ public class GameBoard{
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void increaseScore(double score){
+        player.setScore(player.getScore() + score);
     }
 
     public void useAbility(AbilityType type) {
@@ -146,5 +153,9 @@ public class GameBoard{
     public void increaseChance() {
         int chance = player.getLives();
         player.setLives(++chance);
+    }
+
+    public int getTime(){
+        return time;
     }
 }
