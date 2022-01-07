@@ -11,14 +11,17 @@ import domain.services.DestroyService;
 import domain.services.GameBoardServiceFactory;
 import domain.services.Service;
 import domain.services.SummonService;
+import ui.PhysicalObjectLabel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class GameBoard{
     private ArrayList<PhysicalObject> physicalObjects;
-
+    private HashMap<ObstacleType, Integer> obstacleInventory = new HashMap <>();
     private Ball ball;
     private Paddle paddle;
     private Vector size;
@@ -58,6 +61,7 @@ public class GameBoard{
 
         Obstacle obstacle = ObstacleFactory.getInstance().create(type, location, GameBoardServiceFactory.getInstance().setGameBoard(this));
         physicalObjects.add(obstacle);
+        
         return obstacle;
     }
 
@@ -142,4 +146,47 @@ public class GameBoard{
             ball.setStickToPaddle(true);
         }
     }
+    
+    public boolean isValidInventory() {
+    	obstacleInventory.put(ObstacleType.SimpleObstacle,0);
+    	obstacleInventory.put(ObstacleType.FirmObstacle,0);
+    	obstacleInventory.put(ObstacleType.ExplosiveObstacle,0);
+    	obstacleInventory.put(ObstacleType.GiftObstacle,0);
+    	for (PhysicalObject object : physicalObjects) {
+    		if (object instanceof SimpleObstacle) {
+    	    	obstacleInventory.put(ObstacleType.SimpleObstacle, 
+    	    			obstacleInventory.getOrDefault(ObstacleType.SimpleObstacle, 0) + 1);
+    		}
+    		if (object instanceof FirmObstacle) {
+    			obstacleInventory.put(ObstacleType.FirmObstacle, 
+    	    			obstacleInventory.getOrDefault(ObstacleType.FirmObstacle, 0) + 1);
+    			
+    		}
+    		if (object instanceof ExplosiveObstacle) {
+    			obstacleInventory.put(ObstacleType.ExplosiveObstacle, 
+    	    			obstacleInventory.getOrDefault(ObstacleType.ExplosiveObstacle, 0) + 1);
+	
+    		}
+    		if (object instanceof GiftObstacle) {
+    			obstacleInventory.put(ObstacleType.GiftObstacle, 
+    	    			obstacleInventory.getOrDefault(ObstacleType.GiftObstacle, 0) + 1);
+    		}
+    	}
+    	/*REQUIREMENTS:
+    	 * Simple >= 75
+    	 * FIRM >= 10
+    	 * EXPLOSIVE >= 5
+    	 * GIFT >= 10
+    	 */
+    	if (obstacleInventory.get(ObstacleType.SimpleObstacle) >= 75 &&
+    			obstacleInventory.get(ObstacleType.FirmObstacle) >= 10 &&
+    			obstacleInventory.get(ObstacleType.ExplosiveObstacle) >= 5 &&
+    			obstacleInventory.get(ObstacleType.GiftObstacle) >= 10) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    
 }
