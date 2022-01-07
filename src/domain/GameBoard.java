@@ -26,6 +26,11 @@ public class GameBoard{
     private Paddle paddle;
     private Vector size;
     private Player player;
+    private final int simpleObstacleMin = 75;
+    private final int firmObstacleMin = 10;
+    private final int explosiveObstacleMin = 5;
+    private final int giftObstacleMin = 10;
+    private static HashMap<ArrayList<Integer>, Integer> gameGrid = new HashMap<>();
 
     public GameBoard(Vector size){
         this.size = size;
@@ -186,6 +191,68 @@ public class GameBoard{
     	}
     	
     	return false;
+    }
+    
+    public void randomGame() {
+    	double X = this.getSize().getX();
+    	double Y = this.getSize().getX();
+    	int MAX_X =(int) (50*(int)(X/50)- (int)(40/2));
+    	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) paddle.getLocation().getY()-50;
+    	int random_x, random_y;
+    	int simpleCounter=0, firmCounter=0, explosiveCounter=0, giftCounter = 0;
+    	
+    	while (simpleCounter< simpleObstacleMin){
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/5))) + (Y/5))/50)- (int)(40/20));
+        	ArrayList<Integer> coord = new ArrayList<Integer>();
+    		coord.add(random_x); coord.add(random_y);
+    		
+    		if (gameGrid.get(coord) == null) {
+    			gameGrid.put(coord, 1);
+    			addObstacle(ObstacleType.SimpleObstacle, new Vector(random_x, random_y));
+    			simpleCounter ++;
+    		}
+        	
+    	}
+    	while (firmCounter< firmObstacleMin){
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+        	ArrayList<Integer> coord = new ArrayList<Integer>();
+    		coord.add(random_x); coord.add(random_y);
+    		
+    		if (gameGrid.get(coord) == null) {
+    			addObstacle(ObstacleType.FirmObstacle, new Vector(random_x, random_y));
+    			firmCounter ++;
+    		}
+        	
+    	}
+    	while (explosiveCounter< explosiveObstacleMin){
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+        	ArrayList<Integer> coord = new ArrayList<Integer>();
+    		coord.add(random_x); coord.add(random_y);
+    		
+    		if (gameGrid.get(coord) == null) {
+    			addObstacle(ObstacleType.ExplosiveObstacle, new Vector(random_x, random_y));
+    			explosiveCounter ++;
+    		}
+        	
+    	}
+    	while (giftCounter< giftObstacleMin){
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+        	ArrayList<Integer> coord = new ArrayList<Integer>();
+    		coord.add(random_x); coord.add(random_y);
+    		
+    		if (gameGrid.get(coord) == null) {
+    			addObstacle(ObstacleType.GiftObstacle, new Vector(random_x, random_y));
+    			giftCounter ++;
+    		}
+        	
+    	}
+ 
+    	
+    	
     }
     
     

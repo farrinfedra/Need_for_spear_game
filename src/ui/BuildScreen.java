@@ -8,6 +8,7 @@ import domain.physicalobjects.obstacles.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class BuildScreen extends JFrame{
 	private int height;
 	private static HashMap<PhysicalObject, PhysicalObjectLabel> objectToLabelMap = new HashMap<>();
 	private static HashMap<PhysicalObject, JLabel> objectToJLabelMap = new HashMap<>();
+	private static HashMap<ArrayList<Integer>, PhysicalObject> gameGrid = new HashMap<>();
 	private boolean isDeletingMode = false;
 	private Point drawPoint;
 	GridBagConstraints gbc;
@@ -58,8 +60,8 @@ public class BuildScreen extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				drawPoint = MouseInfo.getPointerInfo().getLocation();
-				drawPoint.x -= 20;
-				drawPoint.y -= 20;
+				//drawPoint.x += 25;
+				//drawPoint.y += 25;
 				if(isDeletingMode) {
 					removeObstacle(drawPoint);
 					
@@ -203,6 +205,7 @@ public class BuildScreen extends JFrame{
 	{
 		public void actionPerformed(ActionEvent ae)
 		{
+			game.randomGame();
 			setVisible(false);
 			new RunningScreen();
 		}
@@ -267,9 +270,21 @@ public class BuildScreen extends JFrame{
 	
 //ADD REMOVE RELATED	
 	private void removeObstacle(Point removePoint) {
-		double x = removePoint.getX();
-		double y = removePoint.getY();
-		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
+		int x = (int) (50*(int)(drawPoint.x/50)- (int)(40/2));
+		int y = (int) (50*(int)(drawPoint.y/50)-(int)(40/2));
+		
+		ArrayList<Integer> coord = new ArrayList<Integer>();
+		coord.add(x); coord.add(y);
+		
+		if(gameGrid.get(coord) != null) {
+			Obstacle obstacle = (Obstacle) gameGrid.get(coord);
+			obstacle.getService(0).perform(obstacle);
+			removePhysicalObjectLabel(obstacle);
+			updateLabelNumber((Obstacle) obstacle, -1);
+		}
+		
+		
+		/*for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
 			double obsX = obstacle.getLocation().getX();
 			double upperX = obsX + 40;
 			System.out.println(obstacle.getWidth());
@@ -286,7 +301,7 @@ public class BuildScreen extends JFrame{
 				updateLabelNumber((Obstacle) obstacle, -1);
 				break;
 			}
-		}
+		}*/
 
 	}
 	private void removePhysicalObjectLabel(PhysicalObject object) {
@@ -296,28 +311,20 @@ public class BuildScreen extends JFrame{
 		objectToJLabelMap.remove(object);
 	}
 	private void addObstacle(Point drawPoint, ObstacleType type){
-		int x = (int) (50*Math.round(drawPoint.x/50)- (int)(40/2));
-		int y = (int) (50*Math.round(drawPoint.y/50)-(int)(40/2));
-		boolean isFound = false;
-		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
-			double obsX = obstacle.getLocation().getX()+40;
-
-			double upperX = obsX + obstacle.getWidth();
-			double lowerX = obsX;
-			double obsY = obstacle.getLocation().getY()+40;
-			double lowerY = obsY;
-			double upperY = obsY + obstacle.getHeight();
-			//if there exists a object in within the clicked point
-			if ((x >= lowerX && x<=upperX) && (y >= lowerY && y<=upperY)) {
-				isFound = true;
-				break;
-			}
-		}
-		if(!isFound) {
+		int x = (int) (50*(int)(drawPoint.x/50)- (int)(40/2));
+		int y = (int) (50*(int)(drawPoint.y/50)-(int)(40/2));
+		
+		ArrayList<Integer> coord = new ArrayList<Integer>();
+		coord.add(x); coord.add(y);
+		if(gameGrid.get(coord) == null) {
 			Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
 			addPhysicalObjectLabel(obstacle);
 			updateLabelNumber(obstacle, 1);
+			gameGrid.put(coord, obstacle);	
 		}
+		/*else {
+			System.out.println("another obstacle is exists");
+		}*/
 	}
 
 	private void addPhysicalObjectLabel(PhysicalObject object){

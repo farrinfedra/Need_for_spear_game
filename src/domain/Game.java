@@ -146,6 +146,10 @@ public class Game extends Thread {
     public boolean isValidInventory() {
     	return gameBoard.isValidInventory();
     }
+    
+    public void randomGame() {
+    	gameBoard.randomGame();
+    }
 }
 
 
