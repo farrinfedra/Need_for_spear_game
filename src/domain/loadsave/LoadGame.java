@@ -33,7 +33,7 @@ public class LoadGame {
     public LoadGame(String username) {
 
         this.username = username;
-        gameBoard = Game.getInstance().getGameBoard();
+
     }
 
     public ArrayList<String> getSavedGameList() {
@@ -49,6 +49,7 @@ public class LoadGame {
         return files;
     }
     public void loadGame(String fileName){
+        gameBoard = Game.getInstance().getGameBoard();
         //open & read file
         readFile(fileName);
         readObstacles();
@@ -66,7 +67,7 @@ public class LoadGame {
         JSONParser jsonParser = new JSONParser();
 
         //read file
-        try (FileReader reader = new FileReader(fileName))
+        try (FileReader reader = new FileReader(String.format("./savedGames/%s", fileName)))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);

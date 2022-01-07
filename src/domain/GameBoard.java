@@ -90,6 +90,15 @@ public class GameBoard{
     public Player getPlayer() {
         return player;
     }
+    public List<Obstacle> getObstacles() {
+        List<Obstacle> obstacles = new ArrayList<>();
+        for (PhysicalObject object : physicalObjects) {
+            if (object.getClass().equals("Obstacle")){
+                obstacles.add((Obstacle) object);
+            }
+        }
+        return obstacles;
+    }
 
     public void useAbility(AbilityType type) {
         if(player.removeAbility(type)){
