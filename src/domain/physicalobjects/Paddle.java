@@ -31,6 +31,7 @@ public class Paddle extends PhysicalObject{
     public void shootMagicalHex() {
         if(magicalHexEnabled){
             getService(0).perform(new MagicalHexAmmo(getLocation(), getServices()));
+            getService(0).perform(new MagicalHexAmmo(getLocation().add(new Vector(this.getWidth(), 0)), getServices()));
         }
     }
     public void setMagicalHexEnabled(boolean magicalHexEnabled) {

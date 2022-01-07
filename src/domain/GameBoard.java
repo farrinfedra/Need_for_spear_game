@@ -142,4 +142,9 @@ public class GameBoard{
             ball.setStickToPaddle(true);
         }
     }
+
+    public void increaseChance() {
+        int chance = player.getLives();
+        player.setLives(++chance);
+    }
 }

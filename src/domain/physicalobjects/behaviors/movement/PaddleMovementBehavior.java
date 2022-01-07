@@ -1,6 +1,7 @@
 package domain.physicalobjects.behaviors.movement;
 
 import domain.Constants;
+import domain.Game;
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
@@ -38,27 +39,28 @@ public class PaddleMovementBehavior extends MovementBehavior{
         setSpeed(new Vector(95*getSpeed().getX()/100, 0));
         //System.out.println("Rotation: "+rotation + " Speed: "+rotationSpeed + "Location: "  + paddle.getLocation().getX() + " " + paddle.getLocation().getY());
         /*Rotation mechanism */
-
-        if(rotationSpeed != 0){
-            if(rotation < -0.5 || rotation > 0.5 )
-                rotationSpeed = rotationSpeed/2;
-            else{
-                rotation += rotationSpeed;
-                object.getBoundingBox().rotate(rotationSpeed);
-                rotationSpeed = rotationSpeed/2;
+        if (!Game.getInstance().isBallStickToPaddle()){
+            if(rotationSpeed != 0){
+                if(rotation < -0.5 || rotation > 0.5 )
+                    rotationSpeed = rotationSpeed/2;
+                else{
+                    rotation += rotationSpeed;
+                    object.getBoundingBox().rotate(rotationSpeed);
+                    rotationSpeed = rotationSpeed/2;
+                }
+            }else if(rotation > 0){
+                object.getBoundingBox().rotate(-Constants.PADDLE_ROTATION_SPEED);
+                rotation -= Constants.PADDLE_ROTATION_SPEED;
+            }else if(rotation < 0){
+                object.getBoundingBox().rotate(Constants.PADDLE_ROTATION_SPEED);
+                rotation += Constants.PADDLE_ROTATION_SPEED;
             }
-        }else if(rotation > 0){
-            object.getBoundingBox().rotate(-Constants.PADDLE_ROTATION_SPEED);
-            rotation -= Constants.PADDLE_ROTATION_SPEED;
-        }else if(rotation < 0){
-            object.getBoundingBox().rotate(Constants.PADDLE_ROTATION_SPEED);
-            rotation += Constants.PADDLE_ROTATION_SPEED;
-        }
-        if(Math.abs(rotationSpeed)<0.00001)
-            rotationSpeed = 0;
-        if(Math.abs(rotation) < Constants.PADDLE_ROTATION_SPEED){
-            object.getBoundingBox().rotate(-rotation);
-            rotation = 0;
+            if(Math.abs(rotationSpeed)<0.00001)
+                rotationSpeed = 0;
+            if(Math.abs(rotation) < Constants.PADDLE_ROTATION_SPEED){
+                object.getBoundingBox().rotate(-rotation);
+                rotation = 0;
+            }
         }
     }
 
