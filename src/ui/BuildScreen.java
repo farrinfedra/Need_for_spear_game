@@ -124,7 +124,7 @@ public class BuildScreen extends JFrame{
 				break;
 			}
 		}
-		if(true) {
+		if(!isFound) {
 			Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
 			addPhysicalObjectLabel(obstacle);
 		}
