@@ -11,7 +11,7 @@ public class Player {
     private String username;
     private int lives;
     private int score;
-    private List<UsefulAbilityType> abilities;
+    private List<AbilityType> abilities;
 
     public Player(){
         this.abilities = new ArrayList<>();
@@ -35,11 +35,11 @@ public class Player {
         this.lives = lives;
     }
 
-    public List<UsefulAbilityType> getAbilities() {
+    public List<AbilityType> getAbilities() {
         return new ArrayList<>(abilities);
     }
 
-    public void addAbility(UsefulAbilityType abilityType){
+    public void addAbility(AbilityType abilityType){
         abilities.add(abilityType);
     }
 
@@ -49,6 +49,8 @@ public class Player {
     public void setUsername(String username) { this.username = username; }
 
     public boolean removeAbility(AbilityType type) {
-        return abilities.remove(type);
+        return abilities.remove(abilities.stream()
+                                .filter(ability -> ability == type)
+                                .findFirst().get());
     }
 }

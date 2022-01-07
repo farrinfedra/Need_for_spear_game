@@ -42,7 +42,7 @@ public class Game extends Thread {
     public void useAbility(AbilityType type){
         gameBoard.useAbility(type);
     }
-    public List<UsefulAbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
+    public List<AbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
     public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
     //TODO: implement magical ability functions
