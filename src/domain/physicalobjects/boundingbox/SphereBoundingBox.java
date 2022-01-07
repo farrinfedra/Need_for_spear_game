@@ -57,4 +57,9 @@ public class SphereBoundingBox extends BoundingBox{
         }
         return fragmentationList;
     }
+
+    @Override
+    public void rotate(double rad) {
+        /*Do nothing. Spheres do not need to rotate :) */
+    }
 }

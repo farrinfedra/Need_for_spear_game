@@ -8,12 +8,14 @@ import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.listeners.AbilityEvent;
 import domain.physicalobjects.Ball;
+import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.obstacles.Obstacle;
 import domain.services.Service;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -63,9 +65,6 @@ public class RunningScreenPanel extends JPanel {
                 JLabel label = new JLabel(event.getAbility().toString());
                 activeAbilities.add(label);
                 abilityLabels.put(event.getAbility(), label);
-
-                System.out.println(event.getAbility().getClass().getSuperclass().getSimpleName());
-
             }
             else{
                 activeAbilities.remove(abilityLabels.remove(event.getAbility()));
@@ -80,6 +79,9 @@ public class RunningScreenPanel extends JPanel {
         }
 
         for(PhysicalObject object: game.getGameBoard().getPhysicalObjects()){
+            if(object instanceof Paddle)
+                labels.add(new PaddleLabel((Paddle) object));
+            else
                 labels.add(new PhysicalObjectLabel(object));
         }
 
@@ -108,10 +110,10 @@ public class RunningScreenPanel extends JPanel {
                         game.shootBall();
                         break;
                     case KeyEvent.VK_A:
-                        game.movePaddle(Direction.LEFT);
+                        game.rotatePaddle(Direction.LEFT);
                         break;
                     case KeyEvent.VK_D:
-                        game.movePaddle(Direction.RIGHT);
+                        game.rotatePaddle(Direction.RIGHT);
                         break;
                     case KeyEvent.VK_W:
                         game.shootBall();

@@ -1,5 +1,6 @@
 package domain.physicalobjects;
 
+import domain.Constants;
 import domain.Direction;
 import domain.physicalobjects.behaviors.collision.PaddleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.PaddleMovementBehavior;
@@ -18,7 +19,8 @@ public class Paddle extends PhysicalObject{
     }
 
     public void rotate(Direction direction){
-
+        double speedDirection = direction == Direction.LEFT ? -1 : 1;
+        ((PaddleMovementBehavior)getMovementBehavior()).setRotationSpeed(speedDirection*Constants.PADDLE_ROTATION_SPEED);
     }
 
     public void setSpeed(Vector speed){
@@ -31,7 +33,6 @@ public class Paddle extends PhysicalObject{
             getService(0).perform(new MagicalHexAmmo(getLocation(), getServices()));
         }
     }
-
     public void setMagicalHexEnabled(boolean magicalHexEnabled) {
         this.magicalHexEnabled = magicalHexEnabled;
     }

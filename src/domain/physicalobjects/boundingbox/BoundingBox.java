@@ -11,4 +11,6 @@ public abstract class BoundingBox {
     public abstract BoundingBox shift(Vector v);
     public abstract BoundingBox deepCopy();
     public abstract List<Vector> getFragmentation();
+
+    public abstract void rotate(double rad);
 }

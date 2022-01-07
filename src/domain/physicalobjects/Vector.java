@@ -73,6 +73,12 @@ public class Vector {
     public double dot(Vector v){
         return x*v.getX() + y*v.getY();}
 
+    public Vector rotate(double rad, Vector p){
+        Vector shifted = this.subtract(p);
+
+        return shifted.rotate(rad).add(p);
+    }
+
     public Vector rotate(double rad){
         if(rad == 0 || rad == 2*Math.PI)
             return new Vector(this.x, this.y);

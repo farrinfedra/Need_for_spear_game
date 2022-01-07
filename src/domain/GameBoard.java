@@ -134,7 +134,9 @@ public class GameBoard{
         if (chance <= 0) {
             System.out.println("YOU LOST");
         } else {
+            paddle.getBoundingBox().shift(new Vector(size.getX()/2 - 100,size.getY()-100).subtract(paddle.getLocation()));
             paddle.setLocation(new Vector(size.getX()/2 - 100,size.getY()-100));
+            ball.getBoundingBox().shift(new Vector(size.getX()/2 - 12.5,size.getY()-126).subtract(ball.getLocation()));
             ball.setLocation(new Vector(size.getX()/2 - 12.5,size.getY()-126));
             ball.setMovementBehavior(paddle.getMovementBehavior());
             ball.setStickToPaddle(true);
