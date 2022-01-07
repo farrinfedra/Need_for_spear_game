@@ -46,16 +46,19 @@ public class Game extends Thread {
 
     //TODO: implement magical ability functions
 
-    public void loadGame(int slot){
-        //TODO: get username from user;
+    public void loadGame(String gameName){
 
-//        loadGame = new LoadGame("player1");
-//        loadGame.loadGame();
-//        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
-//        ArrayList<Integer> abilities = loadGame.getAbilities();
-//        String username = loadGame.getUsername();
-//        double score = loadGame.getScore();
-//        int lives = loadGame.getlives();
+        loadGame.getLoadedGame(gameName);
+        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
+        ArrayList<Integer> abilities = loadGame.getAbilities();
+        String username = loadGame.getUsername();
+        double score = loadGame.getScore();
+        int lives = loadGame.getlives();
+    }
+    public ArrayList<String> getSavedGames(String username) {
+        loadGame = new LoadGame(username);
+        ArrayList<String> list = loadGame.getSavedGameList();
+        return list;
     }
 
     public void saveGame(int slot){
@@ -117,12 +120,8 @@ public class Game extends Thread {
     public void setPlayerName(String username) {
         gameBoard.getPlayer().setUsername(username);
     }
+    public LoadGame getLoadGame() {return loadGame;}
 
-    public ArrayList<String> getSavedGames(String username) {
-        loadGame = new LoadGame(username);
-        ArrayList<String> list = loadGame.getSavedGameList();
-        return list;
-    }
 }
 
 

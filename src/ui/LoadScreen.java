@@ -1,9 +1,8 @@
 package ui;
 import domain.Game;
+import domain.loadsave.LoadGame;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +16,8 @@ public class LoadScreen extends JFrame {
     private int height;
     GridBagConstraints gbc;
     ArrayList<String> list = new ArrayList<>();
+    private Game game;
+    private LoadGame loadGame;
 
     public LoadScreen(String username) {
         super("Load Screen");
@@ -30,6 +31,7 @@ public class LoadScreen extends JFrame {
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             width = (int) dim.getWidth();
             height = (int) dim.getHeight();
+            game = Game.getInstance();
 
             setExtendedState(JFrame.MAXIMIZED_BOTH);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +72,6 @@ public class LoadScreen extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         loadGamePanel.add(numSavedLabel);
-
         mainPanel.add(loadGamePanel);
 
     }
@@ -92,8 +93,13 @@ public class LoadScreen extends JFrame {
             label.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String s = label.getText();
 
+                    String gameName = label.getText(); //get saved game name
+                    //pass the name to the loadgame
+                    loadGame = game.getLoadGame();
+                    setUpGame(gameName);
+                    new RunningScreen();
+                    //create new screen from here
                 }
             });
 
@@ -101,5 +107,31 @@ public class LoadScreen extends JFrame {
         }
 
         mainPanel.add(listPanel);
+    }
+
+    private void setUpGame(String gameName) {
+        loadGame.getLoadedGame(gameName);
+        //add obstacles
+        addObstacles();
+        //add abilities
+        addAbilities();
+        //set lives
+        setLives();
+        //set score
+        setScore();
+
+    }
+
+    private void setScore() {
+
+    }
+
+    private void setLives() {
+    }
+
+    private void addAbilities() {
+    }
+
+    private void addObstacles() {
     }
 }

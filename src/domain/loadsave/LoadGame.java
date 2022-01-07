@@ -16,12 +16,11 @@ import java.util.ArrayList;
 public class LoadGame {
 
     private String username;
-
-    public LoadGame(String username) {this.username = username;}
     private JSONObject obs;
-
+    public LoadGame(String username) {this.username = username;}
 
     public ArrayList<String> getSavedGameList() {
+
         ArrayList<String> files = new ArrayList<>();
         File dir = new File("./savedGames");
         File[] dir_contents = dir.listFiles();
@@ -36,7 +35,7 @@ public class LoadGame {
         JSONParser jsonParser = new JSONParser();
 
         //read file
-        try (FileReader reader = new FileReader(String.format("%s.json", username)))
+        try (FileReader reader = new FileReader(fileName))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
