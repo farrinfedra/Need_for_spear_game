@@ -2,6 +2,7 @@ package domain.loadsave;
 
 import domain.Game;
 import domain.GameBoard;
+import domain.abilities.UsefulAbilityType;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
 import domain.physicalobjects.obstacles.Obstacle;
@@ -27,7 +28,8 @@ public class LoadGame {
     private GameBoard gameBoard;
     private ArrayList<ArrayList<Double>> obstacles;
     private ArrayList<Integer> abilities;
-    
+    private double score;
+    private int lives;
     public LoadGame(String username) {
 
         this.username = username;
@@ -126,13 +128,11 @@ public class LoadGame {
         return username;
     }
 
-    public double readScore(){
-        double score = Double.valueOf(obs.get("score").toString());
-        return score;
+    public void readScore(){
+         score = Double.valueOf(obs.get("score").toString());
     }
-    public int readLives (){
-        int lives = Integer.valueOf(obs.get("lives").toString());
-        return lives;
+    public void readLives (){
+         lives = Integer.valueOf(obs.get("lives").toString());
     }
 
     private void setUpGameBoard() {
@@ -146,12 +146,23 @@ public class LoadGame {
     }
 
     private void addLives() {
+        gameBoard.getPlayer().setLives(lives);
     }
 
     private void addScore() {
+        gameBoard.getPlayer().setScore(score);
+
     }
 
     private void addAbilities() {
+        for(int i = 0; i < abilities.size() ; i++ ) {
+            if (abilities.get(i) != 0){
+                for (int j = 0; j < abilities.get(i); j++){
+                    gameBoard.getPlayer().addAbility((UsefulAbilityType) Arrays.stream(UsefulAbilityType.values()).toArray()[i]);
+                }
+            }
+
+        }
     }
 
     private void addObstacles(){
@@ -165,10 +176,8 @@ public class LoadGame {
 
             gameBoard.addObstacle((ObstacleType) Arrays.stream(ObstacleType.values()).toArray()[id], new Vector(x, y));
             Obstacle o = (Obstacle) gameBoard.getPhysicalObjects().get(i);
-
-
+            o.setHealth(health);
             i++;
-
         }
 
     }

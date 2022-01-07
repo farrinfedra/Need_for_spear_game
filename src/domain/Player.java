@@ -10,7 +10,7 @@ public class Player {
 
     private String username;
     private int lives;
-    private int score;
+    private double score;
     private List<UsefulAbilityType> abilities;
 
     public Player(){
@@ -23,11 +23,11 @@ public class Player {
         return lives;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
