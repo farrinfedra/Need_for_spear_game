@@ -21,7 +21,8 @@ public class LoadScreen extends JFrame {
 
     public LoadScreen(String username) {
         super("Load Screen");
-        list = Game.getInstance().getSavedGames(username);
+        game = Game.getInstance();
+        list = game.getSavedGames(username);
 
         if (list.size() == 1) {
             dispose();
@@ -31,11 +32,10 @@ public class LoadScreen extends JFrame {
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             width = (int) dim.getWidth();
             height = (int) dim.getHeight();
-            game = Game.getInstance();
+
 
             setExtendedState(JFrame.MAXIMIZED_BOTH);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            //TODO: Observer pattern
 
             gbc = new GridBagConstraints();
             JPanel mainPanel = new JPanel();
@@ -69,6 +69,7 @@ public class LoadScreen extends JFrame {
         numSavedLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
         numSavedLabel.setForeground(Color.decode("#8b0000"));
         loadGamePanel.setBackground(BACKGROUND_COLOR);
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         loadGamePanel.add(numSavedLabel);
@@ -87,7 +88,7 @@ public class LoadScreen extends JFrame {
             JButton label = new JButton(s);
             label.setFont(new Font("Helvetica", Font.BOLD, 14));
             label.setForeground(TEXT_COLOR);
-            listPanel.setBackground(Color.red);
+            listPanel.setBackground(BACKGROUND_COLOR);
             gbc.gridx=i;
             gbc.gridy=0;
             label.addActionListener(new ActionListener() {
@@ -95,11 +96,10 @@ public class LoadScreen extends JFrame {
                 public void actionPerformed(ActionEvent e) {
 
                     String gameName = label.getText(); //get saved game name
-                    //pass the name to the loadgame
-                    loadGame = game.getLoadGame();
-                    setUpGame(gameName);
+                    game.createGameBoard(width, height);
+                    game.loadGame(gameName);
                     new RunningScreen();
-                    //create new screen from here
+
                 }
             });
 
@@ -109,29 +109,5 @@ public class LoadScreen extends JFrame {
         mainPanel.add(listPanel);
     }
 
-    private void setUpGame(String gameName) {
-        loadGame.getLoadedGame(gameName);
-        //add obstacles
-        addObstacles();
-        //add abilities
-        addAbilities();
-        //set lives
-        setLives();
-        //set score
-        setScore();
 
-    }
-
-    private void setScore() {
-
-    }
-
-    private void setLives() {
-    }
-
-    private void addAbilities() {
-    }
-
-    private void addObstacles() {
-    }
 }

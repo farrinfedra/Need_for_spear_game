@@ -42,6 +42,6 @@ public class LoadedGameScreen extends JFrame {
     }
 
     private void addObstacles() {
-
+        
     }
 }

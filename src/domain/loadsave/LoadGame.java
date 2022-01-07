@@ -31,7 +31,7 @@ public class LoadGame {
         }
         return files;
     }
-    public void getLoadedGame(String fileName){
+    public void loadGame(String fileName){
         JSONParser jsonParser = new JSONParser();
 
         //read file

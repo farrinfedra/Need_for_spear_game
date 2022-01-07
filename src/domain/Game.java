@@ -48,12 +48,12 @@ public class Game extends Thread {
 
     public void loadGame(String gameName){
 
-        loadGame.getLoadedGame(gameName);
-        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
-        ArrayList<Integer> abilities = loadGame.getAbilities();
-        String username = loadGame.getUsername();
-        double score = loadGame.getScore();
-        int lives = loadGame.getlives();
+        loadGame.loadGame(gameName);
+//        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
+//        ArrayList<Integer> abilities = loadGame.getAbilities();
+//        String username = loadGame.getUsername();
+//        double score = loadGame.getScore();
+//        int lives = loadGame.getlives();
     }
     public ArrayList<String> getSavedGames(String username) {
         loadGame = new LoadGame(username);
