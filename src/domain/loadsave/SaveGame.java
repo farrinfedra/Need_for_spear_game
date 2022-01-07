@@ -130,6 +130,11 @@ Format of json file
     "score": "score",
     "lives": "lives",
     "obstacles": [
+        // if i = 0 -> SimpleObstacle
+        // if i = 1 -> FirmObstacle
+        // if i = 2 -> GiftObstacle
+        // if i = 3 -> ExplosiveObstacle
+        // if i = 4 -> HollowObstacle
         [i, health, x, y],
         [i, health, x, y],
         [i, health, x, y],
