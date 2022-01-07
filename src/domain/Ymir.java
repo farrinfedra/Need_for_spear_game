@@ -15,7 +15,7 @@ public class Ymir {
     }
 
     public void start() {
-        executorService.scheduleAtFixedRate(this::action, 2, 8, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::action, 2, 30, TimeUnit.SECONDS);
     }
 
     private void action() {

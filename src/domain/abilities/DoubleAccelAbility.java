@@ -15,12 +15,12 @@ public class DoubleAccelAbility extends Ability {
 	@Override
 	public void perform() {
 		Ball ball = (Ball) getAppliesTo();
-		ball.setSpeed(Constants.BALL_SPEED.scale(1.0/2));
+		ball.setSpeed(ball.getSpeed().scale(1.0/2));
 	}
 
 	@Override
 	public void revert() {
 		Ball ball = (Ball) getAppliesTo();
-		ball.setSpeed(Constants.BALL_SPEED);
+		ball.setSpeed(ball.getSpeed().scale(2));
 	}
 }

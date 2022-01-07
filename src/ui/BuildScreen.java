@@ -47,8 +47,8 @@ public class BuildScreen extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				drawPoint = MouseInfo.getPointerInfo().getLocation();
-				//drawPoint.x -= 25;
-				//drawPoint.y -= 45;
+				drawPoint.x += 20;
+				drawPoint.y += 20;
 				if(isDeletingMode) {
 					removeObstacle(drawPoint);
 				}else {
@@ -106,8 +106,9 @@ public class BuildScreen extends JFrame{
 		objectToLabelMap.remove(object);
 	}
 	private void addObstacle(Point drawPoint, ObstacleType type){
-		int x = (int) (50*Math.round(drawPoint.x/50)- (int)(40/2));
-		int y = (int) (50*Math.round(drawPoint.y/50)-(int)(40/2));
+		int x = (int) (50* (int) (drawPoint.x/50)- (int)(40/2));
+		int y = (int) (50* (int) (drawPoint.y/50)-(int)(40/2));
+
 		boolean isFound = false;
 		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
 			double obsX = obstacle.getLocation().getX()+20;

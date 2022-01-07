@@ -1,7 +1,10 @@
 package domain;
 
+import domain.abilities.Ability;
+import domain.abilities.AbilityFactory;
 import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
+import domain.physicalobjects.engines.AbilityEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ public class Player {
     }
 
     public void setLives(int lives) {
+        System.out.println("Lives: " + lives);
         this.lives = lives;
     }
 
@@ -40,7 +44,14 @@ public class Player {
     }
 
     public void addAbility(AbilityType abilityType){
-        abilities.add(abilityType);
+        if (abilityType == AbilityType.ChanceGivingAbility) {
+            setLives(lives + 1);
+        }else if (abilityType == AbilityType.UnstoppableBallAbility){
+            abilities.add(abilityType);
+            Game.getInstance().useAbility(AbilityType.UnstoppableBallAbility);
+        } else {
+            abilities.add(abilityType);
+        }
     }
 
     public String getUsername() {
@@ -49,8 +60,8 @@ public class Player {
     public void setUsername(String username) { this.username = username; }
 
     public boolean removeAbility(AbilityType type) {
-        return abilities.remove(abilities.stream()
-                                .filter(ability -> ability == type)
-                                .findFirst().get());
+        AbilityType a = abilities.stream().filter(ability -> ability == type).findFirst().orElse(null);
+        if (a == null) return false;
+        else return abilities.remove(a);
     }
 }
