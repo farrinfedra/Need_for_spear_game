@@ -1,5 +1,6 @@
 package domain.physicalobjects.behaviors.movement;
 import domain.Constants;
+import domain.Game;
 import domain.physicalobjects.Ball;
 import domain.physicalobjects.Vector;
 
@@ -16,5 +17,9 @@ public class BallMovementBehavior extends MovementBehavior{
 
         ball.setLocation(newLocation);
         ball.getBoundingBox().shift(getSpeed());
+
+        if (ball.getLocation().getY() >= Game.getInstance().getSize().getY() - 40){
+            Game.getInstance().loseChance();
+        }
     }
 }

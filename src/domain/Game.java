@@ -122,6 +122,26 @@ public class Game extends Thread {
     public void getSavedGames() {
 
     }
+    public void setStickToPaddle(Boolean value) {
+        gameBoard.setStickToPaddle(value);
+    }
+
+    public boolean isBallStickToPaddle() {
+        return gameBoard.isBallStickToPaddle();
+    }
+
+    public void shootBall() {
+        gameBoard.shootBall();
+
+    }
+
+    public Vector getSize() {
+        return gameBoard.getSize();
+    }
+
+    public void loseChance() {
+        gameBoard.loseChance();
+    }
 }
 
 

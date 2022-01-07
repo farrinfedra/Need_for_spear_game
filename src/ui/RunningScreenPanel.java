@@ -15,10 +15,7 @@ import domain.services.Service;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -86,6 +83,13 @@ public class RunningScreenPanel extends JPanel {
                 labels.add(new PhysicalObjectLabel(object));
         }
 
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Game.getInstance().shootBall();
+            }
+        });
+
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -100,6 +104,18 @@ public class RunningScreenPanel extends JPanel {
                     case KeyEvent.VK_RIGHT:
                         game.movePaddle(Direction.RIGHT);
                         break;
+                    case KeyEvent.VK_UP:
+                        game.shootBall();
+                        break;
+                    case KeyEvent.VK_A:
+                        game.movePaddle(Direction.LEFT);
+                        break;
+                    case KeyEvent.VK_D:
+                        game.movePaddle(Direction.RIGHT);
+                        break;
+                    case KeyEvent.VK_W:
+                        game.shootBall();
+                        break;
                     case KeyEvent.VK_H:
                         game.useAbility(AbilityType.MagicalHexAbility);
                         break;
@@ -109,8 +125,10 @@ public class RunningScreenPanel extends JPanel {
                     case KeyEvent.VK_SPACE:
                         game.shootMagicalHex();
                         break;
+
                 }
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
             }
