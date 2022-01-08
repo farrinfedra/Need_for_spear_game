@@ -12,4 +12,5 @@ public class Constants {
     public static String PADDLE_IMG_PATH = "/ui/assets/Paddle.png";
     public static String EXPLOSIVE_FRAGMENT_IMG_PATH = "/ui/assets/ExplosiveFragment.png";
     public static String BACKGROUND_IMG_PATH = "/ui/assets/Background.png";
+    public static String HOLLOW_IMG_PATH = "/ui/assets/HollowObstacle.png";
 }
