@@ -23,7 +23,7 @@ public class BuildScreen extends JFrame{
 	private boolean isDeletingMode = false;
 	private Point drawPoint;
 
-	public BuildScreen(int width, int height, String username) {
+	public BuildScreen(int width, int height) {
 		super("BuildGameScreen");
 		this.width = width;
 		this.height = height;
@@ -35,7 +35,6 @@ public class BuildScreen extends JFrame{
 
 		game = Game.getInstance();
 		game.createGameBoard(width, height);
-		game.setPlayerName(username);
 
 		JPanel obstaclePanel = obstaclesPanel();
 		add(obstaclePanel, BorderLayout.PAGE_START);
@@ -239,50 +238,6 @@ JTextField usernameField = new JTextField("username",10);
 	obstaclesPanel.add(usernameField);
 	//obstaclesPanel.add(user);
 	return obstaclesPanel;
-	}
-
-
-
-	/*private JPanel TotalShowPanel() {
-		JPanel totalShowPanel = new JPanel(new GridLayout(5,2));
-		JLabel header1 = new JLabel("Type");
-		JLabel header2 = new JLabel("# of Obstacles");
-		JLabel simpleObstacleLabel = new JLabel("# of Simple Obstacles");
-		JLabel simpleObstacleLabelNumber = new JLabel("0");
-		JLabel firmObstacleLabel = new JLabel("# of Firm Obstacles");
-		JLabel firmObstacleLabelNumber = new JLabel("0");
-		JLabel explosiveObstacleLabel = new JLabel("# of Explosive Obstacles");
-		JLabel explosiveObstacleLabelNumber = new JLabel("0");
-		JLabel giftObstacleLabel = new JLabel("# of Gift Obstacles");
-		JLabel giftObstacleLabelNumber = new JLabel("0");
-		totalShowPanel.add(header1);
-		totalShowPanel.add(header2);
-		totalShowPanel.add(simpleObstacleLabel);
-		totalShowPanel.add(simpleObstacleLabelNumber);
-		totalShowPanel.add(firmObstacleLabel);
-		totalShowPanel.add(firmObstacleLabelNumber);
-		totalShowPanel.add(explosiveObstacleLabel);
-		totalShowPanel.add(explosiveObstacleLabelNumber);
-		totalShowPanel.add(giftObstacleLabel);
-		totalShowPanel.add(giftObstacleLabelNumber);
-		return totalShowPanel;
-	}
-	/* 	//for increasing number of obstacles placed
-	//can be called when new obstacle is placed
-	private JLabel increseNumberOfLabel(JLabel numberLabel) {
-		int previousNumber = Integer.parseInt(numberLabel.getText());
-		numberLabel.setText(Integer.valueOf(previousNumber + 1).toString());
-		return numberLabel;
-	}*/
-
-	private JPanel userNamePanel() {
-		JPanel userNamePanel = new JPanel(new GridLayout(1,2));
-		JLabel user = new JLabel("User name");
-		JTextField userName = new JTextField(10);
-		userNamePanel.add(user);
-		userNamePanel.add(userName);
-		return userNamePanel;
-
 	}
 
 

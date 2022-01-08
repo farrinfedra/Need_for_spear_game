@@ -18,6 +18,7 @@ public class Game extends Thread {
     private GameBoard gameBoard;
     private SaveGame saveGame;
     private LoadGame loadGame;
+    private String username;
 
     private Game() {
        status = GameStatus.RESUMED;
@@ -25,6 +26,7 @@ public class Game extends Thread {
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
+        gameBoard.getPlayer().setUsername(username);
     }
 
     public static Game getInstance() {
@@ -113,9 +115,8 @@ public class Game extends Thread {
     }
 
     public void setPlayerName(String username) {
-        gameBoard.getPlayer().setUsername(username);
+        this.username = username;
     }
-    public LoadGame getLoadGame() {return loadGame;}
 
 }
 
