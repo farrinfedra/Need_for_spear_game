@@ -219,7 +219,7 @@ public class GameBoard{
 
     public void randomGame() {
     	double X = this.getSize().getX();
-    	double Y = this.getSize().getX();
+    	double Y = this.getSize().getY();
     	int MAX_X =(int) (50*(int)(X/50)- (int)(50/2));
     	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) paddle.getLocation().getY()-50;
     	int random_x, random_y;

@@ -26,7 +26,11 @@ public class HollowPurpleAbility extends Ability {
 
 			Random rand = new Random();
 			Vector size = Game.getInstance().getGameBoard().getSize();
-			location = new Vector(rand.nextInt((int) size.getX()), rand.nextInt((int)size.getY()));
+			double X = size.getX();
+	    	double Y = size.getY();
+	    	int MAX_X =(int) (50*(int)(X/50)- (int)(50/2));
+	    	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) Y-100;
+			location = new Vector(MAX_X, MAX_Y);
 			obstacle.getService(1).perform(obstacle);
 		}
 
