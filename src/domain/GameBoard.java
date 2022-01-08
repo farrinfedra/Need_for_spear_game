@@ -227,7 +227,7 @@ public class GameBoard{
 
     	while (simpleCounter< simpleObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50))- (int) (40/20);
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
 
