@@ -96,7 +96,7 @@ public class BuildScreen extends JFrame{
 		gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-
+		buttonsPanel.setSize((int) width/3, (int) height/6);
 
 		//TODO : add figures of obstacles instead of texts
 		simpleObstacleButton = new JButton("Simple Obstacle");
@@ -184,6 +184,7 @@ public class BuildScreen extends JFrame{
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		startGameButton = new JButton("Start Game");
 		startGameButton.setActionCommand("Start Game");
+		bottomPanel.setSize((int) width, (int) height/6);
 		startGameButton.addActionListener(new ActionListener()
 	{
 		public void actionPerformed(ActionEvent ae)

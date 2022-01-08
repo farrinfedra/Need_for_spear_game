@@ -203,7 +203,7 @@ public class GameBoard{
     	
     	while (simpleCounter< simpleObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/5))) + (Y/5))/50));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		
@@ -216,7 +216,7 @@ public class GameBoard{
     	}
     	while (firmCounter< firmObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50)- (int)(40/20));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		
@@ -229,7 +229,7 @@ public class GameBoard{
     	}
     	while (explosiveCounter< explosiveObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50)- (int)(40/20));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		
@@ -241,8 +241,8 @@ public class GameBoard{
         	
     	}
     	while (giftCounter< giftObstacleMin){
-    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(50/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(50/20));
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50)- (int)(40/20));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		

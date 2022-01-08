@@ -22,6 +22,7 @@ public class TitleScreen extends JFrame {
 	JButton playButton;
 	JButton buildModeButton;
 	JButton helpButton;
+	Game game;
 	public TitleScreen(int width, int height) {
 		super("TitleScreen");
 		setBounds(0, 0, width, height);
@@ -105,6 +106,10 @@ public class TitleScreen extends JFrame {
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				game = Game.getInstance();
+				game.createGameBoard(width, height);
+				game.setPlayerName(username);
+				game.randomGame();
 				setVisible(false);
 				new RunningScreen();
 			}
