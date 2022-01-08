@@ -3,15 +3,18 @@ import domain.Game;
 import domain.GameBoard;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.Vector;
-import domain.physicalobjects.obstacles.Obstacle;
-import domain.physicalobjects.obstacles.ObstacleType;
+import domain.physicalobjects.obstacles.*;
+
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 
 public class BuildScreen extends JFrame{
@@ -19,10 +22,14 @@ public class BuildScreen extends JFrame{
 	private ObstacleType currentObstacle = ObstacleType.SimpleObstacle;
 	private int width;
 	private int height;
-	private static HashMap<PhysicalObject, JLabel> objectToLabelMap = new HashMap<>();
+	private static HashMap<PhysicalObject, PhysicalObjectLabel> objectToLabelMap = new HashMap<>();
+	private static HashMap<PhysicalObject, JLabel> objectToJLabelMap = new HashMap<>();
+	private static HashMap<ArrayList<Integer>, PhysicalObject> gameGrid = new HashMap<>();
 	private boolean isDeletingMode = false;
 	private Point drawPoint;
-
+	GridBagConstraints gbc;
+	JButton simpleObstacleButton,firmObstacleButton,explosiveObstacleButton,giftObstacleButton,deleteButton,startGameButton,randomGameButton,helpButton;
+	JLabel simpleObstacleLabelNumber,firmObstacleLabelNumber,giftObstacleLabelNumber,explosiveObstacleLabelNumber;
 	public BuildScreen(int width, int height, String username) {
 		super("BuildGameScreen");
 		this.width = width;
@@ -33,26 +40,34 @@ public class BuildScreen extends JFrame{
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
 		game = Game.getInstance();
 		game.createGameBoard(width, height);
 		game.setPlayerName(username);
 
-		JPanel obstaclePanel = obstaclesPanel();
-		add(obstaclePanel, BorderLayout.PAGE_START);
-		JPanel startPanel = startPanel();
-		add(startPanel, BorderLayout.SOUTH);
-		JPanel deletingModePanel = deletingModePanel();
-		add(deletingModePanel, BorderLayout.EAST);
+		gbc = new GridBagConstraints();
+
+		JPanel buttonsPanel = new JPanel(new GridBagLayout());
+		add(buttonsPanel(buttonsPanel,  width, height), BorderLayout.NORTH);
+
+		JPanel bottomPanel = new JPanel(new GridBagLayout());
+		add(bottomPanel(bottomPanel), BorderLayout.SOUTH);
+
+		JPanel totalShowPanel = new JPanel(new GridBagLayout());
+		add(totalShowPanel(totalShowPanel), BorderLayout.EAST);
+
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				drawPoint = MouseInfo.getPointerInfo().getLocation();
-				drawPoint.x += 20;
-				drawPoint.y += 20;
+				drawPoint.x -= 5;
+				drawPoint.y -= 5;
 				if(isDeletingMode) {
 					removeObstacle(drawPoint);
+
 				}else {
 				addObstacle(drawPoint, currentObstacle);
+
 				}
 				repaint();
 			}
@@ -76,82 +91,54 @@ public class BuildScreen extends JFrame{
 		repaint();
 	}
 
+//PANELS:
+	private JPanel buttonsPanel(JPanel buttonsPanel, int width, int height) {
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		buttonsPanel.setSize((int) width/3, (int) height/6);
 
-	private void removeObstacle(Point removePoint) {
-		double x = removePoint.getX();
-		double y = removePoint.getY();
-		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
-			double obsX = obstacle.getLocation().getX()+20;
+		//TODO : add figures of obstacles instead of texts
+		simpleObstacleButton = new JButton("Simple Obstacle");
+		simpleObstacleButton.setActionCommand("Simple Obstacle)");
+		simpleObstacleButton.addActionListener(new ActionListener()
+	    {
+	        //TODO: look for action on GameAreaPanel, if exists, get location, save, update totalShowPanel
 
-			double upperX = obsX + obstacle.getWidth();
-			double lowerX = obsX;
-			double obsY = obstacle.getLocation().getY()+20;
-			double lowerY = obsY;
-			double upperY = obsY + obstacle.getHeight();
-			//if there exists a object in within the clicked point
-			//System.out.printf("clicked x: %f y: %f lowerX : %f upperX: %f lowerY: %f upperY: %f \n", x,y, lowerX,upperX,lowerY,upperY);
-			if ((x >= lowerX && x<=upperX) && (y >= lowerY && y<=upperY)) {
-				//Destroy obstacle
-				obstacle.getService(0).perform(obstacle);
-				System.out.printf("TRUE\n");
-				removePhysicalObjectLabel(obstacle);
-				break;
-			}
-		}
+			public void actionPerformed(ActionEvent ae)
+	        {
+				currentObstacle = ObstacleType.SimpleObstacle;
+	        }
+	    });
+		firmObstacleButton= new JButton("Firm Obstacle");
+		firmObstacleButton.setActionCommand("FirmObstacleButton");
+		firmObstacleButton.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent ae)
+	        {
+				currentObstacle = ObstacleType.FirmObstacle;
 
-	}
-	private void removePhysicalObjectLabel(PhysicalObject object) {
-		JLabel objectLabel = objectToLabelMap.get(object);
-		remove(objectLabel);
-		objectToLabelMap.remove(object);
-	}
-	private void addObstacle(Point drawPoint, ObstacleType type){
-		int x = (int) (50* (int) (drawPoint.x/50)- (int)(40/2));
-		int y = (int) (50* (int) (drawPoint.y/50)-(int)(40/2));
-
-		boolean isFound = false;
-		for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
-			double obsX = obstacle.getLocation().getX()+20;
-
-			double upperX = obsX + obstacle.getWidth();
-			double lowerX = obsX;
-			double obsY = obstacle.getLocation().getY()+20;
-			double lowerY = obsY;
-			double upperY = obsY + obstacle.getHeight();
-			//if there exists a object in within the clicked point
-			if ((x >= lowerX && x<=upperX) && (y >= lowerY && y<=upperY)) {
-				isFound = true;
-				break;
-			}
-		}
-		if(!isFound) {
-			Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
-			addPhysicalObjectLabel(obstacle);
-		}
-	}
-
-	private void addPhysicalObjectLabel(PhysicalObject object){
-		JLabel objectLabel = new JLabel("");
-		objectLabel.setBackground(Color.CYAN);
-		objectLabel.setOpaque(true);
-		add(objectLabel);
-		objectToLabelMap.put(object, objectLabel);
-	}
-
-	private static void updatePhysicalObjectLabel(PhysicalObject object){
-
-		int x = (int) object.getLocation().getX();
-		int y = (int) object.getLocation().getY();
-		int height = (int) object.getHeight();
-		int width = (int) object.getWidth();
-
-		objectToLabelMap.get(object)
-				.setBounds(x, y, width, height);
-	}
-
-	private JPanel deletingModePanel() {
-		JPanel deletePanel = new JPanel(new GridLayout(1,1));
-		JButton deleteButton = new JButton("Delete Obstacle");
+	        }
+	    });
+		explosiveObstacleButton = new JButton("Explosive Obstacle");
+		explosiveObstacleButton.setActionCommand("explosiveObstacleButton");
+		explosiveObstacleButton.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent ae)
+	        {
+				currentObstacle = ObstacleType.ExplosiveObstacle;
+	        }
+	    });
+		giftObstacleButton = new JButton("Gift Obstacle");
+		giftObstacleButton.setActionCommand("giftObstacleButton");
+		giftObstacleButton.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent ae)
+	        {
+				currentObstacle = ObstacleType.GiftObstacle;
+	        }
+	    });
+		deleteButton = new JButton("Delete Obstacle");
 		deleteButton.setActionCommand("Delete Obstacle");
 		deleteButton.addActionListener(new ActionListener()
 	{
@@ -167,124 +154,220 @@ public class BuildScreen extends JFrame{
 			}
 		}
 	});
-		deletePanel.add(deleteButton);
-		return deletePanel;
-	}
 
-	private JPanel startPanel() {
-		JPanel startPanel = new JPanel(new GridLayout(1,1));
-		JButton startGameButton = new JButton("Start Game");
+		gbc.gridx=0;
+		gbc.gridy=0;
+		buttonsPanel.add(simpleObstacleButton);
+
+		gbc.gridx=1;
+		gbc.gridy=0;
+		buttonsPanel.add(firmObstacleButton);
+
+		gbc.gridx=2;
+		gbc.gridy=0;
+		buttonsPanel.add(explosiveObstacleButton);
+
+		gbc.gridx=3;
+		gbc.gridy=0;
+		buttonsPanel.add(giftObstacleButton);
+
+		gbc.gridx=4;
+		gbc.gridy=0;
+		buttonsPanel.add(deleteButton);
+		return buttonsPanel;
+
+
+	}
+	private JPanel bottomPanel(JPanel bottomPanel) {
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		startGameButton = new JButton("Start Game");
 		startGameButton.setActionCommand("Start Game");
+		bottomPanel.setSize((int) width, (int) height/6);
 		startGameButton.addActionListener(new ActionListener()
 	{
 		public void actionPerformed(ActionEvent ae)
 		{
+			if(game.isValidInventory()) {
+				setVisible(false);
+				new RunningScreen();
+			}
+			else {
+				setVisible(false);
+				new GameCannotStartScreen();
+			}
+
+		}
+	});
+		randomGameButton = new JButton("Random Game");
+		randomGameButton.setActionCommand("Random Game");
+		randomGameButton.addActionListener(new ActionListener()
+	{
+		public void actionPerformed(ActionEvent ae)
+		{
+			game.randomGame();
 			setVisible(false);
 			new RunningScreen();
 		}
 	});
-		startPanel.add(startGameButton);
-		return startPanel;
-	}
-	private JPanel obstaclesPanel(){
-	JPanel obstaclesPanel = new JPanel(new GridLayout(1,4));
-
-
-	//TODO : add figures of obstacles instead of texts
-	JButton simpleObstacleButton = new JButton("Simple Obstacle");
-	simpleObstacleButton.setActionCommand("Simple Obstacle)");
-	simpleObstacleButton.addActionListener(new ActionListener()
-    {
-        //TODO: look for action on GameAreaPanel, if exists, get location, save, update totalShowPanel
-		
+		helpButton = new JButton("Help Screen");
+		helpButton.setActionCommand("Help Screen");
+		helpButton.addActionListener(new ActionListener()
+	{
 		public void actionPerformed(ActionEvent ae)
-        {
-			currentObstacle = ObstacleType.SimpleObstacle;
-        }
-    });
-	JButton firmObstacleButton= new JButton("Firm Obstacle");
-	firmObstacleButton.setActionCommand("FirmObstacleButton");
-	firmObstacleButton.addActionListener(new ActionListener()
-    {
-        public void actionPerformed(ActionEvent ae)
-        {
-			currentObstacle = ObstacleType.FirmObstacle;
-                        
-        }
-    });
-	JButton explosiveObstacleButton = new JButton("Explosive Obstacle");
-	explosiveObstacleButton.setActionCommand("explosiveObstacleButton");
-	explosiveObstacleButton.addActionListener(new ActionListener()
-    {
-        public void actionPerformed(ActionEvent ae)
-        {
-			currentObstacle = ObstacleType.ExplosiveObstacle;
-        }
-    });
-	JButton giftObstacleButton = new JButton("Gift Obstacle");
-	giftObstacleButton.setActionCommand("giftObstacleButton");
-	giftObstacleButton.addActionListener(new ActionListener()
-    {
-        public void actionPerformed(ActionEvent ae)
-        {
-			currentObstacle = ObstacleType.GiftObstacle;
-        }
-    });
+		{
+			setVisible(false);
+			new HelpScreen();
+		}
+	});
+		gbc.gridx=0;
+		gbc.gridy=0;
+		bottomPanel.add(startGameButton);
 
-JTextField usernameField = new JTextField("username",10);
+		gbc.gridx=1;
+		gbc.gridy=0;
+		bottomPanel.add(randomGameButton);
 
-		obstaclesPanel.add(simpleObstacleButton);
-	obstaclesPanel.add(firmObstacleButton);
-	obstaclesPanel.add(explosiveObstacleButton);
-	obstaclesPanel.add(giftObstacleButton);
-	obstaclesPanel.add(usernameField);
-	//obstaclesPanel.add(user);
-	return obstaclesPanel;
+		gbc.gridx=2;
+		gbc.gridy=0;
+		bottomPanel.add(helpButton);
+		return bottomPanel;
+
 	}
 
 
-
-	/*private JPanel TotalShowPanel() {
-		JPanel totalShowPanel = new JPanel(new GridLayout(5,2));
-		JLabel header1 = new JLabel("Type");
-		JLabel header2 = new JLabel("# of Obstacles");
-		JLabel simpleObstacleLabel = new JLabel("# of Simple Obstacles");
-		JLabel simpleObstacleLabelNumber = new JLabel("0");
-		JLabel firmObstacleLabel = new JLabel("# of Firm Obstacles");
-		JLabel firmObstacleLabelNumber = new JLabel("0");
-		JLabel explosiveObstacleLabel = new JLabel("# of Explosive Obstacles");
-		JLabel explosiveObstacleLabelNumber = new JLabel("0");
-		JLabel giftObstacleLabel = new JLabel("# of Gift Obstacles");
-		JLabel giftObstacleLabelNumber = new JLabel("0");
-		totalShowPanel.add(header1);
-		totalShowPanel.add(header2);
+	private JPanel totalShowPanel(JPanel totalShowPanel) {
+		totalShowPanel.setLayout(new BoxLayout(totalShowPanel, BoxLayout.Y_AXIS));
+		totalShowPanel.setPreferredSize(new Dimension(width/6, height/6));
+		try {
+		JLabel simpleObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.SIMPLE_OBSTACLE_IMG_PATH))));
 		totalShowPanel.add(simpleObstacleLabel);
+		simpleObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(simpleObstacleLabelNumber);
+
+		JLabel firmObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.FIRM_OBSTACLE_3_IMG_PATH))));
+		firmObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(firmObstacleLabel);
 		totalShowPanel.add(firmObstacleLabelNumber);
+
+		JLabel explosiveObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.EXPLOSIVE_OBSTACLE_IMG_PATH))));
+		explosiveObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(explosiveObstacleLabel);
 		totalShowPanel.add(explosiveObstacleLabelNumber);
+
+		JLabel giftObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.GIFT_OBSTACLE_IMG_PATH))));
+		giftObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(giftObstacleLabel);
 		totalShowPanel.add(giftObstacleLabelNumber);
+		}
+		catch (Exception e){
+            throw new RuntimeException();
+        }
+
 		return totalShowPanel;
 	}
-	/* 	//for increasing number of obstacles placed
-	//can be called when new obstacle is placed
-	private JLabel increseNumberOfLabel(JLabel numberLabel) {
-		int previousNumber = Integer.parseInt(numberLabel.getText());
-		numberLabel.setText(Integer.valueOf(previousNumber + 1).toString());
-		return numberLabel;
-	}*/
 
-	private JPanel userNamePanel() {
-		JPanel userNamePanel = new JPanel(new GridLayout(1,2));
-		JLabel user = new JLabel("User name");
-		JTextField userName = new JTextField(10);
-		userNamePanel.add(user);
-		userNamePanel.add(userName);
-		return userNamePanel;
+
+//ADD REMOVE RELATED
+	private void removeObstacle(Point removePoint) {
+		int x = (int) (50*(int)(drawPoint.x/50)- (int)(40/2));
+		int y = (int) (50*(int)(drawPoint.y/50)-(int)(40/2));
+
+		ArrayList<Integer> coord = new ArrayList<Integer>();
+		coord.add(x); coord.add(y);
+
+		if(gameGrid.get(coord) != null) {
+			Obstacle obstacle = (Obstacle) gameGrid.get(coord);
+			obstacle.getService(0).perform(obstacle);
+			removePhysicalObjectLabel(obstacle);
+			updateLabelNumber((Obstacle) obstacle, -1);
+		}
+
+
+		/*for (PhysicalObject obstacle : objectToLabelMap.keySet()) {
+			double obsX = obstacle.getLocation().getX();
+			double upperX = obsX + 40;
+			System.out.println(obstacle.getWidth());
+			double lowerX = obsX;
+			double obsY = obstacle.getLocation().getY();
+			double lowerY = obsY;
+			double upperY = obsY + 40;
+			System.out.printf("remove point = %f,%f obsX = %f obsY = %f",x,y,obsX,obsY);
+			//if there exists a object in within the clicked point
+			if ((x >= lowerX && x<=upperX) && (y >= lowerY && y<=upperY)) {
+				//Destroy obstacle
+				obstacle.getService(0).perform(obstacle);
+				removePhysicalObjectLabel(obstacle);
+				updateLabelNumber((Obstacle) obstacle, -1);
+				break;
+			}
+		}*/
 
 	}
+	private void removePhysicalObjectLabel(PhysicalObject object) {
+		JLabel objectJLabel = objectToJLabelMap.get(object);
+		remove(objectJLabel);
+		objectToLabelMap.remove(object);
+		objectToJLabelMap.remove(object);
+	}
+	private void addObstacle(Point drawPoint, ObstacleType type){
+		int x = (int) (50*(int)(drawPoint.x/50)- (int)(40/2));
+		int y = (int) (50*(int)(drawPoint.y/50)-(int)(40/2));
+
+		ArrayList<Integer> coord = new ArrayList<Integer>();
+		coord.add(x); coord.add(y);
+		if(gameGrid.get(coord) == null) {
+			Obstacle obstacle = game.getGameBoard().addObstacle(type, new Vector(x, y));
+			addPhysicalObjectLabel(obstacle);
+			updateLabelNumber(obstacle, 1);
+			gameGrid.put(coord, obstacle);
+		}
+		/*else {
+			System.out.println("another obstacle is exists");
+		}*/
+	}
+
+	private void addPhysicalObjectLabel(PhysicalObject object){
+		PhysicalObjectLabel objectLabel = new PhysicalObjectLabel(object);
+		JLabel objectJLabel = new JLabel(new ImageIcon(objectLabel.getImage()));
+		add(objectJLabel);
+		objectToLabelMap.put(object, objectLabel);
+		objectToJLabelMap.put(object, objectJLabel);
+	}
+
+	private static void updatePhysicalObjectLabel(PhysicalObject object){
+
+		int x = (int) object.getLocation().getX();
+		int y = (int) object.getLocation().getY();
+		int height = (int) object.getHeight();
+		int width = (int) object.getWidth();
+
+		objectToJLabelMap.get(object)
+				.setBounds(x, y, width, height);
+	}
+
+	private void updateLabelNumber(Obstacle obstacle, int i) {
+		JLabel labelNumber ;
+		if (obstacle instanceof SimpleObstacle) {
+			labelNumber = simpleObstacleLabelNumber;
+
+		}else if (obstacle instanceof FirmObstacle) {
+			labelNumber = firmObstacleLabelNumber;
+
+		}else if (obstacle instanceof ExplosiveObstacle) {
+			labelNumber = explosiveObstacleLabelNumber;
+
+		}
+		else {
+			labelNumber = giftObstacleLabelNumber;
+		}
+
+
+		int previousNumber = Integer.parseInt(labelNumber.getText());
+		labelNumber.setText(Integer.valueOf(previousNumber + i).toString());
+	}
+
 
 
 }

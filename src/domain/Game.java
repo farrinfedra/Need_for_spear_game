@@ -143,6 +143,14 @@ public class Game extends Thread {
         gameBoard.loseChance();
     }
 
+    public boolean isValidInventory() {
+    	return gameBoard.isValidInventory();
+    }
+
+    public void randomGame() {
+    	gameBoard.randomGame();
+    }
+
     public Double getScore() {
         return gameBoard.getScore();
     }
