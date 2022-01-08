@@ -24,15 +24,15 @@ public class LoadScreen extends JFrame {
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(0,0,width,height);
         gbc = new GridBagConstraints();
 
 
         if (list.size() == 1) {
             game.createGameBoard(width, height);
             game.loadGame(list.get(0));
-            dispose();
-            setVisible(false);
             new RunningScreen();
+            dispose();
 
 
         } else {
@@ -48,9 +48,10 @@ public class LoadScreen extends JFrame {
                 listLabelsPanel(mainPanel, listPanel, list);
 
             }
-            setVisible(true);
 
         }
+        setVisible(true);
+
 
 
     }
