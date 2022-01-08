@@ -159,9 +159,15 @@ public class Game extends Thread {
         return gameBoard.getTime();
     }
 
-    public int getChance() {
-        return gameBoard.getChance();
+    public int getLives() {
+    	return gameBoard.getLives();
+
     }
+
+    public String getUserName() {
+    	return gameBoard.getPlayer().getUsername();
+    }
+
 }
 
 

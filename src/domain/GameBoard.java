@@ -11,7 +11,6 @@ import domain.services.DestroyService;
 import domain.services.GameBoardServiceFactory;
 import domain.services.Service;
 import domain.services.SummonService;
-import ui.PhysicalObjectLabel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class GameBoard{
         player = new Player();
         physicalObjects.add(ball);
         physicalObjects.add(paddle);
-        physicalObjects.add(new Wall(new Vector(0,-21), size.getX(), 20));
+        physicalObjects.add(new Wall(new Vector(0,size.getY()/6-21), size.getX(), 20));
         physicalObjects.add(new Wall(new Vector(-21,20), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));
@@ -168,14 +167,6 @@ public class GameBoard{
         return (int) (time_milliseconds * 0.0016);
     }
 
-    public Double getScore() {
-        return player.getScore();
-    }
-
-    public int getChance() {
-        return player.getLives();
-    }
-
     public boolean isValidInventory() {
     	obstacleInventory.put(ObstacleType.SimpleObstacle,0);
     	obstacleInventory.put(ObstacleType.FirmObstacle,0);
@@ -279,6 +270,18 @@ public class GameBoard{
     	}
 
 
+
+    }
+
+
+
+    public int getLives() {
+    	return player.getLives();
+
+    }
+
+    public double getScore() {
+    	return player.getScore();
 
     }
 

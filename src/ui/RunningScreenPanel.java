@@ -57,22 +57,21 @@ public class RunningScreenPanel extends JPanel {
                     repaint();
                 }
         );
+        RunningScreenInfoPanel infoPanel = new RunningScreenInfoPanel();
+        add(infoPanel);
 
-        JPanel activeAbilities = new JPanel();
-        add(activeAbilities);
-        HashMap<Ability, JLabel> abilityLabels = new HashMap<>();
         AbilityEngine.getInstance().addEventListener(o -> {
             AbilityEvent event = (AbilityEvent) o;
 
             if(event.isActive()){
-                JLabel label = new JLabel(event.getAbility().toString());
-                activeAbilities.add(label);
-                abilityLabels.put(event.getAbility(), label);
+                //JLabel label = new JLabel(event.getAbility().toString());
+                infoPanel.setActiveAbility(event.getAbility());
             }
             else{
-                activeAbilities.remove(abilityLabels.remove(event.getAbility()));
+                infoPanel.removeAbility(event.getAbility());
             }
         });
+
 
         Game game = Game.getInstance();
         Ymir ymir = new Ymir();
@@ -139,49 +138,12 @@ public class RunningScreenPanel extends JPanel {
             }
         });
 
-        JLabel abilities = new JLabel("lol");
-        add(abilities);
-        abilities.setBounds(100,0, 1000, 40);
-
-        JButton pauseButton = new JButton("Pause");
-        pauseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                add(new PauseScreen(getWidth()/2, getHeight()/2));
-                game.switchPaused();
-            }
-        });
-
-        pauseButton.setBounds(0,0,100, 40);
-        add(pauseButton);
-
-        JLabel scoreLabel = new JLabel();
-        scoreLabel.setForeground(Color.WHITE);
-        scoreLabel.setFont(new Font("Verdana", Font.BOLD,20));
-        add(scoreLabel);
-
-        JLabel timeLabel = new JLabel();
-        timeLabel.setForeground(Color.WHITE);
-        timeLabel.setFont(new Font("Verdana", Font.BOLD,20));
-        add(timeLabel);
-
-        JLabel chanceLabel = new JLabel();
-        chanceLabel.setForeground(Color.WHITE);
-        chanceLabel.setFont(new Font("Verdana", Font.BOLD,20));
-        add(chanceLabel);
 
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pauseButton.setText(game.getStatus().toString());
-
-                abilities.setText(game.getAvailableAbilities().toString());
-
-                scoreLabel.setText("Score: " + df.format(Game.getInstance().getScore()));
-
-                timeLabel.setText("Time: " + Game.getInstance().getTime());
-
-                chanceLabel.setText("Lives: " + Game.getInstance().getChance());
-
+                infoPanel.setAbilityLabels();
+                infoPanel.setScore();
+                infoPanel.setLives();
                 requestFocusInWindow();
                 revalidate();
                 repaint();
