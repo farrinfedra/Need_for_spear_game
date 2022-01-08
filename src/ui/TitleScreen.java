@@ -32,14 +32,15 @@ public class TitleScreen extends JFrame {
 
 		JPanel headerPanel = new JPanel();
 		headerPanel(mainPanel, headerPanel);
-
-		JPanel usernamePanel = new JPanel();
-		usernamePanel(mainPanel, usernamePanel, width, height);
+		if (Game.getInstance().isUsernameNull()){
+			JPanel usernamePanel = new JPanel();
+			usernamePanel(mainPanel, usernamePanel, width, height);
+		}
 
 
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
-
+		setButtonsVisible();
 
 		setVisible(true);
 

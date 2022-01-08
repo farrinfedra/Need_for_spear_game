@@ -43,10 +43,13 @@ public class LoadScreen extends JFrame {
             JPanel introPanel = new JPanel();
             introLabel(mainPanel, introPanel, list);
 
+            if (list.size() != 0){
+                JPanel listPanel = new JPanel();
+                listLabelsPanel(mainPanel, listPanel, list);
 
-            JPanel listPanel = new JPanel();
-            listLabelsPanel(mainPanel, listPanel, list);
+            }
             setVisible(true);
+
         }
 
 
@@ -62,16 +65,38 @@ public class LoadScreen extends JFrame {
         gbc.insets = new Insets(100, 50, 100, 50);
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        String message = "Looks like you have %d saved games. Choose one below."
-                .formatted(list.size());
-        JLabel numSavedLabel = new JLabel(message);
-        numSavedLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
-        numSavedLabel.setForeground(Color.decode("#8b0000"));
+        String message;
         loadGamePanel.setBackground(BACKGROUND_COLOR);
+        if (list.size() == 0) {
+             message = "Looks like you have %d saved games.".formatted(list.size());
+            JButton backButton = new JButton("return");
+            backButton.setSize(100, 30);
+            backButton.addActionListener(e -> {
+                setVisible(false);
+                new TitleScreen(width, height);
+                dispose();
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        loadGamePanel.add(numSavedLabel);
+            });
+            JLabel numSavedLabel = new JLabel(message);
+            numSavedLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+            numSavedLabel.setForeground(Color.decode("#8b0000"));
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            loadGamePanel.add(numSavedLabel);
+            loadGamePanel.add(backButton);
+
+        }
+        else{ message = "Looks like you have %d saved games. Choose one below."
+                .formatted(list.size());
+            JLabel numSavedLabel = new JLabel(message);
+            numSavedLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+            numSavedLabel.setForeground(Color.decode("#8b0000"));
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            loadGamePanel.add(numSavedLabel);
+        }
+
+
         mainPanel.add(loadGamePanel);
 
     }

@@ -41,7 +41,7 @@ public class SaveGame {
         savedGame.put("username", player.getUsername());
         savedGame.put("lives", player.getLives());
         savedGame.put("score", player.getScore());
-        savedGame.put("date", calendar.toString());
+        //savedGame.put("date", calendar.toString());
 
 
         int i = 0;
@@ -102,7 +102,6 @@ public class SaveGame {
         savedGame.put("abilities", abilitiesList);
 
         String fileName = generateFileName();
-        System.out.println(fileName);
         try(FileWriter file = new FileWriter(fileName)){
             file.write(savedGame.toJSONString());
             file.flush();

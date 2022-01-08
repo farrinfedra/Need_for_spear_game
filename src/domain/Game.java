@@ -117,6 +117,9 @@ public class Game extends Thread {
     public void setPlayerName(String username) {
         this.username = username;
     }
+    public boolean isUsernameNull(){
+        return username == null;
+    }
 
 }
 
