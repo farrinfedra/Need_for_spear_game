@@ -17,7 +17,7 @@ public class TitleScreen extends JFrame {
 	Color BACKGROUND_COLOR = new Color(240,230,140);
 	Color TEXT_COLOR = new Color(128,128,0);
 	GridBagConstraints gbc;
-	String username;
+	private String username;
 	JButton loadGameButton;
 	JButton playButton;
 	JButton buildModeButton;
@@ -33,14 +33,15 @@ public class TitleScreen extends JFrame {
 
 		JPanel headerPanel = new JPanel();
 		headerPanel(mainPanel, headerPanel);
-
-		JPanel usernamePanel = new JPanel();
-		usernamePanel(mainPanel, usernamePanel, width, height);
+		if (Game.getInstance().isUsernameNull()){
+			JPanel usernamePanel = new JPanel();
+			usernamePanel(mainPanel, usernamePanel, width, height);
+		}
 
 
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
-
+		setButtonsVisible();
 
 		setVisible(true);
 
@@ -74,6 +75,7 @@ public class TitleScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				username = usernameTextField.getText();
+				Game.getInstance().setPlayerName(username);
 				enterButton.setVisible(false);
 				usernameTextField.setVisible(false);
 				setButtonsVisible();
@@ -119,7 +121,7 @@ public class TitleScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				new BuildScreen(width, height, username);
+				new BuildScreen(width, height);
 			}
 		});
 

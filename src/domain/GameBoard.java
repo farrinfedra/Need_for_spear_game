@@ -101,6 +101,15 @@ public class GameBoard{
     public Player getPlayer() {
         return player;
     }
+    public List<Obstacle> getObstacles() {
+        List<Obstacle> obstacles = new ArrayList<>();
+        for (PhysicalObject object : physicalObjects) {
+            if (object.getClass().getSuperclass().getSimpleName().equals("Obstacle")){
+                obstacles.add((Obstacle) object);
+            }
+        }
+        return obstacles;
+    }
 
     public void increaseScore(double score){
         player.setScore(player.getScore() + score);

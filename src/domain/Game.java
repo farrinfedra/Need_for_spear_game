@@ -3,7 +3,6 @@ package domain;
 import domain.abilities.AbilityType;
 import domain.abilities.UsefulAbilityType;
 import domain.loadsave.LoadGame;
-import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.obstacles.ObstacleType;
 import domain.loadsave.SaveGame;
 import domain.physicalobjects.Vector;
@@ -19,6 +18,7 @@ public class Game extends Thread {
     private GameBoard gameBoard;
     private SaveGame saveGame;
     private LoadGame loadGame;
+    private String username;
 
     private Game() {
        status = GameStatus.RESUMED;
@@ -26,6 +26,7 @@ public class Game extends Thread {
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
+        gameBoard.getPlayer().setUsername(username);
     }
 
     public static Game getInstance() {
@@ -47,16 +48,13 @@ public class Game extends Thread {
 
     //TODO: implement magical ability functions
 
-    public void loadGame(int slot){
-        //TODO: get username from user;
+    public void loadGame(String gameName){
+        loadGame.loadGame(gameName);
+    }
 
-        loadGame = new LoadGame("player1");
-        loadGame.loadGame();
-        ArrayList<ArrayList<Double>> obstacles= loadGame.getObstacles();
-        ArrayList<Integer> abilities = loadGame.getAbilities();
-        String username = loadGame.getUsername();
-        double score = loadGame.getScore();
-        int lives = loadGame.getlives();
+    public ArrayList<String> getSavedGames(String username) {
+        loadGame = new LoadGame(username);
+        return loadGame.getSavedGameList();
     }
 
     public void saveGame(int slot){
@@ -116,12 +114,13 @@ public class Game extends Thread {
     }
 
     public void setPlayerName(String username) {
-        gameBoard.getPlayer().setUsername(username);
+        this.username = username;
     }
 
-    public void getSavedGames() {
-
+    public boolean isUsernameNull(){
+        return username == null;
     }
+
     public void setStickToPaddle(Boolean value) {
         gameBoard.setStickToPaddle(value);
     }

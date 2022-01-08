@@ -48,6 +48,7 @@ public abstract class Obstacle extends PhysicalObject {
     public int getHealth(){
         return this.health;
     }
+    public void setHealth(int health) { this.health = health; }
 
     public void setInvincible(boolean value){
         this.invincible = value;

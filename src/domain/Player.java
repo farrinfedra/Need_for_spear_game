@@ -32,11 +32,9 @@ public class Player {
 
     public void setScore(double score) {
         this.score = score;
-        System.out.println("new score:" + score);
     }
 
     public void setLives(int lives) {
-        System.out.println("Lives: " + lives);
         this.lives = lives;
     }
 

@@ -1,13 +1,7 @@
 package ui;
 
-import domain.Direction;
-import domain.Game;
-import domain.abilities.AbilityType;
-
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class RunningScreen extends JFrame{
 
@@ -19,6 +13,7 @@ public class RunningScreen extends JFrame{
 
         setVisible(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0,0,width,height);
 
         JPanel panel = new RunningScreenPanel(width, height);

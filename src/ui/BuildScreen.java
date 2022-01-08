@@ -30,7 +30,8 @@ public class BuildScreen extends JFrame{
 	GridBagConstraints gbc;
 	JButton simpleObstacleButton,firmObstacleButton,explosiveObstacleButton,giftObstacleButton,deleteButton,startGameButton,randomGameButton,helpButton;
 	JLabel simpleObstacleLabelNumber,firmObstacleLabelNumber,giftObstacleLabelNumber,explosiveObstacleLabelNumber;
-	public BuildScreen(int width, int height, String username) {
+
+	public BuildScreen(int width, int height) {
 		super("BuildGameScreen");
 		this.width = width;
 		this.height = height;
@@ -43,7 +44,6 @@ public class BuildScreen extends JFrame{
 
 		game = Game.getInstance();
 		game.createGameBoard(width, height);
-		game.setPlayerName(username);
 
 		gbc = new GridBagConstraints();
 

@@ -1,36 +1,82 @@
 package domain.loadsave;
 
+import domain.Game;
+import domain.GameBoard;
+import domain.abilities.AbilityType;
+import domain.abilities.UsefulAbilityType;
+import domain.physicalobjects.PhysicalObject;
+import domain.physicalobjects.Vector;
+import domain.physicalobjects.obstacles.Obstacle;
+import domain.physicalobjects.obstacles.ObstacleType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class LoadGame {
 
     private String username;
-
-    public LoadGame(String username) {this.username = username;}
     private JSONObject obs;
-    public void loadGame() {
+    private GameBoard gameBoard;
+    private ArrayList<ArrayList<Double>> obstacles;
+    private ArrayList<Integer> abilities;
+    private double score;
+    private int lives;
+    public LoadGame(String username) {
+
+        this.username = username;
+
+    }
+
+    public ArrayList<String> getSavedGameList() {
+
+        ArrayList<String> files = new ArrayList<>();
+        File dir = new File("./savedGames");
+        File[] dir_contents = dir.listFiles();
+        if (dir_contents != null)
+        {
+            for(File file : dir_contents){
+                if(username != null && file.getName().contains(username)) {
+                    files.add(file.getName());
+                }
+            }
+        }
+        return files;
+    }
+    public void loadGame(String fileName){
+        gameBoard = Game.getInstance().getGameBoard();
+        //open & read file
+        readFile(fileName);
+        readObstacles();
+        readAbilities();
+        readScore();
+        readLives();
+        //setup gameboard
+        setUpGameBoard();
+
+    }
+
+
+
+    private void readFile(String fileName) {
         JSONParser jsonParser = new JSONParser();
 
-
         //read file
-        try (FileReader reader = new FileReader(String.format("%s.json", username)))
+        try (FileReader reader = new FileReader(String.format("./savedGames/%s", fileName)))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
             obs = new JSONObject();
             obs = (JSONObject) obj;
-            System.out.println(obs);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -41,17 +87,16 @@ public class LoadGame {
     }
 
 
-
-    public ArrayList<ArrayList<Double>> getObstacles(){
+    public void readObstacles(){
         JSONArray obstacleArray = new JSONArray();
         obstacleArray = (JSONArray) obs.get("obstacles");
 
-        ArrayList<ArrayList<Double>> obstacles = new ArrayList<>();
+        obstacles = new ArrayList<>();
 
-        double id = 0;
-        double health = 0;
-        double x = 0;
-        double y = 0;
+        double id;
+        double health;
+        double x;
+        double y;
         for (int i = 0 ; i<obstacleArray.size(); i++){
             JSONArray temp = new JSONArray();
             temp = (JSONArray) obstacleArray.get(i);
@@ -68,11 +113,10 @@ public class LoadGame {
 
         }
 
-        return obstacles;
     }
-    public ArrayList<Integer> getAbilities(){
-        ArrayList<Integer> abilities = new ArrayList<>();
-        int count = 0;
+    public void readAbilities(){
+        abilities = new ArrayList<>();
+        int count;
 
         JSONArray abilitiesArray = new JSONArray();
         abilitiesArray = (JSONArray) obs.get("abilities");
@@ -82,20 +126,68 @@ public class LoadGame {
             abilities.add(count);
         }
 
-        return abilities;
     }
 
     public String getUsername(){
         return username;
     }
 
-    public double getScore(){
-        double score = Double.valueOf(obs.get("score").toString());
-        return score;
+    public void readScore(){
+         score = Double.valueOf(obs.get("score").toString());
     }
-    public int getlives(){
-        int lives = Integer.valueOf(obs.get("lives").toString());
-        return lives;
+    public void readLives (){
+         lives = Integer.valueOf(obs.get("lives").toString());
+    }
+
+    private void setUpGameBoard() {
+        //Add obstacles
+        addObstacles();
+        //Add abilities
+        addAbilities();
+        //Set score & lives
+        addScore();
+        addLives();
+        setUsername();
+    }
+
+    private void setUsername() {
+        gameBoard.getPlayer().setUsername(username);
+    }
+
+    private void addLives() {
+        gameBoard.getPlayer().setLives(lives);
+    }
+
+    private void addScore() {
+        gameBoard.getPlayer().setScore(score);
+
+    }
+
+    private void addAbilities() {
+        for(int i = 0; i < abilities.size() ; i++ ) {
+            if (abilities.get(i) != 0){
+                for (int j = 0; j < abilities.get(i); j++){
+                    gameBoard.getPlayer().addAbility((AbilityType) Arrays.stream(AbilityType.values()).toArray()[i]);
+                }
+            }
+
+        }
+    }
+
+    private void addObstacles(){
+        int i = 0;
+        for (ArrayList<Double> a : obstacles){
+
+            int id = a.get(0).intValue();
+            int health = a.get(1).intValue();
+            double x = a.get(2);
+            double y = a.get(3);
+
+            gameBoard.addObstacle((ObstacleType) Arrays.stream(ObstacleType.values()).toArray()[id], new Vector(x, y));
+            gameBoard.getObstacles().get(i).setHealth(health);
+            i++;
+        }
+
     }
 
 }
