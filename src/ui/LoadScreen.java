@@ -23,6 +23,9 @@ public class LoadScreen extends JFrame {
         super("Load Screen");
         game = Game.getInstance();
         list = game.getSavedGames(username);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        width = (int) dim.getWidth();
+        height = (int) dim.getHeight();
 
 
         if (list.size() == 1) {
@@ -34,9 +37,6 @@ public class LoadScreen extends JFrame {
 
 
         } else {
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            width = (int) dim.getWidth();
-            height = (int) dim.getHeight();
 
 
             setExtendedState(JFrame.MAXIMIZED_BOTH);
