@@ -196,14 +196,14 @@ public class GameBoard{
     public void randomGame() {
     	double X = this.getSize().getX();
     	double Y = this.getSize().getX();
-    	int MAX_X =(int) (50*(int)(X/50)- (int)(40/2));
+    	int MAX_X =(int) (50*(int)(X/50)- (int)(50/2));
     	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) paddle.getLocation().getY()-50;
     	int random_x, random_y;
     	int simpleCounter=0, firmCounter=0, explosiveCounter=0, giftCounter = 0;
     	
     	while (simpleCounter< simpleObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/5))) + (Y/5))/50)- (int)(40/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/5))) + (Y/5))/50));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		
@@ -221,6 +221,7 @@ public class GameBoard{
     		coord.add(random_x); coord.add(random_y);
     		
     		if (gameGrid.get(coord) == null) {
+    			gameGrid.put(coord, 1);
     			addObstacle(ObstacleType.FirmObstacle, new Vector(random_x, random_y));
     			firmCounter ++;
     		}
@@ -233,18 +234,20 @@ public class GameBoard{
     		coord.add(random_x); coord.add(random_y);
     		
     		if (gameGrid.get(coord) == null) {
+    			gameGrid.put(coord, 1);
     			addObstacle(ObstacleType.ExplosiveObstacle, new Vector(random_x, random_y));
     			explosiveCounter ++;
     		}
         	
     	}
     	while (giftCounter< giftObstacleMin){
-    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(40/20));
+    		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(50/20));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 20)) + 20)/50)- (int)(50/20));
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
     		
     		if (gameGrid.get(coord) == null) {
+    			gameGrid.put(coord, 1);
     			addObstacle(ObstacleType.GiftObstacle, new Vector(random_x, random_y));
     			giftCounter ++;
     		}
