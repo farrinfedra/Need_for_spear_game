@@ -66,6 +66,7 @@ public class GameBoard{
 
     public void doTickActions(){
         //TODO: implement doTickActions
+
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
         AbilityEngine.getInstance().calculate(physicalObjects);

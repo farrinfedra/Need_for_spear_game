@@ -26,10 +26,13 @@ public class LoadScreen extends JFrame {
 
 
         if (list.size() == 1) {
-            dispose();
             game.createGameBoard(width, height);
             game.loadGame(list.get(0));
+            dispose();
             new RunningScreen();
+
+
+
         } else {
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             width = (int) dim.getWidth();

@@ -176,7 +176,6 @@ public class LoadGame {
             double y = a.get(3);
 
             gameBoard.addObstacle((ObstacleType) Arrays.stream(ObstacleType.values()).toArray()[id], new Vector(x, y));
-            System.out.println(gameBoard.getObstacles());
             gameBoard.getObstacles().get(i).setHealth(health);
             i++;
         }
