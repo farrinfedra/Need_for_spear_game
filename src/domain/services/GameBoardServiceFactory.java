@@ -18,7 +18,7 @@ public class GameBoardServiceFactory {
         return this;
     }
 
-    public GameBoardService create(ServiceType serviceType){
+    public Service create(ServiceType serviceType){
         if(gameBoard == null)
             throw new RuntimeException("GameBoard not found.");
 
@@ -29,6 +29,10 @@ public class GameBoardServiceFactory {
                 return new DestroyService(gameBoard);
             case EQUIP_ABILITY:
                 return new EquipAbilityService(gameBoard);
+            case GAME_WON:
+                return new GameWonService();
+            case GAME_LOST:
+                return new GameLostService();
         }
         return null;
     }

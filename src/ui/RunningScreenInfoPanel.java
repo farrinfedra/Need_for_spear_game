@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,16 +22,18 @@ import domain.abilities.*;
 
 
 public class RunningScreenInfoPanel extends JPanel{
-	GridBagConstraints gbc;
-	Game game;
-	double width;
-	double height;
-	JLabel chanceGivingLabel, magicalHexLabel, paddleExpansionLabel, unstoppableBallLabel;
-	JButton chanceGivingButton, magicalHexButton, paddleExpansionButton, unstoppableBallButton;
-	JLabel scoreLabel, livesLabel, activeAbilityLabel, timeLabel, ymirLabel;
-	Color DEFAULT = new Color(238,232,170);
-	Color HIGHLIGHT = new Color(128,128,0);
-	ArrayList<String> activeAbility = new ArrayList<String>();
+	private static final DecimalFormat df = new DecimalFormat("0.0");
+
+	private GridBagConstraints gbc;
+	private Game game;
+	private double width;
+	private double height;
+	private JLabel chanceGivingLabel, magicalHexLabel, paddleExpansionLabel, unstoppableBallLabel;
+	private JButton chanceGivingButton, magicalHexButton, paddleExpansionButton, unstoppableBallButton;
+	private JLabel scoreLabel, livesLabel, activeAbilityLabel, timeLabel, ymirLabel;
+	private Color DEFAULT = new Color(238,232,170);
+	private Color HIGHLIGHT = new Color(128,128,0);
+	private ArrayList<String> activeAbility = new ArrayList<String>();
 	public RunningScreenInfoPanel() {
 		
 		game = Game.getInstance();
@@ -276,9 +279,9 @@ public class RunningScreenInfoPanel extends JPanel{
 	
 	public void setScore() {
 		//TODO Get score information from game?
-		scoreLabel.setText(Double.valueOf(game.getScore()).toString());
+		scoreLabel.setText(df.format(Double.valueOf(game.getScore())).toString());
 	}
-	
+
 	public void setTime() {
 		//TODO Get score information from game?
 		timeLabel.setText(Double.valueOf(game.getTime()).toString());

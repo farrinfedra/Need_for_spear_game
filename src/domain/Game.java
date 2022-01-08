@@ -6,6 +6,8 @@ import domain.loadsave.LoadGame;
 import domain.physicalobjects.obstacles.ObstacleType;
 import domain.loadsave.SaveGame;
 import domain.physicalobjects.Vector;
+import domain.services.GameBoardServiceFactory;
+import domain.services.ServiceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,10 @@ public class Game extends Thread {
 
     public void createGameBoard(int width, int height){
         gameBoard = new GameBoard(new Vector(width, height));
+        GameBoardServiceFactory.getInstance().setGameBoard(gameBoard);
+        gameBoard.addService(GameBoardServiceFactory.getInstance().create(ServiceType.GAME_WON));
+        gameBoard.addService(GameBoardServiceFactory.getInstance().create(ServiceType.GAME_LOST));
+
         gameBoard.getPlayer().setUsername(username);
     }
 
