@@ -34,7 +34,6 @@ public class LoadScreen extends JFrame {
             new RunningScreen();
 
 
-
         } else {
 
             JPanel mainPanel = new JPanel();

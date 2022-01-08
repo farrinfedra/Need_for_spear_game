@@ -19,10 +19,9 @@ public class TitleScreen extends JFrame {
 	GridBagConstraints gbc;
 	private String username;
 	JButton loadGameButton;
-	JButton playButton;
 	JButton buildModeButton;
 	JButton helpButton;
-	Game game;
+
 	public TitleScreen(int width, int height) {
 		super("TitleScreen");
 		setBounds(0, 0, width, height);
@@ -33,15 +32,13 @@ public class TitleScreen extends JFrame {
 
 		JPanel headerPanel = new JPanel();
 		headerPanel(mainPanel, headerPanel);
-		if (Game.getInstance().isUsernameNull()){
-			JPanel usernamePanel = new JPanel();
-			usernamePanel(mainPanel, usernamePanel, width, height);
-		}
+
+		JPanel usernamePanel = new JPanel();
+		usernamePanel(mainPanel, usernamePanel, width, height);
 
 
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		buttonsPanel(mainPanel, buttonsPanel,  width, height);
-		setButtonsVisible();
 
 		setVisible(true);
 
@@ -78,7 +75,6 @@ public class TitleScreen extends JFrame {
 				Game.getInstance().setPlayerName(username);
 				enterButton.setVisible(false);
 				usernameTextField.setVisible(false);
-				setButtonsVisible();
 				usernameLabel.setText("Welcome %s".formatted(username));
 
 			}
@@ -90,13 +86,6 @@ public class TitleScreen extends JFrame {
 		mainPanel.add(usernamePanel);
 	}
 
-	private void setButtonsVisible() {
-		//playButton.setVisible(true);
-		buildModeButton.setVisible(true);
-		loadGameButton.setVisible(true);
-		helpButton.setVisible(true);
-	}
-
 
 	private void buttonsPanel(JPanel mainPanel, JPanel buttonsPanel, int width, int height) {
 		gbc.insets = new Insets(10, 10, 10, 10);
@@ -104,18 +93,6 @@ public class TitleScreen extends JFrame {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
-		/* playButton = new JButton("Play");
-		playButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				game = Game.getInstance();
-				game.createGameBoard(width, height);
-				game.setPlayerName(username);
-				game.randomGame();
-				setVisible(false);
-				new RunningScreen();
-			}
-		});*/
 		 buildModeButton = new JButton("Build Mode");
 		buildModeButton.addActionListener(new ActionListener() {
 			@Override
@@ -143,22 +120,19 @@ public class TitleScreen extends JFrame {
 			}
 		});
 
-		/*gbc.gridx=0;
-		gbc.gridy=0;
-		buttonsPanel.add(playButton);*/
-		//playButton.setVisible(false);
+
 		gbc.gridx=1;
 		gbc.gridy=0;
 		buttonsPanel.add(buildModeButton);
-		buildModeButton.setVisible(false);
+		buildModeButton.setVisible(true);
 		gbc.gridx=2;
 		gbc.gridy=0;
 		buttonsPanel.add(loadGameButton);
-		loadGameButton.setVisible(false);
+		loadGameButton.setVisible(true);
 		gbc.gridx=3;
 		gbc.gridy=0;
 		buttonsPanel.add(helpButton);
-		helpButton.setVisible(false);
+		helpButton.setVisible(true);
 
 		buttonsPanel.setBackground(BACKGROUND_COLOR);
 		mainPanel.add(buttonsPanel);
