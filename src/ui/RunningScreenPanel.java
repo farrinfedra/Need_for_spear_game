@@ -161,7 +161,8 @@ public class RunningScreenPanel extends JPanel {
                 
                 //abilities.setText(game.getAvailableAbilities().toString());
                 infoPanel.setAbilityLabels();
-                
+                infoPanel.setScore();
+                infoPanel.setLives();
                 requestFocusInWindow();
                 revalidate();
                 repaint();

@@ -142,4 +142,15 @@ public class GameBoard{
             ball.setStickToPaddle(true);
         }
     }
+    
+    public int getLives() {
+    	return player.getLives();
+    	
+    }
+    public int getScore() {
+    	return player.getScore();
+    	
+    }
+    
+    
 }

@@ -225,13 +225,12 @@ public class RunningScreenInfoPanel extends JPanel{
 	
 	public void setLives() {
 		//TODO Get lives info from gameboard?
-		livesLabel.setText("a");
-
+		livesLabel.setText(Integer.valueOf(game.getLives()).toString());
 	}
 	
 	public void setScore() {
 		//TODO Get score information from game?
-		scoreLabel.setText("a");
+		scoreLabel.setText(Integer.valueOf(game.getScore()).toString());
 	}
 	
 	public void setAbilityLabels() {
