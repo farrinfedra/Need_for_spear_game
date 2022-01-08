@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,15 +25,15 @@ public class RunningScreenInfoPanel extends JPanel{
 	double height;
 	JLabel chanceGivingLabel, magicalHexLabel, paddleExpansionLabel, unstoppableBallLabel;
 	JButton chanceGivingButton, magicalHexButton, paddleExpansionButton, unstoppableBallButton;
-	JLabel scoreLabel, livesLabel, activeAbilityLabel;
+	JLabel scoreLabel, livesLabel, activeAbilityLabel, timeLabel;
 	Color DEFAULT = new Color(238,232,170);
 	Color HIGHLIGHT = new Color(128,128,0);
-	//HashMap<Ability, JLabel> abilityLabels = new HashMap<>();
+	ArrayList<String> activeAbility = new ArrayList<String>();
 	public RunningScreenInfoPanel() {
 		
 		game = Game.getInstance();
 		width = game.getGameBoard().getSize().getX() ;
-		height = game.getSize().getY()/6;
+		height = game.getGameBoard().getSize().getY();
 		
 		setSize((int) width, (int)height);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -58,18 +59,21 @@ public class RunningScreenInfoPanel extends JPanel{
 		scoreLabel = new JLabel("0");
 		JLabel livesText = new JLabel("Lives:");
 		livesLabel = new JLabel("3");
-		JLabel activeText = new JLabel("Active Abilities:");
-		activeAbilityLabel = new JLabel("");
+		
 		
 		JLabel userText = new JLabel("User: ");
 		JLabel userLabel = new JLabel(game.getUserName());
 		
+		JLabel timeText = new JLabel("Time: ");
+	    timeLabel = new JLabel(game.getUserName());
+		timeLabel.setText(Double.valueOf(game.getTime()).toString());
+		
 		gbc.gridx=0;
 		gbc.gridy=0;
-		infoPanel.add(scoreText,gbc);
+		infoPanel.add(userText,gbc);
 		gbc.gridx=1;
 		gbc.gridy=0;
-		infoPanel.add(scoreLabel,gbc);
+		infoPanel.add(userLabel,gbc);
 		
 		gbc.gridx=0;
 		gbc.gridy=1;
@@ -80,16 +84,19 @@ public class RunningScreenInfoPanel extends JPanel{
 		
 		gbc.gridx=1;
 		gbc.gridy=2;
-		infoPanel.add(activeAbilityLabel,gbc);
+		infoPanel.add(timeLabel,gbc);
 		gbc.gridx=0;
 		gbc.gridy=2;
-		infoPanel.add(activeText,gbc);
+		infoPanel.add(timeText,gbc);
 		gbc.gridx=1;
 		gbc.gridy=3;
-		infoPanel.add(userLabel,gbc);
+		infoPanel.add(scoreLabel,gbc);
 		gbc.gridx=0;
 		gbc.gridy=3;
-		infoPanel.add(userText,gbc);
+		infoPanel.add(scoreText,gbc);
+		
+		
+		
 		
 		
 
@@ -108,9 +115,7 @@ public class RunningScreenInfoPanel extends JPanel{
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
-		//TODO: Add images
-		//TODO Get available ability number
-		chanceGivingLabel = new JLabel("0");
+		/*chanceGivingLabel = new JLabel("0");
 		chanceGivingButton = new JButton("Chance Giving");
 		chanceGivingButton.setBackground(DEFAULT);
 		chanceGivingButton.addActionListener(new ActionListener() {
@@ -120,12 +125,12 @@ public class RunningScreenInfoPanel extends JPanel{
 				game.useAbility(AbilityType.ChanceGivingAbility);
 				
 			}
-		});
+		})*/
 		//TODO Get available ability number
 		magicalHexLabel = new JLabel("0");
 		magicalHexButton = new JButton("Magical Hex");
 		magicalHexButton.setBackground(DEFAULT);
-		chanceGivingButton.addActionListener(new ActionListener() {
+		magicalHexButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Activate Magical Ability
@@ -145,6 +150,7 @@ public class RunningScreenInfoPanel extends JPanel{
 				
 			}
 		});
+		/*
 		//TODO Get avaliable ability number
 		unstoppableBallLabel = new JLabel("0");
 		unstoppableBallButton = new JButton("Unstoppable Ball");
@@ -156,32 +162,30 @@ public class RunningScreenInfoPanel extends JPanel{
 				game.useAbility(AbilityType.UnstoppableBallAbility);
 				
 			}
-		});
+		});*/
+		JLabel activeText = new JLabel("Active Abilities:");
+		activeAbilityLabel = new JLabel("");
+		
 		
 		gbc.gridx=0;
 		gbc.gridy=0;
-		abilitiesPanel.add(chanceGivingButton, gbc);
-		gbc.gridx=0;
-		gbc.gridy = 1;
-		abilitiesPanel.add(chanceGivingLabel,gbc);
-		gbc.gridx=1;
-		gbc.gridy=0;
 		abilitiesPanel.add(magicalHexButton,gbc);
 		gbc.gridx=1;
-		gbc.gridy=1;
-		abilitiesPanel.add(magicalHexLabel,gbc);
-		gbc.gridx=2;
 		gbc.gridy=0;
+		abilitiesPanel.add(magicalHexLabel,gbc);
+		gbc.gridx=0;
+		gbc.gridy=1;
 		abilitiesPanel.add(paddleExpansionButton,gbc);
-		gbc.gridx=2;
+		gbc.gridx=1;
 		gbc.gridy=1;
 		abilitiesPanel.add(paddleExpansionLabel, gbc);
-		gbc.gridx=3;
-		gbc.gridy=0;
-		abilitiesPanel.add(unstoppableBallButton,gbc);
-		gbc.gridx=3;
-		gbc.gridy=1;
-		abilitiesPanel.add(unstoppableBallLabel,gbc);
+
+		gbc.gridx=1;
+		gbc.gridy=2;
+		abilitiesPanel.add(activeAbilityLabel,gbc);
+		gbc.gridx=0;
+		gbc.gridy=2;
+		abilitiesPanel.add(activeText,gbc);
 		
 		Border borderLine = BorderFactory.createLineBorder(Color.black);
 		abilitiesPanel.setBorder(borderLine);
@@ -240,27 +244,25 @@ public class RunningScreenInfoPanel extends JPanel{
 		scoreLabel.setText(Double.valueOf(game.getScore()).toString());
 	}
 	
+	public void setTime() {
+		//TODO Get score information from game?
+		timeLabel.setText(Double.valueOf(game.getTime()).toString());
+	}
+	
 	public void setAbilityLabels() {
 		//TODO Get avaliable ability numbers and update
 		int chanceCounter = 0; int hexCounter =0; int expansionCounter =0;int unstopCounter=0;
 		List<AbilityType> availableAbilties = game.getAvailableAbilities();
 		for (AbilityType a :  availableAbilties) {
-			if (a == AbilityType.ChanceGivingAbility) {
-				chanceCounter += 1;
-			}
+			
 			if (a == AbilityType.MagicalHexAbility) {
 				hexCounter +=1;
 			}
-			if (a == AbilityType.UnstoppableBallAbility) {
-				unstopCounter +=1;
-				
-			}if (a == AbilityType.PaddleExpansionAbility) {
+			if (a == AbilityType.PaddleExpansionAbility) {
 				expansionCounter +=1;
 			}
 			
-			chanceGivingLabel.setText(Integer.valueOf(chanceCounter).toString());
 			magicalHexLabel.setText(Integer.valueOf(hexCounter).toString());
-			unstoppableBallLabel.setText(Integer.valueOf(unstopCounter).toString());
 			paddleExpansionLabel.setText(Integer.valueOf(expansionCounter).toString());
 
 			
@@ -268,25 +270,34 @@ public class RunningScreenInfoPanel extends JPanel{
 
 	}
 	public void setActiveAbility(Ability a) {
-		if (a instanceof ChanceGivingAbility) {
-			activeAbilityLabel.setText("Chance Giving Ability");
-		}
+		
 		if (a instanceof MagicalHexAbility) {
-			activeAbilityLabel.setText("Magical Hex");
+			activeAbility.add("Magical Hex");
 		}
 		if (a instanceof UnstoppableBallAbility) {
-			activeAbilityLabel.setText("Unstoppable Ball");
+			activeAbility.add("Unstoppable Ball");
 			
 		}if (a instanceof PaddleExpansionAbility) {
-			activeAbilityLabel.setText("Paddle Expansion");
+			activeAbility.add("Paddle Expansion");
 		}
 		 
-        
+		activeAbilityLabel.setText(activeAbility.toString());
 		
 		
 	}
 	public void removeAbility(Ability a) {
-		activeAbilityLabel.setText("");
+		
+		if (a instanceof MagicalHexAbility) {
+			activeAbility.remove("Magical Hex");
+		}
+		if (a instanceof UnstoppableBallAbility) {
+			activeAbility.remove("Unstoppable Ball");
+			
+		}if (a instanceof PaddleExpansionAbility) {
+			activeAbility.remove("Paddle Expansion");
+		}
+		activeAbilityLabel.setText(activeAbility.toString());
+		
 	}
 
 
