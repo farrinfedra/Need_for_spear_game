@@ -20,4 +20,8 @@ public class ServiceAttachable {
     public List<Service> getServices(){
         return new ArrayList<>(services);
     }
+
+    public void addService(Service s) {
+        services.add(s);
+    }
 }
