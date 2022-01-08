@@ -88,7 +88,7 @@ public class TitleScreen extends JFrame {
 	}
 
 	private void setButtonsVisible() {
-		playButton.setVisible(true);
+		//playButton.setVisible(true);
 		buildModeButton.setVisible(true);
 		loadGameButton.setVisible(true);
 		helpButton.setVisible(true);
@@ -101,14 +101,14 @@ public class TitleScreen extends JFrame {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
-		 playButton = new JButton("Play");
+		/* playButton = new JButton("Play");
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				new RunningScreen();
 			}
-		});
+		});*/
 		 buildModeButton = new JButton("Build Mode");
 		buildModeButton.addActionListener(new ActionListener() {
 			@Override
@@ -136,10 +136,10 @@ public class TitleScreen extends JFrame {
 			}
 		});
 
-		gbc.gridx=0;
+		/*gbc.gridx=0;
 		gbc.gridy=0;
-		buttonsPanel.add(playButton);
-		playButton.setVisible(false);
+		buttonsPanel.add(playButton);*/
+		//playButton.setVisible(false);
 		gbc.gridx=1;
 		gbc.gridy=0;
 		buttonsPanel.add(buildModeButton);

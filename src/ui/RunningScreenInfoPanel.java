@@ -55,13 +55,14 @@ public class RunningScreenInfoPanel extends JPanel{
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
 		JLabel scoreText = new JLabel("Score:");
-		//TODO: Add score information from game
 		scoreLabel = new JLabel("0");
 		JLabel livesText = new JLabel("Lives:");
-		//TODO: Add live information from game
 		livesLabel = new JLabel("3");
 		JLabel activeText = new JLabel("Active Abilities:");
 		activeAbilityLabel = new JLabel("");
+		
+		JLabel userText = new JLabel("User: ");
+		JLabel userLabel = new JLabel(game.getUserName());
 		
 		gbc.gridx=0;
 		gbc.gridy=0;
@@ -83,6 +84,12 @@ public class RunningScreenInfoPanel extends JPanel{
 		gbc.gridx=0;
 		gbc.gridy=2;
 		infoPanel.add(activeText,gbc);
+		gbc.gridx=1;
+		gbc.gridy=3;
+		infoPanel.add(userLabel,gbc);
+		gbc.gridx=0;
+		gbc.gridy=3;
+		infoPanel.add(userText,gbc);
 		
 		
 

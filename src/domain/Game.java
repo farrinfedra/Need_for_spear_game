@@ -151,6 +151,10 @@ public class Game extends Thread {
     	
     }
     
+    public String getUserName() {
+    	return gameBoard.getPlayer().getUsername();
+    }
+    
 }
 
 
