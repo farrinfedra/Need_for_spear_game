@@ -21,7 +21,7 @@ public class DestroyService extends GameBoardService {
                 || o instanceof GiftObstacle
                 || o instanceof ExplosiveObstacle
                 || o instanceof SimpleObstacle)
-                                                getGameBoard().increaseScore(getGameBoard().getTime()/300.0);
+                                                getGameBoard().increaseScore(300.0/ getGameBoard().getTime());
 
         return null;
     }

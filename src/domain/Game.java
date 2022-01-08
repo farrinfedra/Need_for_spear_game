@@ -142,6 +142,18 @@ public class Game extends Thread {
     public void loseChance() {
         gameBoard.loseChance();
     }
+
+    public Double getScore() {
+        return gameBoard.getScore();
+    }
+
+    public int getTime(){
+        return gameBoard.getTime();
+    }
+
+    public int getChance() {
+        return gameBoard.getChance();
+    }
 }
 
 

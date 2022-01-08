@@ -23,7 +23,7 @@ public class GameBoard{
     private Paddle paddle;
     private Vector size;
     private Player player;
-    private int time;
+    private int time_milliseconds;
 
     public GameBoard(Vector size){
         this.size = size;
@@ -44,7 +44,7 @@ public class GameBoard{
         physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));
 
-        time = 0;
+        time_milliseconds = 0;
     }
 
     public void addPhysicalObject(PhysicalObject physicalObject){
@@ -68,7 +68,7 @@ public class GameBoard{
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
     public void doTickActions(){
-        time++;
+        time_milliseconds += 10;
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
         AbilityEngine.getInstance().calculate(physicalObjects);
@@ -141,8 +141,8 @@ public class GameBoard{
         if (chance <= 0) {
             System.out.println("YOU LOST");
         } else {
-            paddle.getBoundingBox().shift(new Vector(size.getX()/2 - 100,size.getY()-100).subtract(paddle.getLocation()));
-            paddle.setLocation(new Vector(size.getX()/2 - 100,size.getY()-100));
+            paddle.getBoundingBox().shift(new Vector(size.getX()/2 - (paddle.getWidth()/2),size.getY()-100).subtract(paddle.getLocation()));
+            paddle.setLocation(new Vector(size.getX()/2 - (paddle.getWidth()/2),size.getY()-100));
             ball.getBoundingBox().shift(new Vector(size.getX()/2 - 12.5,size.getY()-126).subtract(ball.getLocation()));
             ball.setLocation(new Vector(size.getX()/2 - 12.5,size.getY()-126));
             ball.setMovementBehavior(paddle.getMovementBehavior());
@@ -156,6 +156,14 @@ public class GameBoard{
     }
 
     public int getTime(){
-        return time;
+        return (int) (time_milliseconds * 0.0016);
+    }
+
+    public Double getScore() {
+        return player.getScore();
+    }
+
+    public int getChance() {
+        return player.getLives();
     }
 }

@@ -18,6 +18,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +28,8 @@ import java.util.stream.Collectors;
 public class RunningScreenPanel extends JPanel {
 
     private static List<PhysicalObjectLabel> labels = new ArrayList<>();
+    private static final DecimalFormat df = new DecimalFormat("0.0");
+
 
     public RunningScreenPanel(int width, int height){
         setBounds(0, 0, width, height);
@@ -152,17 +155,39 @@ public class RunningScreenPanel extends JPanel {
         pauseButton.setBounds(0,0,100, 40);
         add(pauseButton);
 
+        JLabel scoreLabel = new JLabel();
+        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setFont(new Font("Verdana", Font.BOLD,20));
+        add(scoreLabel);
+
+        JLabel timeLabel = new JLabel();
+        timeLabel.setForeground(Color.WHITE);
+        timeLabel.setFont(new Font("Verdana", Font.BOLD,20));
+        add(timeLabel);
+
+        JLabel chanceLabel = new JLabel();
+        chanceLabel.setForeground(Color.WHITE);
+        chanceLabel.setFont(new Font("Verdana", Font.BOLD,20));
+        add(chanceLabel);
+
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 pauseButton.setText(game.getStatus().toString());
 
                 abilities.setText(game.getAvailableAbilities().toString());
 
+                scoreLabel.setText("Score: " + df.format(Game.getInstance().getScore()));
+
+                timeLabel.setText("Time: " + Game.getInstance().getTime());
+
+                chanceLabel.setText("Lives: " + Game.getInstance().getChance());
+
                 requestFocusInWindow();
                 revalidate();
                 repaint();
             }
         });
+
 
         timer.start();
         game.start();
