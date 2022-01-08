@@ -41,9 +41,12 @@ public class LoadGame {
         ArrayList<String> files = new ArrayList<>();
         File dir = new File("./savedGames");
         File[] dir_contents = dir.listFiles();
-        for(File file : dir_contents){
-            if(file.getName().contains(username)) {
-                files.add(file.getName());
+        if (dir_contents != null)
+        {
+            for(File file : dir_contents){
+                if(file.getName().contains(username)) {
+                    files.add(file.getName());
+                }
             }
         }
         return files;

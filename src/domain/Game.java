@@ -49,13 +49,12 @@ public class Game extends Thread {
     //TODO: implement magical ability functions
 
     public void loadGame(String gameName){
-
         loadGame.loadGame(gameName);
     }
+
     public ArrayList<String> getSavedGames(String username) {
         loadGame = new LoadGame(username);
-        ArrayList<String> list = loadGame.getSavedGameList();
-        return list;
+        return loadGame.getSavedGameList();
     }
 
     public void saveGame(int slot){
