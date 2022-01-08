@@ -29,8 +29,10 @@ public class HollowPurpleAbility extends Ability {
 			double X = size.getX();
 	    	double Y = size.getY();
 	    	int MAX_X =(int) (50*(int)(X/50)- (int)(50/2));
-	    	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) Y-100;
-			location = new Vector(MAX_X, MAX_Y);
+	    	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) Y-200;
+	    	int random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
+        	int random_y = (int) (50*(int)(((Math.random() * (MAX_Y - 200)) + 200)/50));
+			location = new Vector(random_x, random_y);
 			obstacle.getService(1).perform(obstacle);
 		}
 
