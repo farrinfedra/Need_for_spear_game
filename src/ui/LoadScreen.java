@@ -1,23 +1,18 @@
 package ui;
 import domain.Game;
-import domain.loadsave.LoadGame;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
 public class LoadScreen extends JFrame {
-    Color BACKGROUND_COLOR = new Color(240, 230, 140);
-    Color TEXT_COLOR = new Color(128,128,0);
+    private Color BACKGROUND_COLOR = new Color(240, 230, 140);
+    private Color TEXT_COLOR = new Color(128,128,0);
+    private GridBagConstraints gbc;
     private int width;
     private int height;
-    GridBagConstraints gbc;
-    ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list;
     private Game game;
-    private LoadGame loadGame;
 
     public LoadScreen(String username) {
         super("Load Screen");
@@ -26,6 +21,10 @@ public class LoadScreen extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         width = (int) dim.getWidth();
         height = (int) dim.getHeight();
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gbc = new GridBagConstraints();
 
 
         if (list.size() == 1) {
@@ -38,11 +37,6 @@ public class LoadScreen extends JFrame {
 
         } else {
 
-
-            setExtendedState(JFrame.MAXIMIZED_BOTH);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            gbc = new GridBagConstraints();
             JPanel mainPanel = new JPanel();
             mainPanel(mainPanel);
 
@@ -96,16 +90,14 @@ public class LoadScreen extends JFrame {
             listPanel.setBackground(BACKGROUND_COLOR);
             gbc.gridx=i;
             gbc.gridy=0;
-            label.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+            label.addActionListener(e -> {
 
-                    String gameName = label.getText(); //get saved game name
-                    game.createGameBoard(width, height);
-                    game.loadGame(gameName);
-                    new RunningScreen();
+                String gameName = label.getText(); //get saved game name
+                game.createGameBoard(width, height);
+                game.loadGame(gameName);
+                new RunningScreen();
+                dispose();
 
-                }
             });
 
             listPanel.add(label);

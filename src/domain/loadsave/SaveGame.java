@@ -1,11 +1,9 @@
 package domain.loadsave;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 import domain.GameBoard;
 //import domain.physicalobjects.Obstacle;
@@ -19,18 +17,15 @@ import org.json.simple.JSONObject;
 
 
 public class SaveGame {
-    private GameBoard gameBoard; //TODO: is it wrong to do this?
-    private Date date;
+    private GameBoard gameBoard;
+    private Calendar calendar;
     private Player player;
 
 
     public SaveGame(GameBoard gameBoard){
-        this(gameBoard, new Date());
-    }
-    public SaveGame(GameBoard gameBoard, Date date){
         this.gameBoard = gameBoard;
-        this.date = date;
         this.player = gameBoard.getPlayer();
+        this.calendar = Calendar.getInstance();
 
     }
     public void saveGame() {
@@ -46,14 +41,13 @@ public class SaveGame {
         savedGame.put("username", player.getUsername());
         savedGame.put("lives", player.getLives());
         savedGame.put("score", player.getScore());
-        savedGame.put("date", date.toString());
+        savedGame.put("date", calendar.toString());
 
 
         int i = 0;
-        int health = 0;
+        int health;
         for(PhysicalObject o : obstacles) {
             if (o.getClass().getSuperclass().getSimpleName().equals("Obstacle") ){
-//                o = (Obstacle) o;
                 if(o.toString().equals("FirmObstacle")) {
                     i = 0;
                 }
@@ -107,12 +101,36 @@ public class SaveGame {
 
         savedGame.put("abilities", abilitiesList);
 
-
-        try(FileWriter file = new FileWriter(String.format("./savedGames/%s.json", player.getUsername()))){
+        String fileName = generateFileName();
+        System.out.println(fileName);
+        try(FileWriter file = new FileWriter(fileName)){
             file.write(savedGame.toJSONString());
             file.flush();
         }
         catch(IOException e) {e.printStackTrace();}
+    }
+
+    private String generateFileName() {
+        String fileName;
+        fileName = String.format("./savedGames/%s_%s%d_%dh_%dm.json", player.getUsername(), getMonth(), getDate(), getHour(), getMin());
+
+        return fileName;
+    }
+
+    private int getMin() {
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    private int getHour() {
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    private int getDate() {
+        return calendar.get(Calendar.DATE);
+    }
+
+    public String getMonth() {
+        return new SimpleDateFormat("MMM").format(calendar.getTime());
     }
 
 }

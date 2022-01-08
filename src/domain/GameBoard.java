@@ -17,7 +17,6 @@ import java.util.List;
 
 public class GameBoard{
     private ArrayList<PhysicalObject> physicalObjects;
-
     private Ball ball;
     private Paddle paddle;
     private Vector size;

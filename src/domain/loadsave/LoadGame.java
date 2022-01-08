@@ -73,7 +73,6 @@ public class LoadGame {
             Object obj = jsonParser.parse(reader);
             obs = new JSONObject();
             obs = (JSONObject) obj;
-            System.out.println(obs);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -144,6 +143,11 @@ public class LoadGame {
         //Set score & lives
         addScore();
         addLives();
+        setUsername();
+    }
+
+    private void setUsername() {
+        gameBoard.getPlayer().setUsername(username);
     }
 
     private void addLives() {

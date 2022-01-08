@@ -1,32 +1,6 @@
 package ui;
-
-import domain.Direction;
-import domain.Game;
-import domain.Ymir;
-import domain.abilities.AbilityType;
-import domain.abilities.UsefulAbilityType;
-import domain.listeners.ServiceListener;
-import domain.physicalobjects.Paddle;
-import domain.physicalobjects.PhysicalObject;
-
-import domain.physicalobjects.Wall;
-import domain.physicalobjects.behaviors.collision.Collision;
-import domain.physicalobjects.engines.CollisionEngine;
-import domain.services.Service;
-import domain.services.ServiceType;
-
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class RunningScreen extends JFrame{
 
@@ -38,37 +12,11 @@ public class RunningScreen extends JFrame{
 
         setVisible(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0,0,width,height);
 
         JPanel panel = new RunningScreenPanel(width, height);
         setContentPane(panel);
-
-        /*
-        CollisionEngine.addEventListener(o -> {
-            Collision collision = (Collision) o;
-
-            labels.stream()
-                    .filter(label ->
-                            label.getPhysicalObject().equals(collision.getO1())
-                                    || label.getPhysicalObject().equals(collision.getO2()))
-                            .forEach(label-> label.flash());
-
-            Timer timer = new Timer(100, new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    labels.stream()
-                            .filter(label ->
-                                    label.getPhysicalObject().equals(collision.getO1())
-                                            || label.getPhysicalObject().equals(collision.getO2()))
-                            .forEach(label-> label.unflash());
-                }
-            });
-            timer.setInitialDelay(100);
-            timer.setRepeats(false);
-            timer.start();
-        }
-        );
-
-         */
 
         setResizable(true);
         setVisible(true);
