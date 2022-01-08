@@ -144,6 +144,7 @@ public class RunningScreenPanel extends JPanel {
                 infoPanel.setAbilityLabels();
                 infoPanel.setScore();
                 infoPanel.setLives();
+                infoPanel.setTime();
                 requestFocusInWindow();
                 revalidate();
                 repaint();
