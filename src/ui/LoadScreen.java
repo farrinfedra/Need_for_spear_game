@@ -31,6 +31,7 @@ public class LoadScreen extends JFrame {
             game.createGameBoard(width, height);
             game.loadGame(list.get(0));
             dispose();
+            setVisible(false);
             new RunningScreen();
 
 

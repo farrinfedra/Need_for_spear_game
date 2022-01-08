@@ -46,7 +46,6 @@ public class Game extends Thread {
     public List<AbilityType> getAvailableAbilities(){return gameBoard.getAvailableAbilities();}
     public void shootMagicalHex(){gameBoard.shootMagicalHex();}
 
-    //TODO: implement magical ability functions
 
     public void loadGame(String gameName){
         loadGame.loadGame(gameName);
@@ -58,18 +57,10 @@ public class Game extends Thread {
     }
 
     public void saveGame(int slot){
-        //TODO: implement saveGame
         saveGame = new SaveGame(getGameBoard());
         saveGame.saveGame();
     }
 
-    public void enterBuildMode(){
-        //TODO: implement enterBuildMode
-    }
-
-    public void enterPlayMode(){
-        //TODO: implement enterPlayMode
-    }
 
     public GameBoard getGameBoard() {
         return gameBoard;
