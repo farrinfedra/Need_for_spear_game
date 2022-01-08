@@ -38,7 +38,7 @@ public class GameBoard{
         player = new Player();
         physicalObjects.add(ball);
         physicalObjects.add(paddle);
-        physicalObjects.add(new Wall(new Vector(0,-21), size.getX(), 20));
+        physicalObjects.add(new Wall(new Vector(0,size.getY()/6-21), size.getX(), 20));
         physicalObjects.add(new Wall(new Vector(-21,20), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));

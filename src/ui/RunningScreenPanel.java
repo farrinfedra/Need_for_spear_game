@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 public class RunningScreenPanel extends JPanel {
 
     private static List<PhysicalObjectLabel> labels = new ArrayList<>();
-
     public RunningScreenPanel(int width, int height){
         setBounds(0, 0, width, height);
 
@@ -54,22 +53,25 @@ public class RunningScreenPanel extends JPanel {
                     repaint();
                 }
         );
-
-        JPanel activeAbilities = new JPanel();
+        RunningScreenInfoPanel infoPanel = new RunningScreenInfoPanel();
+        add(infoPanel);
+    
+        /*JPanel activeAbilities = new JPanel();
         add(activeAbilities);
-        HashMap<Ability, JLabel> abilityLabels = new HashMap<>();
+        */
         AbilityEngine.getInstance().addEventListener(o -> {
             AbilityEvent event = (AbilityEvent) o;
 
             if(event.isActive()){
-                JLabel label = new JLabel(event.getAbility().toString());
-                activeAbilities.add(label);
-                abilityLabels.put(event.getAbility(), label);
+                //JLabel label = new JLabel(event.getAbility().toString());
+                infoPanel.setActiveAbility(event.getAbility());
+               
             }
             else{
-                activeAbilities.remove(abilityLabels.remove(event.getAbility()));
+                infoPanel.removeAbility(event.getAbility());
             }
         });
+
 
         Game game = Game.getInstance();
         Ymir ymir = new Ymir();
@@ -136,7 +138,7 @@ public class RunningScreenPanel extends JPanel {
             }
         });
 
-        JLabel abilities = new JLabel("lol");
+        /*JLabel abilities = new JLabel("lol");
         add(abilities);
         abilities.setBounds(100,0, 1000, 40);
 
@@ -150,14 +152,16 @@ public class RunningScreenPanel extends JPanel {
         });
 
         pauseButton.setBounds(0,0,100, 40);
-        add(pauseButton);
-
+        add(pauseButton);*/
+        
+       
         Timer timer = new Timer(10, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                pauseButton.setText(game.getStatus().toString());
-
-                abilities.setText(game.getAvailableAbilities().toString());
-
+                //pauseButton.setText(game.getStatus().toString());
+                
+                //abilities.setText(game.getAvailableAbilities().toString());
+                infoPanel.setAbilityLabels();
+                
                 requestFocusInWindow();
                 revalidate();
                 repaint();
