@@ -219,13 +219,11 @@ public class RunningScreenInfoPanel extends JPanel{
             }
         });
         
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton("load");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//TODO: slot?
-            	game.saveGame(1);
-                
+            	new LoadScreen(game.getUserName());
             }
         });
         gbc.gridx=0;
