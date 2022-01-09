@@ -78,6 +78,15 @@ public class GameBoard extends ServiceAttachable {
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
         AbilityEngine.getInstance().calculate(physicalObjects);
+        isGameWon();
+    }
+
+    public void isGameWon(){
+        for (PhysicalObject o: physicalObjects){
+            if (o instanceof Obstacle)
+                return;
+        }
+        services.get(0).perform(null);
     }
 
     public Vector getSize() {
