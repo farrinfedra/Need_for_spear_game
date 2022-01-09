@@ -31,6 +31,7 @@ public class LoadGame {
     private ArrayList<Integer> abilities;
     private double score;
     private int lives;
+    private int time;
     public LoadGame(String username) {
 
         this.username = username;
@@ -60,10 +61,12 @@ public class LoadGame {
         readAbilities();
         readScore();
         readLives();
+        readTime();
         //setup gameboard
         setUpGameBoard();
 
     }
+
 
 
 
@@ -86,6 +89,9 @@ public class LoadGame {
         }
     }
 
+    private void readTime() {
+        time = Integer.valueOf(obs.get("time").toString());
+    }
 
     public void readObstacles(){
         JSONArray obstacleArray = new JSONArray();
@@ -148,6 +154,7 @@ public class LoadGame {
         addScore();
         addLives();
         setUsername();
+        setTime();
     }
 
     private void setUsername() {
@@ -189,5 +196,9 @@ public class LoadGame {
         }
 
     }
+    private void setTime(){
+        gameBoard.setTime(time * 10000/16);
+    }
+
 
 }

@@ -12,7 +12,6 @@ import domain.services.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class GameBoard extends ServiceAttachable {
@@ -51,7 +50,6 @@ public class GameBoard extends ServiceAttachable {
         physicalObjects.add(new Wall(new Vector(size.getX()+1, 0), 20, size.getY()));
         physicalObjects.add(new Wall(new Vector(0, size.getY()+1), size.getX(), 20));
 
-        time_milliseconds = 0;
     }
 
     public void addPhysicalObject(PhysicalObject physicalObject){
@@ -295,4 +293,7 @@ public class GameBoard extends ServiceAttachable {
     }
 
 
+    public void setTime(int time) {
+        this.time_milliseconds = time;
+    }
 }
