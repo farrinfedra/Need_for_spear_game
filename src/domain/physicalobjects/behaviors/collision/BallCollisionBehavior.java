@@ -15,16 +15,22 @@ public class BallCollisionBehavior extends CollisionBehavior {
 		Vector ballSpeed = ball.getSpeed();
 		Vector normal = collision.getNormal();
 
-		if(		o2 instanceof Wall ||
-				o2 instanceof Obstacle ||
-				o2 instanceof Paddle){			if(o2 instanceof Paddle && ballSpeed.getY()==0) {
+		if (o2 instanceof Wall ||
+				o2 instanceof Obstacle){
+		newSpeed = ballSpeed.subtract(normal.scale(normal.dot(ballSpeed)*2));
+		ball.setSpeed(newSpeed);
+		}
+		else if(o2 instanceof Paddle){
+
+			if(ballSpeed.getY()==0) {
 					newSpeed =  perpendicularColl(ballSpeed);
-				}
-				else {
-					newSpeed = ballSpeed.subtract(normal.scale(normal.dot(ballSpeed)*2));
-				
-				}
+			}
+				else if (((int)((Paddle) o2).getSpeed().getX() ^ (int) ball.getSpeed().getX()) < 0) {
+				ball.setSpeed(new Vector(-ball.getSpeed().getX(), -ball.getSpeed().getY()));
+			} else{
+				newSpeed = ballSpeed.subtract(normal.scale(normal.dot(ballSpeed)*2));
 				ball.setSpeed(newSpeed);
+			}
 			}
 		}
 		
