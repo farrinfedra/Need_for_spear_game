@@ -34,6 +34,7 @@ public class SaveGame {
         JSONArray obstaclesList = new JSONArray();
         JSONArray abilitiesList = new JSONArray();
         JSONArray obj;
+        int time = gameBoard.getTime();
 
         List<PhysicalObject> obstacles = gameBoard.getPhysicalObjects();
         List<AbilityType> abilities = gameBoard.getAvailableAbilities();
@@ -42,7 +43,7 @@ public class SaveGame {
         savedGame.put("username", player.getUsername());
         savedGame.put("lives", player.getLives());
         savedGame.put("score", player.getScore());
-        //savedGame.put("date", calendar.toString());
+        savedGame.put("time", time);
 
 
         int i = 0;

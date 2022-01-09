@@ -73,8 +73,8 @@ public class RunningScreenInfoPanel extends JPanel{
 		JLabel userLabel = new JLabel(game.getUserName());
 		
 		JLabel timeText = new JLabel("Time: ");
-	    timeLabel = new JLabel(game.getUserName());
-		timeLabel.setText(Double.valueOf(game.getTime()).toString());
+	    timeLabel = new JLabel(String.valueOf(game.getTime()));
+		timeLabel.setText(Integer.valueOf(game.getTime()).toString());
 		
 		gbc.gridx=0;
 		gbc.gridy=0;

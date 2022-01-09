@@ -24,6 +24,7 @@ public class LoadScreen extends JFrame {
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(0,0,width,height);
         gbc = new GridBagConstraints();
 
 
@@ -48,9 +49,13 @@ public class LoadScreen extends JFrame {
                 listLabelsPanel(mainPanel, listPanel, list);
 
             }
+
             setVisible(true);
 
         }
+
+
+
 
 
     }
