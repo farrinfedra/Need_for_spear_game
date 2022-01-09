@@ -6,7 +6,6 @@ import domain.physicalobjects.behaviors.movement.ExplosiveFragmentMovementBehavi
 import domain.services.GameBoardService;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class ExplosiveFragment extends PhysicalObject{

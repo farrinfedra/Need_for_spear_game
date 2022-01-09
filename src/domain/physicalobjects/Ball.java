@@ -7,7 +7,6 @@ import domain.physicalobjects.boundingbox.SphereBoundingBox;
 import domain.physicalobjects.behaviors.collision.BallCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.BallMovementBehavior;
 
-import javax.swing.*;
 
 public class Ball extends PhysicalObject{
 

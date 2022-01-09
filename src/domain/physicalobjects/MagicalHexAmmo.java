@@ -9,7 +9,6 @@ import domain.physicalobjects.boundingbox.BoundingBox;
 import domain.physicalobjects.boundingbox.PolygonBoundingBox;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class MagicalHexAmmo extends PhysicalObject{

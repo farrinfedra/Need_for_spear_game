@@ -8,7 +8,6 @@ import domain.services.GameBoardService;
 import domain.services.Service;
 import domain.services.ServiceAttachable;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -6,7 +6,6 @@ import domain.physicalobjects.behaviors.collision.PaddleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.PaddleMovementBehavior;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class Paddle extends PhysicalObject{
