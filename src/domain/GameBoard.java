@@ -39,7 +39,7 @@ public class GameBoard extends ServiceAttachable {
         basicServices.add(new SummonService(this));
         basicServices.add(new DestroyService(this));
 
-        paddle = new Paddle(new Vector(size.getX()/2 - 100,size.getY()-100), 200, 20, basicServices);
+        paddle = new Paddle(new Vector(size.getX()/2 - 100,size.getY()-100), Constants.PADDLE_LENGTH, 20, basicServices);
         ball = new Ball(new Vector(size.getX()/2 - 12.5,size.getY()-126), 25, 25, paddle.getMovementBehavior(), new BallCollisionBehavior());
         ball.setSpeed(new Vector(0,0));
         player = new Player();
