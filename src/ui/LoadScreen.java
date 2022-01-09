@@ -49,7 +49,9 @@ public class LoadScreen extends JFrame {
                 listLabelsPanel(mainPanel, listPanel, list);
 
             }
+
             setVisible(true);
+
         }
 
 
