@@ -128,7 +128,6 @@ public class Game extends Thread {
 
     public void shootBall() {
         gameBoard.shootBall();
-
     }
 
     public Vector getSize() {

@@ -31,8 +31,9 @@ public class LoadScreen extends JFrame {
         if (list.size() == 1) {
             game.createGameBoard(width, height);
             game.loadGame(list.get(0));
-            new RunningScreen();
             dispose();
+            new RunningScreen();
+
 
 
         } else {
@@ -49,8 +50,11 @@ public class LoadScreen extends JFrame {
 
             }
 
+            setVisible(true);
+
         }
-        setVisible(true);
+
+
 
 
 

@@ -73,7 +73,7 @@ public class GameBoard extends ServiceAttachable {
     public void movePaddle(Direction direction){ paddle.setSpeed((direction == Direction.LEFT) ? new Vector(-9, 0): new Vector(9, 0)); }
     public void rotatePaddle(Direction direction){ paddle.rotate(direction); }
 
-    public void doTickActions(){
+    public void doTickActions() {
         time_milliseconds += 10;
         CollisionEngine.getInstance().handleCollisions(physicalObjects);
         PhysicsEngine.getInstance().moveObjects(physicalObjects);
