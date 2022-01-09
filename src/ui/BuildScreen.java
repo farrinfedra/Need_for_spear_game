@@ -11,6 +11,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import domain.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,6 +36,7 @@ public class BuildScreen extends JFrame{
 		super("BuildGameScreen");
 		this.width = width;
 		this.height = height;
+		Constants.PADDLE_LENGTH = width/10;
 		setBounds(0,0,width,height);
 		setResizable(false);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -253,22 +255,22 @@ public class BuildScreen extends JFrame{
 		totalShowPanel.setLayout(new BoxLayout(totalShowPanel, BoxLayout.Y_AXIS));
 		totalShowPanel.setPreferredSize(new Dimension(width/6, height/6));
 		try {
-		JLabel simpleObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.SIMPLE_OBSTACLE_IMG_PATH))));
+		JLabel simpleObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(PATHS.SIMPLE_OBSTACLE_IMG_PATH))));
 		totalShowPanel.add(simpleObstacleLabel);
 		simpleObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(simpleObstacleLabelNumber);
 
-		JLabel firmObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.FIRM_OBSTACLE_3_IMG_PATH))));
+		JLabel firmObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(PATHS.FIRM_OBSTACLE_3_IMG_PATH))));
 		firmObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(firmObstacleLabel);
 		totalShowPanel.add(firmObstacleLabelNumber);
 
-		JLabel explosiveObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.EXPLOSIVE_OBSTACLE_IMG_PATH))));
+		JLabel explosiveObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(PATHS.EXPLOSIVE_OBSTACLE_IMG_PATH))));
 		explosiveObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(explosiveObstacleLabel);
 		totalShowPanel.add(explosiveObstacleLabelNumber);
 
-		JLabel giftObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(Constants.GIFT_OBSTACLE_IMG_PATH))));
+		JLabel giftObstacleLabel =new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(PATHS.GIFT_OBSTACLE_IMG_PATH))));
 		giftObstacleLabelNumber = new JLabel("0");
 		totalShowPanel.add(giftObstacleLabel);
 		totalShowPanel.add(giftObstacleLabelNumber);

@@ -3,25 +3,18 @@ package ui;
 import domain.Direction;
 import domain.Game;
 import domain.Ymir;
-import domain.abilities.Ability;
 import domain.abilities.AbilityType;
-import domain.abilities.UsefulAbilityType;
 import domain.listeners.AbilityEvent;
-import domain.physicalobjects.Ball;
 import domain.physicalobjects.Paddle;
 import domain.physicalobjects.PhysicalObject;
 import domain.physicalobjects.engines.AbilityEngine;
-import domain.physicalobjects.obstacles.Obstacle;
 import domain.services.Service;
 
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -168,7 +161,7 @@ public class RunningScreenPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(new ImageIcon(this.getClass().getResource(Constants.BACKGROUND_IMG_PATH)).getImage(), 0,0, getWidth(), getHeight(), (img, infoflags, x, y, width, height) -> false);
+        g.drawImage(new ImageIcon(this.getClass().getResource(PATHS.BACKGROUND_IMG_PATH)).getImage(), 0,0, getWidth(), getHeight(), (img, infoflags, x, y, width, height) -> false);
 
         for(PhysicalObjectLabel label: new ArrayList<>(labels))
             label.paint(g);

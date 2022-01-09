@@ -3,20 +3,14 @@ package ui;
 import domain.physicalobjects.*;
 import domain.physicalobjects.behaviors.movement.PaddleMovementBehavior;
 import domain.physicalobjects.boundingbox.PolygonBoundingBox;
-import domain.physicalobjects.obstacles.ExplosiveObstacle;
-import domain.physicalobjects.obstacles.FirmObstacle;
-import domain.physicalobjects.obstacles.GiftObstacle;
-import domain.physicalobjects.obstacles.SimpleObstacle;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -26,7 +20,7 @@ public class PaddleLabel extends PhysicalObjectLabel{
         super(paddle);
 
         try{
-            setImage(ImageIO.read(this.getClass().getResource(Constants.PADDLE_IMG_PATH)));
+            setImage(ImageIO.read(this.getClass().getResource(PATHS.PADDLE_IMG_PATH)));
         }catch (Exception e){
             throw new RuntimeException();
         }

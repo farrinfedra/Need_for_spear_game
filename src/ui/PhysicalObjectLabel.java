@@ -8,10 +8,7 @@ import domain.physicalobjects.obstacles.HollowObstacle;
 import domain.physicalobjects.obstacles.SimpleObstacle;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
@@ -27,21 +24,21 @@ public class PhysicalObjectLabel{
 
         String resource;
         if(physicalObject instanceof SimpleObstacle)
-            resource = Constants.SIMPLE_OBSTACLE_IMG_PATH;
+            resource = PATHS.SIMPLE_OBSTACLE_IMG_PATH;
         else if(physicalObject instanceof FirmObstacle)
-            resource = Constants.FIRM_OBSTACLE_3_IMG_PATH;
+            resource = PATHS.FIRM_OBSTACLE_3_IMG_PATH;
         else if(physicalObject instanceof GiftObstacle)
-            resource = Constants.GIFT_OBSTACLE_IMG_PATH;
+            resource = PATHS.GIFT_OBSTACLE_IMG_PATH;
         else if(physicalObject instanceof ExplosiveObstacle)
-            resource = Constants.EXPLOSIVE_OBSTACLE_IMG_PATH;
+            resource = PATHS.EXPLOSIVE_OBSTACLE_IMG_PATH;
         else if(physicalObject instanceof Ball)
-            resource = Constants.BALL_IMG_PATH;
+            resource = PATHS.BALL_IMG_PATH;
         else if(physicalObject instanceof ExplosiveFragment)
-            resource = Constants.EXPLOSIVE_FRAGMENT_IMG_PATH;
+            resource = PATHS.EXPLOSIVE_FRAGMENT_IMG_PATH;
         else if(physicalObject instanceof HollowObstacle)
-            resource = Constants.HOLLOW_IMG_PATH;
+            resource = PATHS.HOLLOW_IMG_PATH;
         else
-            resource = Constants.BALL_IMG_PATH;
+            resource = PATHS.BALL_IMG_PATH;
         try{
             image = ImageIO.read(this.getClass().getResource(resource));
         }catch (Exception e){
@@ -64,16 +61,16 @@ public class PhysicalObjectLabel{
             String resource = "";
             switch (health){
                 case 3:
-                    resource = Constants.FIRM_OBSTACLE_3_IMG_PATH;
+                    resource = PATHS.FIRM_OBSTACLE_3_IMG_PATH;
                     break;
                 case 2:
-                    resource = Constants.FIRM_OBSTACLE_2_IMG_PATH;
+                    resource = PATHS.FIRM_OBSTACLE_2_IMG_PATH;
                     break;
                 case 1:
-                    resource = Constants.FIRM_OBSTACLE_1_IMG_PATH;
+                    resource = PATHS.FIRM_OBSTACLE_1_IMG_PATH;
                     break;
                 default:
-                    resource = Constants.FIRM_OBSTACLE_1_IMG_PATH;
+                    resource = PATHS.FIRM_OBSTACLE_1_IMG_PATH;
                     break;
             }
             try {

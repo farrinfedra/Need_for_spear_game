@@ -1,6 +1,6 @@
 package ui;
 
-public class Constants {
+public class PATHS {
     public static final String BALL_IMG_PATH = "/ui/assets/Ball.png";
 
     public static String FIRM_OBSTACLE_1_IMG_PATH = "/ui/assets/FirmObstacle1.png";
