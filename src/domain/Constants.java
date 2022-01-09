@@ -20,7 +20,7 @@ public class Constants {
     public static int PLAYER_INITIAL_LIVES = 3;
     public static double PADDLE_ROTATION_SPEED = 0.02;
 
-    public static double MOVING_OBSTACLE_SPEED = 0.5;
+    public static double MOVING_OBSTACLE_SPEED = 0.2;
 }
 
 
