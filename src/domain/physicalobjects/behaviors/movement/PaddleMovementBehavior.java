@@ -36,7 +36,8 @@ public class PaddleMovementBehavior extends MovementBehavior{
 
         object.setLocation(newLocation);
         object.getBoundingBox().shift(getSpeed());
-        setSpeed(new Vector(95*getSpeed().getX()/100, 0));
+        setSpeed(new Vector(90*getSpeed().getX()/100, 0));
+        if (Math.abs(getSpeed().getX()) < 0.00001) setSpeed(new Vector(0, 0));
         //System.out.println("Rotation: "+rotation + " Speed: "+rotationSpeed + "Location: "  + paddle.getLocation().getX() + " " + paddle.getLocation().getY());
         /*Rotation mechanism */
         if (!Game.getInstance().isBallStickToPaddle()){
