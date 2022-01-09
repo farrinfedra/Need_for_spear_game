@@ -6,7 +6,6 @@ import domain.physicalobjects.behaviors.collision.ObstacleCollisionBehavior;
 import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class FirmObstacle extends Obstacle{

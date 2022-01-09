@@ -10,7 +10,6 @@ import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.services.GameBoardService;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class GiftObstacle extends Obstacle{

@@ -219,19 +219,10 @@ public class RunningScreenInfoPanel extends JPanel{
             }
         });
         
-        JButton saveButton = new JButton("load");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	new LoadScreen(game.getUserName());
-            }
-        });
+
         gbc.gridx=0;
 		gbc.gridy=0;
 		pauseSavePanel.add(pauseButton,gbc);
-		gbc.gridx=1;
-		gbc.gridy = 0;
-		pauseSavePanel.add(saveButton, gbc);
         
 		Border borderLine = BorderFactory.createLineBorder(Color.black);
 		pauseSavePanel.setBorder(borderLine);

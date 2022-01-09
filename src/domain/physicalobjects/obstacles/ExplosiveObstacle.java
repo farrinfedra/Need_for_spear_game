@@ -7,7 +7,6 @@ import domain.physicalobjects.behaviors.movement.StationaryMovementBehavior;
 import domain.physicalobjects.boundingbox.SphereBoundingBox;
 import domain.services.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 public class ExplosiveObstacle extends Obstacle{

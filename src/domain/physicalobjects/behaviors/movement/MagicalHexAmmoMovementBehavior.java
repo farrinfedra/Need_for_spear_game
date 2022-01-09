@@ -5,8 +5,8 @@ import domain.physicalobjects.MagicalHexAmmo;
 import domain.physicalobjects.Vector;
 
 public class MagicalHexAmmoMovementBehavior extends MovementBehavior{
-    public MagicalHexAmmoMovementBehavior() {
-        super(Constants.MAGICAL_HEX_AMMO_SPEED);
+    public MagicalHexAmmoMovementBehavior(double rotation) {
+        super(Constants.MAGICAL_HEX_AMMO_SPEED.rotate(rotation));
     }
 
     @Override

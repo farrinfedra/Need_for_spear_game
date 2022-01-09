@@ -60,8 +60,8 @@ public class BuildScreen extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				drawPoint = MouseInfo.getPointerInfo().getLocation();
-				drawPoint.x -= 5;
-				drawPoint.y -= 5;
+				drawPoint.x += 20;
+				drawPoint.y += 20;
 				if(isDeletingMode) {
 					removeObstacle(drawPoint);
 

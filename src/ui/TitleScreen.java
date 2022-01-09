@@ -14,9 +14,9 @@ import javax.swing.*;
 
 public class TitleScreen extends JFrame {
 
-	Color BACKGROUND_COLOR = new Color(240,230,140);
-	Color TEXT_COLOR = new Color(128,128,0);
-	GridBagConstraints gbc;
+	private Color BACKGROUND_COLOR = new Color(240,230,140);
+	private Color TEXT_COLOR = new Color(128,128,0);
+	private GridBagConstraints gbc;
 	private String username;
 	JButton loadGameButton;
 	JButton buildModeButton;
