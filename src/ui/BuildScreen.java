@@ -28,7 +28,7 @@ public class BuildScreen extends JFrame{
 	private boolean isDeletingMode = false;
 	private Point drawPoint;
 	GridBagConstraints gbc;
-	JButton simpleObstacleButton,firmObstacleButton,explosiveObstacleButton,giftObstacleButton,deleteButton,startGameButton,randomGameButton,helpButton;
+	JButton simpleObstacleButton,firmObstacleButton,explosiveObstacleButton,giftObstacleButton,deleteButton,startGameButton,randomGameButton,helpButton,saveButton;
 	JLabel simpleObstacleLabelNumber,firmObstacleLabelNumber,giftObstacleLabelNumber,explosiveObstacleLabelNumber;
 
 	public BuildScreen(int width, int height) {
@@ -221,6 +221,14 @@ public class BuildScreen extends JFrame{
 			new HelpScreen();
 		}
 	});
+		saveButton = new JButton("Save");
+		saveButton.setActionCommand("Save");
+		saveButton.addActionListener(ae -> {
+
+			game.saveGame(0);
+		});
+
+
 		gbc.gridx=0;
 		gbc.gridy=0;
 		bottomPanel.add(startGameButton);
@@ -232,6 +240,10 @@ public class BuildScreen extends JFrame{
 		gbc.gridx=2;
 		gbc.gridy=0;
 		bottomPanel.add(helpButton);
+
+		gbc.gridx=3;
+		gbc.gridy=0;
+		bottomPanel.add(saveButton);
 		return bottomPanel;
 
 	}
