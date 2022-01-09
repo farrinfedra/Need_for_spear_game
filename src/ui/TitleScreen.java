@@ -14,15 +14,15 @@ import javax.swing.*;
 
 public class TitleScreen extends JFrame {
 
-	Color BACKGROUND_COLOR = new Color(240,230,140);
-	Color TEXT_COLOR = new Color(128,128,0);
-	GridBagConstraints gbc;
+	private Color BACKGROUND_COLOR = new Color(240,230,140);
+	private Color TEXT_COLOR = new Color(128,128,0);
+	private GridBagConstraints gbc;
 	private String username;
-	JButton loadGameButton;
-	JButton playButton;
-	JButton buildModeButton;
-	JButton helpButton;
-	Game game;
+	private JButton loadGameButton;
+	private JButton playButton;
+	private JButton buildModeButton;
+	private JButton helpButton;
+	private Game game;
 	public TitleScreen(int width, int height) {
 		super("TitleScreen");
 		setBounds(0, 0, width, height);

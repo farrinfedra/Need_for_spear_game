@@ -20,8 +20,12 @@ public class DestroyService extends GameBoardService {
         if (o instanceof FirmObstacle
                 || o instanceof GiftObstacle
                 || o instanceof ExplosiveObstacle
-                || o instanceof SimpleObstacle)
-                                                getGameBoard().increaseScore(300.0/ getGameBoard().getTime());
+                || o instanceof SimpleObstacle){
+            int time = getGameBoard().getTime();
+            if (time == 0) time =1; //to handle zero division
+            getGameBoard().increaseScore(300.0/ time);
+        }
+
 
         return null;
     }
