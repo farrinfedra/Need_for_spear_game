@@ -7,16 +7,14 @@ import domain.physicalobjects.engines.AbilityEngine;
 import domain.physicalobjects.engines.CollisionEngine;
 import domain.physicalobjects.engines.PhysicsEngine;
 import domain.physicalobjects.obstacles.*;
-import domain.services.DestroyService;
-import domain.services.GameBoardServiceFactory;
-import domain.services.Service;
-import domain.services.SummonService;
+import domain.services.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class GameBoard{
+public class GameBoard extends ServiceAttachable {
     private ArrayList<PhysicalObject> physicalObjects;
     private HashMap<ObstacleType, Integer> obstacleInventory = new HashMap <>();
     private Ball ball;
@@ -28,9 +26,12 @@ public class GameBoard{
     private final int explosiveObstacleMin = 5;
     private final int giftObstacleMin = 10;
     private static HashMap<ArrayList<Integer>, Integer> gameGrid = new HashMap<>();
+    private List<Service> services = new ArrayList<>();
     private int time_milliseconds;
 
     public GameBoard(Vector size){
+        super(null);
+
         this.size = size;
         physicalObjects = new ArrayList<>();
 
@@ -153,7 +154,7 @@ public class GameBoard{
         int chance = player.getLives();
         player.setLives(--chance);
         if (chance <= 0) {
-            System.out.println("YOU LOST");
+            this.getService(1).perform(null);
         } else {
             paddle.getBoundingBox().shift(new Vector(size.getX()/2 - (paddle.getWidth()/2),size.getY()-100).subtract(paddle.getLocation()));
             paddle.setLocation(new Vector(size.getX()/2 - (paddle.getWidth()/2),size.getY()-100));
@@ -216,7 +217,7 @@ public class GameBoard{
 
     public void randomGame() {
     	double X = this.getSize().getX();
-    	double Y = this.getSize().getX();
+    	double Y = this.getSize().getY();
     	int MAX_X =(int) (50*(int)(X/50)- (int)(50/2));
     	int MAX_Y = /*(int) (50*(int)(Y/50)- (int)(Y/5));*/(int) paddle.getLocation().getY()-50;
     	int random_x, random_y;
@@ -224,7 +225,7 @@ public class GameBoard{
 
     	while (simpleCounter< simpleObstacleMin){
     		random_x = (int) (50*(int)(((Math.random() * (MAX_X - 20)) + 20)/50)- (int)(40/20));
-        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50));
+        	random_y = (int) (50*(int)(((Math.random() * (MAX_Y - (Y/6))) + (Y/6))/50))- (int) (40/20);
         	ArrayList<Integer> coord = new ArrayList<Integer>();
     		coord.add(random_x); coord.add(random_y);
 

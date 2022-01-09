@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
 public class RunningScreenPanel extends JPanel {
 
     private static List<PhysicalObjectLabel> labels = new ArrayList<>();
-    private static final DecimalFormat df = new DecimalFormat("0.0");
-
 
     public RunningScreenPanel(int width, int height){
         setBounds(0, 0, width, height);
@@ -49,7 +47,17 @@ public class RunningScreenPanel extends JPanel {
                             PhysicalObject physicalObject = (PhysicalObject) input;
                             PhysicalObjectLabel label = new PhysicalObjectLabel(physicalObject);
                             labels.add(label);
+                            break;
+                        case GAME_LOST:
+                            Game.getInstance().switchPaused();
+                            new exitPopup("Lost Screen", "You lost (✖╭╮✖)");
+                            SwingUtilities.getWindowAncestor(this).dispose();
 
+                            break;
+                        case GAME_WON:
+                            Game.getInstance().switchPaused();
+                            new exitPopup("Won Screen", "You won 〤◕‿◕〤");
+                            SwingUtilities.getWindowAncestor(this).dispose();
                             break;
                     }
 
@@ -165,4 +173,34 @@ public class RunningScreenPanel extends JPanel {
         for(PhysicalObjectLabel label: new ArrayList<>(labels))
             label.paint(g);
     }
+}
+
+
+class exitPopup extends JFrame{
+
+    public exitPopup(String title, String message){
+        super(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel lastMessage = new JLabel(message);
+        lastMessage.setBounds(100,50,300,100);
+        lastMessage.setFont(new Font(null,Font.PLAIN,25));
+        lastMessage.setVisible(true);
+        add(lastMessage);
+        JButton exitButton = new JButton("Exit");
+        exitButton.setVisible(true);
+        exitButton.setBounds(100,160,200,40);
+        exitButton.setFocusable(false);
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+
+        add(exitButton);
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+
+        setLayout(null);
+        setVisible(true);
+    }
+
 }

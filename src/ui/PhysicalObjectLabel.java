@@ -4,6 +4,7 @@ import domain.physicalobjects.*;
 import domain.physicalobjects.obstacles.ExplosiveObstacle;
 import domain.physicalobjects.obstacles.FirmObstacle;
 import domain.physicalobjects.obstacles.GiftObstacle;
+import domain.physicalobjects.obstacles.HollowObstacle;
 import domain.physicalobjects.obstacles.SimpleObstacle;
 
 import javax.imageio.ImageIO;
@@ -37,6 +38,8 @@ public class PhysicalObjectLabel{
             resource = Constants.BALL_IMG_PATH;
         else if(physicalObject instanceof ExplosiveFragment)
             resource = Constants.EXPLOSIVE_FRAGMENT_IMG_PATH;
+        else if(physicalObject instanceof HollowObstacle)
+            resource = Constants.HOLLOW_IMG_PATH;
         else
             resource = Constants.BALL_IMG_PATH;
         try{

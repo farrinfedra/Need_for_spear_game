@@ -1,7 +1,9 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,6 +12,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,16 +22,18 @@ import domain.abilities.*;
 
 
 public class RunningScreenInfoPanel extends JPanel{
-	GridBagConstraints gbc;
-	Game game;
-	double width;
-	double height;
-	JLabel chanceGivingLabel, magicalHexLabel, paddleExpansionLabel, unstoppableBallLabel;
-	JButton chanceGivingButton, magicalHexButton, paddleExpansionButton, unstoppableBallButton;
-	JLabel scoreLabel, livesLabel, activeAbilityLabel, timeLabel;
-	Color DEFAULT = new Color(238,232,170);
-	Color HIGHLIGHT = new Color(128,128,0);
-	ArrayList<String> activeAbility = new ArrayList<String>();
+	private static final DecimalFormat df = new DecimalFormat("0.0");
+
+	private GridBagConstraints gbc;
+	private Game game;
+	private double width;
+	private double height;
+	private JLabel chanceGivingLabel, magicalHexLabel, paddleExpansionLabel, unstoppableBallLabel;
+	private JButton chanceGivingButton, magicalHexButton, paddleExpansionButton, unstoppableBallButton;
+	private JLabel scoreLabel, livesLabel, activeAbilityLabel, timeLabel, ymirLabel;
+	private Color DEFAULT = new Color(238,232,170);
+	private Color HIGHLIGHT = new Color(128,128,0);
+	private ArrayList<String> activeAbility = new ArrayList<String>();
 	public RunningScreenInfoPanel() {
 		
 		game = Game.getInstance();
@@ -41,10 +46,13 @@ public class RunningScreenInfoPanel extends JPanel{
 		JPanel infoPanel = infoPanel();
 		JPanel abilitiesPanel =  abilitiesPanel();
 		JPanel pauseSavePanel = pauseSavePanel();
+		JPanel ymirPanel = ymirPanel();
 		setBackground(new Color(240,230,140));
 		add(infoPanel);
 		add(abilitiesPanel);
+		add(ymirPanel);
 		add(pauseSavePanel);
+		
 
 	}
 	private JPanel infoPanel() {
@@ -233,7 +241,37 @@ public class RunningScreenInfoPanel extends JPanel{
 		
 		return pauseSavePanel;
 	}
-	
+	private JPanel ymirPanel() {
+		JPanel ymirPanel = new JPanel(new GridBagLayout());
+		ymirPanel.setSize((int) width/3, (int)height);
+		
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
+		try {
+		JLabel ymir = new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource("/ui/assets/Ymir.png"))));
+		ymirLabel = new JLabel("");
+		gbc.gridx=0;
+		gbc.gridy=0;
+		ymirPanel.add(ymir,gbc);
+		gbc.gridx=1;
+		gbc.gridy=0;
+		ymirPanel.add(ymirLabel,gbc);
+		}
+		catch (Exception e){
+            throw new RuntimeException();
+        }
+
+
+
+
+		Border borderLine = BorderFactory.createLineBorder(Color.black);
+		ymirPanel.setBorder(borderLine);
+		ymirPanel.setOpaque(false);
+		
+		return ymirPanel;
+	}
 	public void setLives() {
 		//TODO Get lives info from gameboard?
 		livesLabel.setText(Integer.valueOf(game.getLives()).toString());
@@ -241,9 +279,9 @@ public class RunningScreenInfoPanel extends JPanel{
 	
 	public void setScore() {
 		//TODO Get score information from game?
-		scoreLabel.setText(Double.valueOf(game.getScore()).toString());
+		scoreLabel.setText(df.format(Double.valueOf(game.getScore())).toString());
 	}
-	
+
 	public void setTime() {
 		//TODO Get score information from game?
 		timeLabel.setText(Double.valueOf(game.getTime()).toString());
@@ -282,6 +320,15 @@ public class RunningScreenInfoPanel extends JPanel{
 		}
 		 
 		activeAbilityLabel.setText(activeAbility.toString());
+		if (a instanceof HollowPurpleAbility) {
+			ymirLabel.setText("Hollow Purple Ability");
+		}
+		if (a instanceof DoubleAccelAbility) {
+			ymirLabel.setText("Double Accel Ability");
+			
+		}if (a instanceof InfiniteVoidAbility) {
+			ymirLabel.setText("Infinite Void Ability");
+		}
 		
 		
 	}
@@ -297,8 +344,20 @@ public class RunningScreenInfoPanel extends JPanel{
 			activeAbility.remove("Paddle Expansion");
 		}
 		activeAbilityLabel.setText(activeAbility.toString());
+		if (a instanceof HollowPurpleAbility) {
+			ymirLabel.setText("");
+		}
+		if (a instanceof DoubleAccelAbility) {
+			ymirLabel.setText("");
+			
+		}if (a instanceof InfiniteVoidAbility) {
+			ymirLabel.setText("");
+		}
 		
 	}
+	
+
+	
 
 
 
